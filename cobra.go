@@ -27,7 +27,7 @@ func NewCobraCmd(name string) *cobra.Command {
 		Short:   "Print the CLI version",
 		Example: strings.ReplaceAll(example, "<cli>", name),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return printer.Print(cmd.OutOrStdout(), Get())
+			return printer.Print(cmd.OutOrStdout(), Get(name))
 		},
 	}
 

@@ -16,6 +16,8 @@ type Info struct {
 	GoVersion  string `yaml:"goVersion,omitempty"   json:"goVersion,omitempty"`
 	Compiler   string `yaml:"compiler,omitempty"    json:"compiler,omitempty"`
 	Platform   string `yaml:"platform,omitempty"    json:"platform,omitempty"`
+
+	name string
 }
 
 // Get returns the overall codebase version.
@@ -29,8 +31,13 @@ type Info struct {
 //      * commitDate is taken from the vcs.time tag.
 //      * dirtyBuild is taken from the vcs.modified tag.
 //   3. in their absence fallback to the settings in ./base.go.
-func Get() Info {
+func Get(name ...string) Info {
+	var n string
+	if len(name) > 0 {
+		n = name[0]
+	}
 	return Info{
+		name:       n,
 		Version:    version,
 		GitCommit:  commit,
 		BuildDate:  buildDate,
