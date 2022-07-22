@@ -27,8 +27,9 @@ type VersionPrinter struct {
 func NewPrinter(opts ...PrinterOption) *VersionPrinter {
 	p := &VersionPrinter{
 		printers: map[OutputFormat]Printer{
-			JSONFormat: &JSON{},
-			YAMLFormat: &YAML{},
+			JSONFormat:  &JSON{},
+			YAMLFormat:  &YAML{},
+			ShortFormat: &Short{},
 		},
 		output: PrettyFormat,
 	}
