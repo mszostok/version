@@ -26,8 +26,11 @@ type VersionPrinter struct {
 // NewPrinter returns a new VersionPrinter instance.
 func NewPrinter(opts ...PrinterOption) *VersionPrinter {
 	p := &VersionPrinter{
-		printers: map[OutputFormat]Printer{},
-		output:   PrettyFormat,
+		printers: map[OutputFormat]Printer{
+			JSONFormat: &JSON{},
+			YAMLFormat: &YAML{},
+		},
+		output: PrettyFormat,
 	}
 
 	for _, opt := range opts {
