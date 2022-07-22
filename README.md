@@ -1,20 +1,53 @@
-# `version`
-
-<a href="https://twitter.com/m_szostok"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/m_szostok?color=a&label=Follow%20%40m_szostok%20for%20updates&style=social"></a>
-
-Importable Go package for printing an opinionated CLI version. All magic included!
-
 ```go
 import "go.szostok.io/version"
 ```
 
-<p align="center">
-  <img src="./docs/assets/pretty.png" alt="Pretty Logo Light"/>
-</p>
+Importable Go package for printing the CLI version. All magic included!
 
-<p align="center">
-  <i>A pure DNA of your CLI</i>
-</p>
+![](docs/assets/preview.png)
+
+## Features
+
+<img src="./docs/assets/pretty.png" width="77%" align="right"/>
+
+### `pretty` format
+
+Pretty format a.k.a human-readable.
+<br /><br /> <br /><br /> <br /><br />
+<br /><br /> <br /><br /> <br /><br />
+
+<img src="./docs/assets/json.png" width="65%" align="left"/>
+
+### `json` format
+
+JSON format that can be useful for CI examples, e.g.
+```
+<cli> version -ojson | jq .gitCommit
+```
+
+<br /><br />
+<br /><br />
+<br /><br />
+
+<img src="./docs/assets/json.png" width="65%" align="right"/>
+
+### `yaml` format
+
+YAML format that can be useful for CI examples, e.g. `<cli> version -oyaml | yq .gitCommit`
+
+<br /><br />
+<br /><br />
+<br /><br />
+
+<img src="./docs/assets/json.png" width="65%" align="left"/>
+
+### `short` format
+
+JSON format that can be useful for CI examples, e.g. `<cli> version -ojson | jq .gitCommit`
+
+<br /><br />
+<br /><br />
+<br /><br />
 
 ## Usage
 
@@ -27,7 +60,7 @@ func foo() {
   printer := version.NewPrinter()
   printer.RegisterFlags(ver.Flags())
 
-  printer.Print(cmd.OutOrStdout(), Get(name))
+  printer.Print(os.Stdout, version.Get("name"))
 }
 ```
 ### Cobra

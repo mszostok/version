@@ -1,6 +1,7 @@
 package version
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/hokaccha/go-prettyjson"
@@ -18,6 +19,6 @@ func (p *JSON) Print(in Info, w io.Writer) error {
 		return err
 	}
 
-	_, err = w.Write(out)
+	_, err = fmt.Fprintln(w, string(out))
 	return err
 }

@@ -17,6 +17,7 @@ func (p *YAML) Print(in Info, w io.Writer) error {
 	if err != nil {
 		return err
 	}
+
 	_, err = w.Write(out)
 	return err
 }
