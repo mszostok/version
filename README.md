@@ -21,24 +21,22 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - Print date in the local time
 - Autodiscover installation method
 - Display an upgrade notice if a newer version was released
-- Adaptive colors for light and dark terminal backgrounds
-- Highly customizable
+- Highly customizable output format
 
 <br /><br />
 
-<img src="./docs/assets/pretty.png" width="77%" align="right"/>
+<img src="./docs/assets/pretty-gif.gif" width="74%" align="right"/>
 
 ### `pretty` format
 
-Pretty format a.k.a human-readable.
-<br /><br /> <br /><br /> <br /><br />
+There are two different built-in styles. However, you can easily create your own. You can customize formatting or layout only or do both.
 <br /><br /> <br /><br /> <br /><br />
 
 <img src="./docs/assets/json.png" width="65%" align="left"/>
 
 ### `json` format
 
-JSON format that can be useful for CI examples, e.g.
+JSON format can be useful for scripting purposes, e.g.
 ```
 <cli> version -ojson | jq .gitCommit
 ```
@@ -50,7 +48,7 @@ JSON format that can be useful for CI examples, e.g.
 
 ### `yaml` format
 
-YAML format that can be useful for CI examples, e.g.
+YAML format can be useful for scripting purposes, e.g.
 ```
 <cli> version -oyaml | yq .gitCommit
 ```
@@ -62,7 +60,7 @@ YAML format that can be useful for CI examples, e.g.
 
 ### `short` format
 
-JSON format that can be useful for CI examples, e.g. `<cli> version -ojson | jq .gitCommit`
+Short format can be useful for CI purposes to easily validate that the correct version is used.
 
 <br /><br />
 
