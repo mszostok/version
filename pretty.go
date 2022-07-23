@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/araddon/dateparse"
 	"github.com/dustin/go-humanize"
 	"github.com/gookit/color"
 )
@@ -16,14 +17,15 @@ var _ Printer = &Pretty{}
 type Pretty struct{}
 
 func (p *Pretty) Print(in Info, w io.Writer) error {
-
 	var buff strings.Builder
 
+	header := color.New(color.FgMagenta).Sprintf
+
 	buff.WriteString("\n")
-	buff.WriteString(color.Magenta.Sprintf("▓▓▓ %s\n\n", in.name)) // TODO: make as header..
+	buff.WriteString(header("▓▓▓ %s\n\n", in.name)) // TODO: extract as header...
 	buff.WriteString(line("Version", in.Version))
 	buff.WriteString(line("Git Commit", maxLen(in.GitCommit, 7)))
-	buff.WriteString(line("Build Date", in.BuildDate))
+	buff.WriteString(line("Build Date", prettyTime(in.BuildDate)))
 	buff.WriteString(line("Commit Date", prettyTime(in.CommitDate)))
 	buff.WriteString(line("Dirty Build", formatBool(in.DirtyBuild)))
 	buff.WriteString(line("Go Version", strings.TrimPrefix(in.GoVersion, "go")))
@@ -53,12 +55,12 @@ func prettyTime(in string) string {
 		return ""
 	}
 
-	t, err := time.Parse(time.RFC3339, in)
+	t, err := dateparse.ParseAny(in)
 	if err != nil {
 		return ""
 	}
 
-	return fmt.Sprintf("%s (%s)", t.Format(time.RFC822), humanize.Time(t))
+	return fmt.Sprintf("%s (%s)", t.Local().Format(time.RFC822), humanize.Time(t))
 }
 
 func maxLen(in string, max int) string {

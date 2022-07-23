@@ -3,15 +3,15 @@ module github.com/mszostok/version
 go 1.18
 
 require (
+	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
+	github.com/dustin/go-humanize v1.0.0
 	github.com/gookit/color v1.5.1
 	github.com/hokaccha/go-prettyjson v0.0.0-20211117102719-0474bc63780f
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
-	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect

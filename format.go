@@ -12,11 +12,13 @@ type OutputFormat string
 var ErrInvalidOutputFormatType = fmt.Errorf("invalid output format type")
 
 const (
+	// PrettyFormat represents human-readable format.
 	PrettyFormat OutputFormat = "pretty"
 	// JSONFormat represents JSON data format.
 	JSONFormat OutputFormat = "json"
 	// YAMLFormat represents YAML data format.
-	YAMLFormat  OutputFormat = "yaml"
+	YAMLFormat OutputFormat = "yaml"
+	// ShortFormat represents short (version only) format.
 	ShortFormat OutputFormat = "short"
 )
 

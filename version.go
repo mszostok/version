@@ -68,7 +68,6 @@ func CollectFromBuildInfo() {
 				commit = kv.Value
 			}
 		case "vcs.time":
-			//commitDate, _ = time.Parse(time.RFC3339, kv.Value)
 			if commitDate == unknownProperty {
 				commitDate = kv.Value
 			}

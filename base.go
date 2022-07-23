@@ -2,7 +2,7 @@ package version
 
 const (
 	unknownVersion  = "(devel)"
-	unknownProperty = "-"
+	unknownProperty = "N/A"
 )
 
 // Fallback data used when versioning information is not provided.
