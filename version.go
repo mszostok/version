@@ -17,7 +17,12 @@ type Info struct {
 	Compiler   string `yaml:"compiler,omitempty"    json:"compiler,omitempty"`
 	Platform   string `yaml:"platform,omitempty"    json:"platform,omitempty"`
 
-	name string
+	Meta Meta `json:"-" yaml:"-"`
+}
+
+// TODO generic? so if fulfils you can pass struct with more "fields"
+type Meta struct {
+	Name string
 }
 
 // Get returns the overall codebase version.
@@ -37,7 +42,7 @@ func Get(name ...string) Info {
 		n = name[0]
 	}
 	return Info{
-		name:       n,
+		Meta:       Meta{Name: n},
 		Version:    version,
 		GitCommit:  commit,
 		BuildDate:  buildDate,

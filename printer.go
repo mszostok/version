@@ -32,7 +32,7 @@ func NewPrinter(opts ...PrinterOption) *PrinterContainer {
 			JSONFormat:   &JSON{},
 			YAMLFormat:   &YAML{},
 			ShortFormat:  &Short{},
-			PrettyFormat: &Pretty{},
+			PrettyFormat: NewPrettyPrinter(),
 		},
 		name:   os.Args[0],
 		output: PrettyFormat,
