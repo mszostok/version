@@ -2,14 +2,17 @@
 
 Runnable examples. To play with it:
 1. Clone the repository:
-    ```bash
-    gh repo clone mszostok/version
-    ```
+
+   ```bash
+   gh repo clone mszostok/version
+   ```
 2. Navigate to [`example`](.) directory.
 3. Download dependencies:
-    ```bash
-    go mod download
-    ```
+
+   ```bash
+   go mod download
+   ```
+
 ## Table of content
 
 <!-- toc -->
@@ -17,12 +20,13 @@ Runnable examples. To play with it:
 - [Usage](#usage)
   * [Plain](#plain)
   * [Cobra](#cobra)
+  * [Printer](#printer)
 
 <!-- tocstop -->
 
 ## Usage
 
-### Plain
+### [Plain](./plain/main.go)
 
 ```go mdox-exec="sed -n '9,21p' plain/main.go"
 func main() {
@@ -39,15 +43,15 @@ func main() {
 	fmt.Println("Platform: ", info.Platform)
 }
 ```
-[_source_](./plain/main.go)
 
-**Test**
+Run:
 ```bash
 go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./plain
+
 ./example
 ```
 
-### Cobra
+### [Cobra](./cobra/main.go)
 
 ```go mdox-exec="sed -n '12,24p' cobra/main.go"
 func NewRoot() *cobra.Command {
@@ -64,11 +68,35 @@ func NewRoot() *cobra.Command {
 	return cmd
 }
 ```
-[_source_](./cobra/main.go)
-
-**Test**
+Run:
 ```bash
 go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./cobra
+
 ./example version -h
 ./example version
+./example version -oshort
+```
+
+### [Printer](./printer/main.go)
+
+```go mdox-exec="sed -n '12,22p' printer/main.go"
+func main() {
+	version.CollectFromBuildInfo()
+
+	printer := version.NewPrinter()
+	printer.RegisterPFlags(pflag.CommandLine) // optionally register `--output/-o` flag.
+	pflag.Parse()
+
+	if err := printer.Print(os.Stdout); err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+Run:
+```bash
+go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./printer
+
+./example
+./example -oyaml
 ```

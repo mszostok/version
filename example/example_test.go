@@ -8,11 +8,6 @@ package example
 //    3.1. via Go
 //    3.1. via file
 //    3.1. full custom (using github.com/charmbracelet/bubbletea)
-// 4. Usage
-//    4.1. plain
-//    4.1. Printer
-//    4.1. with printer
-//    4.1. in cobra
 func Example() {
 
 }
