@@ -1,12 +1,13 @@
 package style
 
+// Layout define the layout for printing the pretty format.
 type Layout struct {
 	Raw string `json:"raw,omitempty" yaml:"raw"`
 }
 
 var (
-	// DefaultLayoutTpl the default layout that prints all version data.
-	DefaultLayoutTpl = `
+	// KeyValueLayoutTpl prints all version data in a 'key  value' manner.
+	KeyValueLayoutTpl = `
 {{ header }}
 
   {{ key "Version" }}             {{ .Version                     | val }}
@@ -19,7 +20,8 @@ var (
   {{ key "Platform" }}            {{ .Platform                    | val }}
 `
 
-	// BoxLayoutTpl https://knowyourmeme.com/memes/this-is-fine
+	// BoxLayoutTpl prints all version data in box.
+	// https://knowyourmeme.com/memes/this-is-fine
 	BoxLayoutTpl = `
 ╭───{{ repeatMax 57 "─" header }}{{/* ─────────────────────────────────── */}}╮
 │                                  {{ repeatMax 25 " " ""                  }} │

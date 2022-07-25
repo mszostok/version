@@ -24,6 +24,7 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - Autodiscover installation method
 - Display an upgrade notice if a newer version was released
 - Highly customizable output format
+- No `init()` function usage inside this package
 
 <br /><br />
 

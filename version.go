@@ -62,18 +62,18 @@ func CollectFromBuildInfo() {
 		return
 	}
 
-	if version == unknownVersion {
+	if version == unknownVersion && info.Main.Version != "" {
 		version = info.Main.Version
 	}
 
 	for _, kv := range info.Settings {
 		switch kv.Key {
 		case "vcs.revision":
-			if commit == unknownProperty {
+			if commit == unknownProperty && kv.Value != "" {
 				commit = kv.Value
 			}
 		case "vcs.time":
-			if commitDate == unknownProperty {
+			if commitDate == unknownProperty && kv.Value != "" {
 				commitDate = kv.Value
 			}
 		case "vcs.modified":

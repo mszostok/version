@@ -63,11 +63,11 @@ func colorSprintf(opts ...color.Color) func(in ...string) string {
 
 func newGookitStyle(in PropertyFormat) color.Style {
 	c := color.New()
-	if cs, found := color.FgColors[in.Color]; found {
-		c.Add(cs)
+	if in.Color != "" {
+		c.Add(colorGookit(in.Color))
 	}
-	if cs, found := color.ExFgColors[in.Color]; found {
-		c.Add(cs)
+	if in.Background != "" {
+		c.Add(backgroundGookit(in.Background))
 	}
 
 	for _, opt := range in.Options {
@@ -75,4 +75,32 @@ func newGookitStyle(in PropertyFormat) color.Style {
 	}
 
 	return c
+}
+
+func colorGookit(in string) color.Color {
+	if strings.HasPrefix(in, "#") {
+		return color.HEX(in).Color()
+	}
+	if cs, found := color.FgColors[in]; found {
+		return cs
+	}
+	if cs, found := color.ExFgColors[in]; found {
+		return cs
+	}
+
+	return 0
+}
+
+func backgroundGookit(in string) color.Color {
+	if strings.HasPrefix(in, "#") {
+		return color.HEX(in, true).Color()
+	}
+	if cs, found := color.BgColors[in]; found {
+		return cs
+	}
+	if cs, found := color.ExBgColors[in]; found {
+		return cs
+	}
+
+	return 0
 }

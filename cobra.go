@@ -8,7 +8,6 @@ import (
 )
 
 // TODO: func options to inform if server version
-// TODO: to add template?
 
 var example = `
 <cli> version

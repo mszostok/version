@@ -15,29 +15,26 @@ import (
 	"github.com/mattn/go-runewidth"
 )
 
+// Render provides a functionality to render input data based on a given style.
 type Render struct {
 	config Config
 }
 
+// NewRender returns new Render instance.
 func NewRender() *Render {
 	return &Render{
 		config: DefaultConfig(),
 	}
 }
 
+// Render renders input data based on configured given style.
 func (r *Render) Render(in any) (string, error) {
 	tpl, err := template.New("pretty").
 		Funcs(sprig.FuncMap()).
 		Funcs(colorFuncMap).
-		Funcs(template.FuncMap{
-			"header":    r.header,
-			"key":       r.key,
-			"val":       r.val,
-			"commit":    r.commit,
-			"fmtDate":   r.fmtDate,
-			"fmtBool":   r.fmtBool,
-			"repeatMax": r.repeatMax,
-		}).Parse(r.config.Layout.Raw)
+		Funcs(r.styleFuncMap()).
+		Funcs(r.generalHelpersFuncMap()).
+		Parse(r.config.Layout.Raw)
 	if err != nil {
 		return "", err
 	}
@@ -48,6 +45,23 @@ func (r *Render) Render(in any) (string, error) {
 	}
 
 	return buff.String(), nil
+}
+
+func (r *Render) styleFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"header":  r.header,
+		"key":     r.key,
+		"val":     r.val,
+		"fmtDate": r.fmtDate,
+		"fmtBool": r.fmtBool,
+	}
+}
+
+func (r *Render) generalHelpersFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"commit":    r.commit,
+		"repeatMax": r.repeatMax,
+	}
 }
 
 func (r *Render) header() string {
