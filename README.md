@@ -69,7 +69,7 @@ Short format can be useful for CI purposes to easily validate that the correct v
 
 ## Get Started
 
-### Custom [![playground][play-simple-img]][play-simple]
+### Plain [![playground][play-simple-img]][play-simple]
 
 ```go
 func main() {

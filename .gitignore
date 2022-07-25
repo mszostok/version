@@ -58,3 +58,5 @@ coverage.txt
 
 # vscode
 .vscode
+
+/example/example

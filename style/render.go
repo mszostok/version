@@ -112,7 +112,7 @@ func (r *Render) fmtDate(in string) string {
 
 	suffix := ""
 	if r.config.Formatting.Date.EnableHumanizedSuffix {
-		suffix = "(" + humanize.Time(t) + ")"
+		suffix = " (" + humanize.Time(t) + ")"
 	}
 	return fmt.Sprintf("%s%s", t.Local().Format(time.RFC822), suffix)
 }
