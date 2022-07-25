@@ -28,13 +28,13 @@ func NewRender() *Render {
 func (r *Render) Render(in any) (string, error) {
 	tpl, err := template.New("pretty").
 		Funcs(sprig.FuncMap()).
-		Funcs(colorFuncMap()).
+		Funcs(colorFuncMap).
 		Funcs(template.FuncMap{
 			"header":    r.header,
-			"key":       colorSprintf(color.Bold, color.FgDarkGray),
+			"key":       r.key,
 			"val":       r.val,
 			"commit":    r.commit,
-			"fmtTime":   r.fmtTime,
+			"fmtDate":   r.fmtDate,
 			"fmtBool":   r.fmtBool,
 			"repeatMax": r.repeatMax,
 		}).Parse(r.config.Layout.Raw)
@@ -51,10 +51,7 @@ func (r *Render) Render(in any) (string, error) {
 }
 
 func (r *Render) header() string {
-	c := color.New(color.FgColors[r.config.Formatting.Header.Color])
-	if r.config.Formatting.Header.Bold {
-		c.Add(color.Bold)
-	}
+	c := newGookitStyle(r.config.Formatting.Header.PropertyFormat)
 	name := r.config.Formatting.Header.Name
 	if name == "" {
 		name = os.Args[0]
@@ -62,17 +59,24 @@ func (r *Render) header() string {
 	return c.Sprintf("%s%s", r.config.Formatting.Header.Prefix, name)
 }
 
+func (r *Render) key(in string) string {
+	c := newGookitStyle(r.config.Formatting.Key.PropertyFormat)
+
+	return c.Sprint(in)
+}
+
 func (*Render) commit(in string) string {
 	return strings.TrimSpace(fmt.Sprintf("%.7s", in))
 }
 
-func (*Render) val(in string) string {
-	return color.White.Sprintf("%-*s", 37, in)
+func (r *Render) val(in string) string {
+	c := newGookitStyle(r.config.Formatting.Val.PropertyFormat)
+	return c.Sprintf("%-*s", 37, in)
 }
 
 func (*Render) repeatMax(max int, sing, in string) string {
 	max -= runewidth.StringWidth(color.ClearCode(in))
-	return color.White.Sprintf("%s%s", in, strings.Repeat(sing, max))
+	return fmt.Sprintf("%s%s", in, strings.Repeat(sing, max))
 }
 
 func (*Render) fmtBool(in bool) string {
@@ -82,7 +86,7 @@ func (*Render) fmtBool(in bool) string {
 	return "no"
 }
 
-func (r *Render) fmtTime(in string) string {
+func (r *Render) fmtDate(in string) string {
 	if in == "" {
 		return ""
 	}

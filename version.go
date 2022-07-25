@@ -36,10 +36,10 @@ type Meta struct {
 //      * commitDate is taken from the vcs.time tag.
 //      * dirtyBuild is taken from the vcs.modified tag.
 //   3. in their absence fallback to the settings in ./base.go.
-func Get(name ...string) Info {
+func Get(program ...string) Info {
 	var n string
-	if len(name) > 0 {
-		n = name[0]
+	if len(program) > 0 {
+		n = program[0]
 	}
 	return Info{
 		Meta:       Meta{Name: n},

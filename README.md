@@ -10,12 +10,14 @@ Like the idea? Give a GitHub star ⭐!
 
 ## Documentation
 
-<!--- Curious why? See the [blogpost on showing CLI version](). --->
+<!--- Curious why? See the [blogpost about displaying the CLI version](). --->
 
 Visit the [version.szostok.io](https://version.szostok.io) for complete documentation about setup and usage.
 
 ## Functionality
 
+- For Go 1.18+ detect `version`, `commit`, `commitDate`, `dirtyBuild` automatically
+  - Allow to override the data via `-ldflags`
 - Print version in YAML, JSON, short and pretty formats
 - Parse any date strings
 - Print date in the local time
@@ -91,6 +93,7 @@ func main() {
   version.CollectFromBuildInfo()
 
   printer := version.NewPrinter()
+  // optionally register `--output/-o` flag.
   printer.RegisterFlags(ver.Flags())
 
   printer.Print(os.Stdout)

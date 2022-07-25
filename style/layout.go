@@ -11,8 +11,8 @@ var (
 
   {{ key "Version" }}             {{ .Version                     | val }}
   {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
-  {{ key "Build Date" }}          {{ .BuildDate  | fmtTime        | val }}
-  {{ key "Commit Date" }}         {{ .CommitDate | fmtTime        | val }}
+  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}
+  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val }}
   {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val }}
   {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val }}
   {{ key "Compiler" }}            {{ .Compiler                    | val }}
@@ -25,8 +25,8 @@ var (
 │                                  {{ repeatMax 25 " " ""                  }} │
 │  {{ key "Version" }}             {{ .Version                     | val   }} │
 │  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val   }} │
-│  {{ key "Build Date" }}          {{ .BuildDate  | fmtTime        | val   }} │
-│  {{ key "Commit Date" }}         {{ .CommitDate | fmtTime        | val   }} │
+│  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val   }} │
+│  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val   }} │
 │  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val   }} │
 │  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val   }} │
 │  {{ key "Compiler" }}            {{ .Compiler                    | val   }} │
