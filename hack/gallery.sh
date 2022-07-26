@@ -14,10 +14,10 @@ readonly CURRENT_DIR
 readonly REPO_ROOT_DIR
 
 setup() {
-	cd "$REPO_ROOT_DIR" || true
+	cd "$CURRENT_DIR" || true
 	profile=$1
 	echo -e "\033]50;SetProfile=$profile\a"
-	osascript ./tmp/resize_window.scpt
+	osascript resize_window.scpt
 	export KUBECONFIG=''
 	clear
 }
@@ -30,6 +30,8 @@ capture() {
 	cd "$REPO_ROOT_DIR/example" || exit
 	go install -ldflags "-X 'github.com/mszostok/version.buildDate=$(date)' -X 'github.com/mszostok/version.version=0.42.0'" ./$program
 	cd "$HOME" || exit
+
+	# shellcheck disable=SC2059
 	printf "▲ ${YELLOW}$program${NC} $ver\n"
 
 	# shellcheck disable=SC2086
@@ -37,6 +39,8 @@ capture() {
 
 	local filename="${REPO_ROOT_DIR}/docs/assets/examples/screen-$program-${ver// /_}.png"
 	rm -f "$filename" || true
+
+  # only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
 	screencapture -x -R0,25,1285,650 "$filename"
 }
 
@@ -55,4 +59,5 @@ main() {
 	capture "cobra" "version -h"
 }
 
-# only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
+main
+
