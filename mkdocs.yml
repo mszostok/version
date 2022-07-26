@@ -1,0 +1,89 @@
+site_name: 'Pure DNA of your CLI!'
+site_description: 'Importable Go package to present your CLI version in a classy way. All magic included!'
+site_url: 'https://version.szostok.io/'
+repo_name: 'mszostok/version'
+repo_url: 'https://github.com/mszostok/version'
+copyright: 'Copyright &copy; 2022 Mateusz Szostok'
+
+theme:
+  custom_dir: docs/theme
+  logo: assets/logo.png
+  name: material
+  palette:
+    - scheme: dark
+      media: "(prefers-color-scheme: dark)"
+      primary: orange
+      accent: orange
+      toggle:
+        icon: octicons/moon-16
+        name: Switch to light mode
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: white
+      accent: indigo
+      toggle:
+        icon: octicons/sun-24
+        name: Switch to dark mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: assets/logo.png
+  favicon: assets/logo.png
+  language: en
+  features:
+    - tabs
+    - instant
+    - navigation.instant
+    - navigation.indexes
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Quick Start: quick-start.md
+  - Runnable Examples: example.md
+  - Customization:
+      - Usage:
+          - customization/usage/cobra.md
+          - customization/usage/urfave-cli.md
+          - customization/usage/printer.md
+          - customization/usage/plain.md
+      - Build (-ldflags):
+          - customization/build-ldflags/bash.md
+          - customization/build-ldflags/goreleaser.md
+          - customization/build-ldflags/magefile.md
+          - customization/build-ldflags/makefile.md
+      - Pretty Style:
+          - customization/pretty/index.md
+          - customization/pretty/formatting.md
+          - customization/pretty/layout.md
+          - customization/pretty/custom-branding.md
+      - Upgrade notice:
+          - customization/upgrade-notice/index.md
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mszostok
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/m_szostok
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/mszostok/
+extra_css:
+  - theme/stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.highlight:
+      use_pygments: true
+  - admonition
+  - pymdownx.details

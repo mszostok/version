@@ -1,0 +1,22 @@
+{% import "partials/language.html" as lang with context %}
+<footer class="md-footer">
+	<div class="md-footer-meta md-typeset">
+		<div class="md-footer-meta__inner md-grid">
+			<div class="md-footer-copyright">
+				{% if config.copyright %}
+				<div class="md-footer-copyright__highlight">
+					<a href="https://szostok.io" target="_blank" rel="noopener">
+						Copyright &copy; 2022 Mateusz Szostok
+					</a>
+				</div>
+				{% endif %}
+				<a class="via" href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+					via Material for MkDocs
+					<br />
+					<a class="via" href="https://www.flaticon.com/free-icons/dna" >Dna icons created by photo3idea_studio - Flaticon</a>
+				</a>
+			</div>
+			{% include "partials/social.html" %}
+		</div>
+	</div>
+</footer>

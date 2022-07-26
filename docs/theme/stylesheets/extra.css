@@ -1,0 +1,91 @@
+[data-md-color-scheme="dark"] {
+	--md-hue: 232;
+
+	--md-default-fg-color: hsla(var(--md-hue), 75%, 95%, 1);
+	--md-default-fg-color--light: white;
+	--md-default-fg-color--lighter: hsla(var(--md-hue), 75%, 90%, 0.32);
+	--md-default-fg-color--lightest: hsla(var(--md-hue), 75%, 90%, 0.12);
+	--md-default-bg-color: rgb(33, 33, 34);
+	--md-default-bg-color--light: hsla(var(--md-hue), 15%, 21%, 0.54);
+	--md-default-bg-color--lighter: hsla(var(--md-hue), 15%, 21%, 0.26);
+	--md-default-bg-color--lightest: hsla(var(--md-hue), 15%, 21%, 0.07);
+
+	--md-code-fg-color: hsla(var(--md-hue), 18%, 86%, 1);
+	--md-code-bg-color: hsla(var(--md-hue), 15%, 10%, 1);
+
+	--md-code-hl-number-color: hsla(6, 74%, 63%, 1);
+	--md-code-hl-special-color: hsla(340, 83%, 66%, 1);
+	--md-code-hl-function-color: hsla(291, 57%, 65%, 1);
+	--md-code-hl-constant-color: hsl(250, 78%, 42%);
+	--md-code-hl-keyword-color: hsl(336, 66%, 64%);
+	--md-code-hl-string-color: hsla(150, 58%, 44%, 1);
+	--md-code-hl-name-color: var(--md-code-fg-color);
+	--md-code-hl-operator-color: var(--md-default-fg-color--light);
+	--md-code-hl-punctuation-color: var(--md-default-fg-color--light);
+	--md-code-hl-comment-color: var(--md-default-fg-color--light);
+	--md-code-hl-generic-color: var(--md-default-fg-color--light);
+	--md-code-hl-variable-color: var(--md-default-fg-color--light);
+
+	--md-typeset-color: var(--md-default-fg-color);
+
+
+	--md-typeset-kbd-color: hsla(var(--md-hue), 15%, 94%, 0.12);
+	--md-typeset-kbd-accent-color: hsla(var(--md-hue), 15%, 94%, 0.2);
+	--md-typeset-kbd-border-color: hsla(var(--md-hue), 15%, 14%, 1);
+
+	--md-admonition-bg-color: hsla(var(--md-hue), 0%, 100%, 0.025);
+
+	--md-footer-bg-color: rgb(28, 28, 30);
+	--md-footer-bg-color--dark: rgb(28, 28, 30);
+	--invert-svg: 100%;
+}
+
+[data-md-color-scheme="default"] {
+	--md-footer-fg-color: #262626FF;
+	--md-footer-fg-color--lighter: grey;
+	--md-footer-fg-color--light: grey;
+	--md-footer-bg-color: #fff;
+	--md-footer-bg-color--dark: #fff;
+	--invert-svg: 0;
+}
+
+.md-footer-copyright {
+	font-size: 0.8em;
+	text-align: center;
+}
+
+.md-footer-meta__inner {
+	justify-content: center;
+	flex-direction: column;
+}
+
+.md-social {
+	text-align: center;
+}
+
+.via {
+	font-size: 0.6em;
+}
+
+.svg {
+	-webkit-filter: invert(var(--invert-svg)); /* safari 6.0 - 9.0 */
+	filter: invert(var(--invert-svg));
+}
+
+:root {
+	--md-admonition-icon--pied-piper: url('https://img.icons8.com/dotty/80/000000/under-construction.png')
+}
+.md-typeset .admonition.pied-piper,
+.md-typeset details.pied-piper {
+	border-color: rgb(43, 155, 70);
+}
+.md-typeset .pied-piper > .admonition-title,
+.md-typeset .pied-piper > summary {
+	background-color: rgba(43, 155, 70, 0.1);
+}
+.md-typeset .pied-piper > .admonition-title::before,
+.md-typeset .pied-piper > summary::before {
+	background-color: rgb(43, 155, 70);
+	-webkit-mask-image: var(--md-admonition-icon--pied-piper);
+	mask-image: var(--md-admonition-icon--pied-piper);
+}
