@@ -1,0 +1,13 @@
+{
+	"ignorePatterns": [
+		{
+			"pattern": "^https://example.com"
+		}
+	],
+	"replacementPatterns": [
+		{
+			"pattern": "^/",
+			"replacement": "https://version.szostok.io/"
+		}
+	]
+}
