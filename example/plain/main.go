@@ -10,6 +10,7 @@ func main() {
 	version.CollectFromBuildInfo()
 
 	info := version.Get()
+	fmt.Println()
 	fmt.Println("Version: ", info.Version)
 	fmt.Println("Git Commit: ", info.GitCommit)
 	fmt.Println("Build Date: ", info.BuildDate)
