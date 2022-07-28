@@ -50,15 +50,16 @@ nav:
   - Runnable Examples: examples.md
   - Customization:
       - Usage:
+          - customization/usage/index.md
           - customization/usage/cobra.md
-          - customization/usage/urfave-cli.md
           - customization/usage/printer.md
           - customization/usage/plain.md
+          - customization/usage/urfave-cli.md
       - Build (-ldflags):
-          - customization/build-ldflags/bash.md
+          - customization/build-ldflags/index.md
           - customization/build-ldflags/goreleaser.md
-          - customization/build-ldflags/magefile.md
           - customization/build-ldflags/makefile.md
+          - customization/build-ldflags/magefile.md
       - Pretty Style:
           - customization/pretty/index.md
           - customization/pretty/formatting.md
@@ -66,6 +67,7 @@ nav:
           - customization/pretty/custom-branding.md
       - Upgrade notice:
           - customization/upgrade-notice/index.md
+  - Troubleshooting: troubleshooting.md
 extra:
   social:
     - icon: fontawesome/brands/github
