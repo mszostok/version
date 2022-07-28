@@ -24,7 +24,7 @@ func NewPrettyPrinter() *Pretty {
 	}
 }
 
-func (p *Pretty) Print(in Info, w io.Writer) error {
+func (p *Pretty) Print(in *Info, w io.Writer) error {
 	out, err := p.render.Render(in)
 	if err != nil {
 		return err

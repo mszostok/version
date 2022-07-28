@@ -13,7 +13,7 @@ var _ Printer = &JSON{}
 type JSON struct{}
 
 // Print marshals input data to JSON format and writes it to a given writer.
-func (p *JSON) Print(in Info, w io.Writer) error {
+func (p *JSON) Print(in *Info, w io.Writer) error {
 	out, err := prettyjson.Marshal(in)
 	if err != nil {
 		return err

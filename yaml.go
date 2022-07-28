@@ -14,7 +14,10 @@ var _ Printer = &YAML{}
 type YAML struct{}
 
 // Print marshals input data to YAML format and writes it to a given writer.
-func (p *YAML) Print(in Info, w io.Writer) error {
+func (p *YAML) Print(in *Info, w io.Writer) error {
+	if in == nil {
+		return nil
+	}
 	var buff strings.Builder
 
 	sep := color.New(color.Yellow).Sprint

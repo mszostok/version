@@ -13,7 +13,7 @@ import (
 // Printer is an interface that knows how to print Info object.
 type Printer interface {
 	// Print receives Info, formats it and prints it to a writer.
-	Print(in Info, w io.Writer) error
+	Print(in *Info, w io.Writer) error
 }
 
 // PrinterContainer provides functionality to print version info in requested format.
@@ -83,7 +83,7 @@ func (r *PrinterContainer) Print(w io.Writer) error {
 }
 
 // PrintInfo prints received Info object in requested format.
-func (r *PrinterContainer) PrintInfo(w io.Writer, in Info) error {
+func (r *PrinterContainer) PrintInfo(w io.Writer, in *Info) error {
 	printer, found := r.printers[r.output]
 	if !found {
 		return fmt.Errorf("printer %q is not available", r.output)
