@@ -1,24 +1,26 @@
 package main
 
 import (
-	"strings"
-
 	"github.com/magefile/mage/mg"
 	"github.com/samber/lo"
 	"go.szostok.io/magex/deps"
 	"go.szostok.io/magex/shx"
+
+	"tools/target"
 )
 
 const (
 	GolangciLintVersion = "1.47.2"
+	MdoxVersion         = "" // latest
 	bin                 = "bin"
 )
 
 var (
-	//Default = Build
+	Default = Docs.Fmt
 
 	Aliases = map[string]interface{}{
-		"l": Lint,
+		"l":   Lint,
+		"fmt": Docs.Fmt,
 	}
 )
 
@@ -36,34 +38,21 @@ type Docs mg.Namespace
 
 // Fmt Formats markdown documentation
 func (d Docs) Fmt() error {
-	return d.fmt(false)
+	mg.Deps(mg.F(deps.EnsureMdox, bin, MdoxVersion))
+
+	return target.FmtDocs(false)
 }
 
 // Check Checks formatting and links in *.md files
 func (d Docs) Check() error {
-	return d.fmt(true)
+	mg.Deps(mg.F(deps.EnsureMdox, bin, MdoxVersion))
+
+	return target.FmtDocs(true)
 }
 
-func (d Docs) fmt(onlyCheck bool) error {
-	lo.Must0(deps.EnsureMdox(bin, ""))
-
-	mdFiles := lo.Must(shx.FindFiles(".", shx.FindFilesOpts{
-		Ext: []string{".md"},
-		// TODO: add option to ignore section by mdox
-		IgnorePrefix: []string{"docs/examples.md", "docs/customization/usage/urfave-cli.md"},
-	}))
-
-	return shx.MustCmdf(`./bin/mdox fmt --soft-wraps %s %s`,
-		WithOptArg("--check", onlyCheck),
-		strings.Join(mdFiles, " "),
-	).Run()
-}
-
-func WithOptArg(key string, shouldAdd bool) string {
-	if shouldAdd {
-		return key
-	}
-	return ""
+// CheckDeadLinks Detects dead links in documentation.
+func (d Docs) CheckDeadLinks() error {
+	return target.CheckDeadLinks()
 }
 
 // "Test" Targets
@@ -80,10 +69,3 @@ func (t Test) Coverage() error {
 	mg.Deps(t.Unit)
 	return shx.MustCmdf(`go tool cover -html=coverage.out`).Run()
 }
-
-// "Other" Targets
-
-//// Generate Generates files
-//func Generate() {
-//	mg.Deps(Docs.Generate, generators.GitHubWorkflows)
-//}
