@@ -7,7 +7,9 @@ Importable Go package to present your CLI version in a classy way. All magic inc
 ![](./assets/preview.png)
 
 Like the idea? Give a GitHub star ⭐!
-#
+
+# 
+
 ## Installation
 
 ```bash
@@ -39,9 +41,11 @@ There are two different built-in styles. However, you can easily create your own
 ### `json` format
 
 JSON format can be useful for scripting purposes, e.g.
+
 ```
 <cli> version -ojson | jq .gitCommit
 ```
+
 <br /><br />
 
 <img src="./assets/yaml.png" width="65%" align="right"/>
@@ -49,9 +53,11 @@ JSON format can be useful for scripting purposes, e.g.
 ### `yaml` format
 
 YAML format can be useful for scripting purposes, e.g.
+
 ```
 <cli> version -oyaml | yq .gitCommit
 ```
+
 <br /><br />
 
 <img src="./assets/short.png" width="45%" align="left"/>
@@ -60,6 +66,3 @@ YAML format can be useful for scripting purposes, e.g.
 
 Short format can be useful for CI purposes to easily validate that the correct version is used.
 <br /><br />
-
-[play-simple-img]: https://img.shields.io/badge/playground-custom-29BEB0?style=flat&logo=go
-[play-simple]: https://go.dev/play/p/

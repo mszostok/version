@@ -49,6 +49,8 @@ func (d Docs) fmt(onlyCheck bool) error {
 
 	mdFiles := lo.Must(shx.FindFiles(".", shx.FindFilesOpts{
 		Ext: []string{".md"},
+		// TODO: add option to ignore section by mdox
+		IgnorePrefix: []string{"docs/examples.md", "docs/customization/usage/urfave-cli.md"},
 	}))
 
 	return shx.MustCmdf(`./bin/mdox fmt --soft-wraps %s %s`,

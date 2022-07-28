@@ -30,4 +30,3 @@ builds:
       - -X go.szostok.io/commitDate={{.CommitDate}}
       - -X go.szostok.io/dirtyBuild=false
 ```
-

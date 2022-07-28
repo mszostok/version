@@ -3,4 +3,3 @@
 example/cobra/main.go
 --8<--
 ```
-

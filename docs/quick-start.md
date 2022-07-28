@@ -8,38 +8,37 @@ The quick start describes the most popular way of creating CLIs in Go. It future
 package main
 
 import (
-  "os"
-  "github.com/spf13/cobra"
-  "github.com/mszostok/version"
+	"os"
+
+	"github.com/mszostok/version"
+	"github.com/spf13/cobra"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.
 func NewRoot() *cobra.Command {
-  cmd := &cobra.Command{
-    Use:   "cobra",
-    Short: "An example CLI built with github.com/spf13/cobra",
-  }
+	cmd := &cobra.Command{
+		Use:   "cobra",
+		Short: "An example CLI built with github.com/spf13/cobra",
+	}
 
-  cmd.AddCommand(
-    // you just need to add this, and you are done.
-    version.NewCobraCmd(),
-  )
+	cmd.AddCommand(
+		// you just need to add this, and you are done.
+		version.NewCobraCmd(),
+	)
 
-  return cmd
+	return cmd
 }
 
 func main() {
-  if err := NewRoot().Execute(); err != nil {
-    os.Exit(1)
-  }
+	if err := NewRoot().Execute(); err != nil {
+		os.Exit(1)
+	}
 }
-
 ```
 
 In that way you get a fully working `<cli> version` command.
 
 ![](assets/examples/screen-cobra-version_-h.png)
-
 
 ## GoReleaser versioning info with `-ldflags`
 

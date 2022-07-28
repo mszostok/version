@@ -48,6 +48,7 @@ There are two different built-in styles. However, you can easily create your own
 ### `json` format
 
 JSON format can be useful for scripting purposes, e.g.
+
 ```
 <cli> version -ojson | jq .gitCommit
 ```
@@ -60,6 +61,7 @@ JSON format can be useful for scripting purposes, e.g.
 ### `yaml` format
 
 YAML format can be useful for scripting purposes, e.g.
+
 ```
 <cli> version -oyaml | yq .gitCommit
 ```

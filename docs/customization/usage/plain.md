@@ -3,4 +3,3 @@
 example/plain/main.go
 --8<--
 ```
-
