@@ -32,6 +32,11 @@ jobs:
           git config --global core.eol lf
       - name: "Checkout code"
         uses: actions/checkout@v3
+      - name: "Set up Go"
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+          cache: true
       - name: "Unit tests"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
@@ -44,6 +49,11 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
+      - name: "Set up Go"
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+          cache: true
       - name: "Format *.md files"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
@@ -73,6 +83,11 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
+      - name: "Set up Go"
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+          cache: true
       - name: "Check code quality"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:

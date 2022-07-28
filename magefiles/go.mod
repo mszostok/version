@@ -3,15 +3,15 @@ module tools
 go 1.18
 
 require (
-	github.com/carolynvs/magex v0.9.0
 	github.com/magefile/mage v1.13.0
 	github.com/samber/lo v1.26.0
-	go.szostok.io/magex v0.0.0-20220727194709-64defa8bb0b0
+	go.szostok.io/magex v0.0.0-20220728204812-aba09193b9ce
 )
 
 require (
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/andybalholm/brotli v1.0.1 // indirect
+	github.com/carolynvs/magex v0.9.0 // indirect
 	github.com/dsnet/compress v0.0.2-0.20210315054119-f66993602bf5 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/golang/snappy v0.0.2 // indirect
@@ -28,5 +28,3 @@ require (
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 )
-
-replace go.szostok.io/magex => /Users/mszostok/workspace/go/src/github.com/mszostok/magex

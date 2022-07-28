@@ -7,11 +7,17 @@ import (
 	"go.szostok.io/magex/shx"
 )
 
+var excludedFromFormatting = []string{
+	// TODO: add option to ignore section by mdox
+	"docs/customization/build-ldflags/magefile.md",
+	"docs/customization/usage/urfave-cli.md",
+	"docs/examples.md",
+}
+
 func FmtDocs(onlyCheck bool) error {
 	mdFiles := lo.Must(shx.FindFiles(".", shx.FindFilesOpts{
-		Ext: []string{".md"},
-		// TODO: add option to ignore section by mdox
-		IgnorePrefix: []string{"docs/examples.md", "docs/customization/usage/urfave-cli.md"},
+		Ext:          []string{".md"},
+		IgnorePrefix: excludedFromFormatting,
 	}))
 
 	return shx.MustCmdf(`./bin/mdox fmt --soft-wraps %s %s`,
