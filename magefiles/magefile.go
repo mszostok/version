@@ -69,3 +69,10 @@ func (t Test) Coverage() error {
 	mg.Deps(t.Unit)
 	return shx.MustCmdf(`go tool cover -html=coverage.out`).Run()
 }
+
+type Gen mg.Namespace
+
+func (Gen) PrettyExamples() {
+	target.EmbedDefaultPrettyFormatting()
+	target.EmbedDefaultPrettyLayout()
+}
