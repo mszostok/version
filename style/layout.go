@@ -2,12 +2,12 @@ package style
 
 // Layout define the layout for printing the pretty format.
 type Layout struct {
-	Raw string `json:"raw,omitempty" yaml:"raw"`
+	GoTemplate string `json:"goTemplate,omitempty" yaml:"goTemplate"`
 }
 
 var (
-	// KeyValueLayoutTpl prints all version data in a 'key  value' manner.
-	KeyValueLayoutTpl = `
+	// KeyValueLayoutGoTpl prints all version data in a 'key  value' manner.
+	KeyValueLayoutGoTpl = `
 {{ header }}
 
   {{ key "Version" }}             {{ .Version                     | val }}
@@ -20,9 +20,9 @@ var (
   {{ key "Platform" }}            {{ .Platform                    | val }}
 `
 
-	// BoxLayoutTpl prints all version data in box.
+	// BoxLayoutGoTpl prints all version data in box.
 	// https://knowyourmeme.com/memes/this-is-fine
-	BoxLayoutTpl = `
+	BoxLayoutGoTpl = `
 ╭───{{ repeatMax 57 "─" header }}{{/* ─────────────────────────────────── */}}╮
 │                                  {{ repeatMax 25 " " ""                  }} │
 │  {{ key "Version" }}             {{ .Version                     | val   }} │

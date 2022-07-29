@@ -1,1 +1,111 @@
+# Layout
+
+> Layout is mostly about structured arrangement of a pretty version's data.
+
+To define the layout use the [Go templating](https://pkg.go.dev/html/template). You can use also [version built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [Formatting settings](./format.md). Additionally, all helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
+
+These fields can be access in your Go template definition:
+
+| Key        | Description                                                                                                  |
+|------------|--------------------------------------------------------------------------------------------------------------|
+| Version    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                 |
+| GitCommit  | Git commit value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.revision` tag.   |
+| BuildDate  | Build date value set via `-ldflags`, otherwise empty.                                                        |
+| CommitDate | Git commit date value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.time` tag.  |
+| DirtyBuild | Dirty build value, set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.modified` tag. |
+| GoVersion  | Go version taken from `runtime.Version()`.                                                                   |
+| Compiler   | Go compiler taken from `runtime.Compiler`.                                                                   |
+| Platform   | Platform build, in format of  `runtime.GOOS/runtime.GOARCH`.                                                 |
+
+## Go
+
+Example usage:
+
+```go
+var CustomLayoutGoTpl = `
+{{ header }}
+
+  {{ key "Version" }}             {{ .Version                     | val }}
+  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
+  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}
+  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val }}
+  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val }}
+  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val }}
+  {{ key "Compiler" }}            {{ .Compiler                    | val }}
+  {{ key "Platform" }}            {{ .Platform                    | val }}
+`
+
+func main() {
+	layout := style.Layout{
+		GoTemplate: CustomLayoutGoTpl,
+	}
+	version.NewPrinter(version.WithPrettyLayout(layout))
+}
+```
+
+## Config file
+
+The config file can be loaded by:
+
+- enabling loading style from environment variable via `version.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
+- or using `version.WithPrettyStyleFile` function directly.
+
+=== "YAML"
+
+    <!-- YAMLLayout start -->
+    ```yaml
+    header:
+      prefix: '▓▓▓ '
+      color: magenta
+      background: ""
+      options: []
+      name: ""
+    key:
+      color: gray
+      background: ""
+      options:
+        - bold
+    val:
+      color: white
+      background: ""
+      options: []
+    date:
+      enableHumanizedSuffix: true
+    ```
+    <!-- YAMLLayout end -->
+
+=== "JSON"
+
+    !!! pied-piper "Coming soon"
+
+        You need to admit that it's not the best option for multiline strings 😬
+
+    <!-- JSONLayout start -->
+    ```json
+    {
+      "header": {
+        "prefix": "▓▓▓ ",
+        "color": "magenta",
+        "background": "",
+        "options": null,
+        "name": ""
+      },
+      "key": {
+        "color": "gray",
+        "background": "",
+        "options": [
+          "bold"
+        ]
+      },
+      "val": {
+        "color": "white",
+        "background": "",
+        "options": null
+      },
+      "date": {
+        "enableHumanizedSuffix": true
+      }
+    }
+    ```
+    <!-- JSONLayout end -->
 

@@ -1,3 +1,4 @@
+<br />
 ```go
 import "go.szostok.io/version"
 ```
@@ -6,9 +7,9 @@ Importable Go package to present your CLI version in a classy way. All magic inc
 
 ![](./assets/preview.png)
 
-Like the idea? Give a GitHub star ⭐!
+Like the idea? [Give a GitHub star](https://github.com/mszostok/version) ⭐!
 
-# 
+#
 
 ## Installation
 
@@ -66,3 +67,9 @@ YAML format can be useful for scripting purposes, e.g.
 
 Short format can be useful for CI purposes to easily validate that the correct version is used.
 <br /><br />
+
+## <img src="./assets/bell-icon.png" /> Staying Informed
+
+Follow the [@mszostok](https://twitter.com/mszostok) on Twitter to get the latest news. You can also subscribe for new [`version`](https://github.com/mszostok/version/releases) releases on GitHub. I post there a detailed changelog for every release.
+
+For more additional content check the [Mateusz's Szostok blog](https://szostok.io).

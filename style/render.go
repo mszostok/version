@@ -34,7 +34,7 @@ func (r *Render) Render(in any) (string, error) {
 		Funcs(colorFuncMap).
 		Funcs(r.styleFuncMap()).
 		Funcs(r.generalHelpersFuncMap()).
-		Parse(r.config.Layout.Raw)
+		Parse(r.config.Layout.GoTemplate)
 	if err != nil {
 		return "", err
 	}
@@ -45,23 +45,6 @@ func (r *Render) Render(in any) (string, error) {
 	}
 
 	return buff.String(), nil
-}
-
-func (r *Render) styleFuncMap() template.FuncMap {
-	return template.FuncMap{
-		"header":  r.header,
-		"key":     r.key,
-		"val":     r.val,
-		"fmtDate": r.fmtDate,
-		"fmtBool": r.fmtBool,
-	}
-}
-
-func (r *Render) generalHelpersFuncMap() template.FuncMap {
-	return template.FuncMap{
-		"commit":    r.commit,
-		"repeatMax": r.repeatMax,
-	}
 }
 
 func (r *Render) header() string {

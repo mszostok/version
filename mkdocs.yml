@@ -41,14 +41,18 @@ theme:
     - search.highlight
     - search.share
     - search.suggest
+    - navigation.tabs
+    - content.tabs.link
 
 edit_uri: edit/main/docs/
 
 nav:
-  - Home: index.md
-  - Quick Start: quick-start.md
-  - Runnable Examples: examples.md
-  - Customization:
+  - Home:
+      - index.md
+      - Quick Start: quick-start.md
+      - Runnable Examples: examples.md
+      - Troubleshooting: troubleshooting.md
+  - Get Started:
       - Usage:
           - customization/usage/index.md
           - customization/usage/cobra.md
@@ -60,14 +64,15 @@ nav:
           - customization/build-ldflags/goreleaser.md
           - customization/build-ldflags/makefile.md
           - customization/build-ldflags/magefile.md
+  - Customization:
       - Pretty Style:
           - customization/pretty/index.md
-          - customization/pretty/formatting.md
+          - customization/pretty/format.md
           - customization/pretty/layout.md
           - customization/pretty/custom-branding.md
       - Upgrade notice:
           - customization/upgrade-notice/index.md
-  - Troubleshooting: troubleshooting.md
+
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -81,11 +86,11 @@ extra_css:
 
 markdown_extensions:
   - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.details
+  - admonition
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.highlight:
       use_pygments: true
-  - admonition
-  - pymdownx.details

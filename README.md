@@ -33,6 +33,7 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - Display an upgrade notice if a newer version was released
 - Highly customizable pretty output format
 - No `init()` function usage inside this package
+- All provided functionality is fully tested to ensure no regression
 
 <br /><br />
 
@@ -79,6 +80,6 @@ Short format can be useful for CI purposes to easily validate that the correct v
 
 ## <img src="./docs/assets/bell-icon.png" /> Staying Informed
 
-Follow the [@mszostok](https://twitter.com/mszostok) account on Twitter to get the latest news. You can also subscribe for new [`version`](https://github.com/mszostok/version/releases) releases on GitHub. I post there a detailed changelog for every release.
+Follow the [@mszostok](https://twitter.com/mszostok) on Twitter to get the latest news. You can also subscribe for new [`version`](https://github.com/mszostok/version/releases) releases on GitHub. I post there a detailed changelog for every release.
 
-For more additional content check the [Mateusz Szostok blog](https://szostok.io/blog).
+For more additional content check the [Mateusz's Szostok blog](https://szostok.io).
