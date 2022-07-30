@@ -10,10 +10,15 @@ You can define both the formatting and layout using Go code. With dedicated func
 
 - `version.WithPrettyFormat` to override only the format
 - `version.WithPrettyLayout` to override only the layout
+- `version.WithPrettyRenderer` to provide your own render function
 
 you can achieve what you need without leaving you favourite language.
 
 ## I come from K8s ecosystem
+
+!!! pied-piper "Coming soon"
+
+    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
 
 So YAMLs, then? Yes! However, we are not so strict, you can also provide a JSON if you want.
 

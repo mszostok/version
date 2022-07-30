@@ -1,7 +1,7 @@
 package style
 
 import (
-	"html/template"
+	"text/template"
 
 	"github.com/gookit/color"
 )

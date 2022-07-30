@@ -12,21 +12,6 @@
     3. Run a given example.
 
 
-
-## [Plain](https://github.com/mszostok/version/tree/main/example/plain/main.go)
-
-![](assets/examples/screen-plain-.png)
-
-!!! run-example "Run in terminal"
-
-    ```bash
-    # Build
-    go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./plain
-
-    # Showcase
-    ./example
-    ```
-
 ## [Cobra](https://github.com/mszostok/version/tree/main/example/cobra/main.go)
 
 ![](assets/examples/screen-cobra-version_-h.png)
@@ -57,6 +42,20 @@
     ./example
     ./example -oyaml
     ./example version -oshort
+    ```
+
+## [Plain](https://github.com/mszostok/version/tree/main/example/plain/main.go)
+
+![](assets/examples/screen-plain-.png)
+
+!!! run-example "Run in terminal"
+
+    ```bash
+    # Build
+    go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./plain
+
+    # Showcase
+    ./example
     ```
 
 ## [Custom Formatting](https://github.com/mszostok/version/tree/main/example/custom-formatting/main.go)

@@ -24,7 +24,19 @@ These fields can be access in your Go template definition:
 
     Want to try? See the [custom layout](/examples#custom-layout) example!
 
-Example usage:
+You can the use predefined [Box layout](https://github.com/mszostok/version/blob/ce5cb41430b71d4bfe21280f4d440257d030280e/style/layout.go#L25):
+
+```go
+func main() {
+	// ...
+	layout := style.Layout{
+		GoTemplate: style.BoxLayoutGoTpl,
+	}
+	version.NewPrinter(version.WithPrettyLayout(layout))
+}
+```
+
+or provided your own:
 
 ```go
 var CustomLayoutGoTpl = `
@@ -41,6 +53,7 @@ var CustomLayoutGoTpl = `
 `
 
 func main() {
+	// ...
 	layout := style.Layout{
 		GoTemplate: CustomLayoutGoTpl,
 	}
@@ -48,7 +61,12 @@ func main() {
 }
 ```
 
+
 ## Config file
+
+!!! pied-piper "Coming soon"
+
+    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
 
 The config file can be loaded by:
 
@@ -76,7 +94,7 @@ The config file can be loaded by:
 
 === "JSON"
 
-    !!! pied-piper "Coming soon"
+    !!! note ""
 
         You need to admit that it's not the best option for multiline strings 😬
 

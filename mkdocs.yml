@@ -66,14 +66,15 @@ nav:
           - get-started/build-ldflags/makefile.md
           - get-started/build-ldflags/magefile.md
   - Customization:
+      - customization/index.md
       - Pretty Style:
-          - customization/pretty/index.md
           - customization/pretty/format.md
           - customization/pretty/layout.md
           - customization/pretty/custom-renderer.md
       - Upgrade notice:
           - customization/upgrade-notice/index.md
       - Omit unset fields: customization/omit-unset.md
+      - Extra fields: customization/extra-fields.md
 
 extra:
   social:

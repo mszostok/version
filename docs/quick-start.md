@@ -38,6 +38,7 @@ func main() {
 
 In that way you get a fully working `<cli> version` command.
 
+![](assets/examples/screen-cobra-version.png)
 ![](assets/examples/screen-cobra-version_-h.png)
 
 ## GoReleaser versioning info with `-ldflags`
@@ -59,7 +60,8 @@ builds:
 As you saw, in a few seconds, you got a powerful `version` command! However, this only scratches the surfaces of possible configuration options.
 
 See the customization documentation for more guidelines on how to meet what you need. For example:
-
 - [usage examples](/get-started/usage)
+
+
 - [build options](/get-started/build-ldflags)
 - and [pretty format customization](/customization/pretty)
