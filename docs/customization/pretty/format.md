@@ -1,6 +1,7 @@
 # Format
 
-> Formatting is the style of a pretty version's format.
+!!! tip
+    Formatting is the style of a pretty version's format.
 
 Format allows you to define your own theme and adjust output for your branding color. In general, add underscores, bold, italic, and text and background colors.
 
@@ -12,13 +13,13 @@ func main() {
 	format := style.Formatting{
 		Header: style.Header{
 			Prefix: "▓▓▓ ",
-			PropertyFormat: style.PropertyFormat{
+			FormatPrimitive: style.FormatPrimitive{
 				Color: "magenta",
 				Options: []string{"bold"},
 			},
 		},
 	}
-	version.NewPrinter(version.WithPrettyFormat(format))
+	version.NewPrinter(version.WithPrettyFormatting(format))
 }
 ```
 
