@@ -89,3 +89,29 @@
 	-webkit-mask-image: var(--md-admonition-icon--pied-piper);
 	mask-image: var(--md-admonition-icon--pied-piper);
 }
+
+
+:root {
+	--md-admonition-icon--run-example: var(--md-admonition-icon--tip);
+}
+.md-typeset .admonition.run-example,
+.md-typeset details.run-example {
+	border-color: #00bfa5;
+
+	box-shadow: none!important;
+}
+.md-typeset .run-example > .admonition-title,
+.md-typeset .run-example > summary {
+	background-color: rgba(43, 155, 70, 0.1);
+}
+.md-typeset .run-example .highlight > pre {
+	z-index: 0;
+	padding-right: 0px;
+	margin: 0px -15px -15px;
+}
+.md-typeset .run-example > .admonition-title::before,
+.md-typeset .run-example > summary::before {
+	background-color: #00bfa5;
+	-webkit-mask-image: var(--md-admonition-icon--run-example);
+	mask-image: var(--md-admonition-icon--run-example);
+}
