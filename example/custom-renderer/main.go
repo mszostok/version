@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/Delta456/box-cli-maker/v2"
-	"github.com/gookit/color"
 
 	"github.com/mszostok/version"
 	"github.com/mszostok/version/style"
@@ -30,5 +29,5 @@ func prettyRender(in *version.Info) (string, error) {
 	Box := box.New(box.Config{Px: 0, Py: 0, Type: "Round", Color: "Yellow", ContentAlign: "Left"})
 	Box.TitlePos = "Top"
 
-	return Box.String("Box", color.ClearCode(body)), nil
+	return Box.String("Box", body), nil
 }

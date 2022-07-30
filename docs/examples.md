@@ -27,6 +27,18 @@
     ./example version
     ```
 
+## [Upgrade notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice/main.go)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'github.com/mszostok/version.version=0.6.0'" -o example ./upgrade-notice
+
+    # Showcase
+    ./example version
+    ./example version -oyaml
+    ```
+
 ## [Printer](https://github.com/mszostok/version/tree/main/example/printer/main.go)
 
 ![](assets/examples/screen-printer-.png)

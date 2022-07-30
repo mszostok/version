@@ -1,6 +1,9 @@
 package version
 
-import "github.com/mszostok/version/style"
+import (
+	"github.com/mszostok/version/style"
+	"github.com/mszostok/version/upgrade"
+)
 
 // Inspired by https://github.com/kubernetes-sigs/controller-runtime/blob/v0.12.3/pkg/client/options.go
 // It allows to have the same functional opt func across all constructors. For example:
@@ -13,7 +16,7 @@ import "github.com/mszostok/version/style"
 // "Functional" Option Interfaces
 
 type PrinterContainerOption interface {
-	ApplyToPrinterContainer(*PrinterContainer)
+	ApplyToPrinterContainerOption(*PrinterContainerOptions)
 }
 
 type PrettyPrinterOption interface {
@@ -37,7 +40,7 @@ func WithPrettyRenderer(renderer PrettyRenderFunc) *CustomPrettyRenderer {
 	}
 }
 
-func (c *CustomPrettyRenderer) ApplyToPrinterContainer(cfg *PrinterContainer) {
+func (c *CustomPrettyRenderer) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
 	cfg.prettyOptions = append(cfg.prettyOptions, c)
 }
 
@@ -62,7 +65,7 @@ func WithPrettyFormatting(formatting *style.Formatting) *CustomPrettyFormatting 
 	}
 }
 
-func (c *CustomPrettyFormatting) ApplyToPrinterContainer(cfg *PrinterContainer) {
+func (c *CustomPrettyFormatting) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
 	cfg.prettyOptions = append(cfg.prettyOptions, c)
 }
 
@@ -90,7 +93,7 @@ func WithPrettyLayout(layout style.Layout) *CustomPrettyLayout {
 	}
 }
 
-func (c *CustomPrettyLayout) ApplyToPrinterContainer(cfg *PrinterContainer) {
+func (c *CustomPrettyLayout) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
 	cfg.prettyOptions = append(cfg.prettyOptions, c)
 }
 
@@ -115,7 +118,7 @@ func WithPrettyStyle(cfg *style.Config) *CustomPrettyStyle {
 	}
 }
 
-func (c *CustomPrettyStyle) ApplyToPrinterContainer(cfg *PrinterContainer) {
+func (c *CustomPrettyStyle) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
 	cfg.prettyOptions = append(cfg.prettyOptions, c)
 }
 
@@ -125,4 +128,29 @@ func (c *CustomPrettyStyle) ApplyCobraExtensionOption(cfg *CobraExtensionOptions
 
 func (c *CustomPrettyStyle) ApplyPrettyPrinterOption(cfg *Pretty) {
 	cfg.defaultRenderConfig = c.cfg
+}
+
+// EnableUpgradeNotice
+
+type EnableUpgradeNotice struct {
+	upgradeOpts []upgrade.Options
+	repo        string
+	owner       string
+}
+
+// WithUpgradeNotice enabled upgrade notice.
+func WithUpgradeNotice(owner, repo string, opts ...upgrade.Options) *EnableUpgradeNotice {
+	return &EnableUpgradeNotice{
+		owner:       owner,
+		repo:        repo,
+		upgradeOpts: opts,
+	}
+}
+
+func (c *EnableUpgradeNotice) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
+	cfg.upgradeNotice = upgrade.NewGitHubDetector(c.owner, c.repo, c.upgradeOpts...)
+}
+
+func (c *EnableUpgradeNotice) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
 }
