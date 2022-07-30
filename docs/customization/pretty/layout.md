@@ -1,7 +1,7 @@
 # Layout
 
-!!! tip
-    Layout is mostly about structured arrangement of a pretty version's data.
+!!! note ""
+    Layout focuses on structured arrangement of a pretty version's data.
 
 To define the layout use the [Go templating](https://pkg.go.dev/html/template). You can use also [version's pkg built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [formatting settings](./format.md). Additionally, all helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
 
@@ -19,6 +19,10 @@ These fields can be access in your Go template definition:
 | `.Platform`   | Platform build, in format of `runtime.GOOS/runtime.GOARCH`.                                                  |
 
 ## Go
+
+!!! tip
+
+    Want to try? See the [custom layout](/examples#custom-layout) example!
 
 Example usage:
 

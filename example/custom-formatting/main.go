@@ -23,7 +23,7 @@ func main() {
 	}
 	formatting.Key.Color = "yellow"
 	formatting.Val.Color = ""
-	printer := version.NewPrinter(version.WithPrettyFormatting(formatting))
+	printer := version.NewPrinter(version.WithPrettyFormatting(&formatting))
 	if err := printer.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}

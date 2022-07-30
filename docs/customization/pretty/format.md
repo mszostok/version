@@ -1,11 +1,15 @@
 # Format
 
-!!! tip
-    Formatting is the style of a pretty version's format.
+!!! note ""
+    Formatting focuses on the style of displayed pretty version's data.
 
 Format allows you to define your own theme and adjust output for your branding color. In general, add underscores, bold, italic, and text and background colors.
 
 ## Go
+
+!!! tip
+
+    Want to try? See the [custom formatting](/examples#custom-formatting) example!
 
 Example usage:
 
@@ -13,10 +17,10 @@ Example usage:
 func main() {
 	format := style.Formatting{
 		Header: style.Header{
-			Prefix: "▓▓▓ ",
+			Prefix: "💡 ",
 			FormatPrimitive: style.FormatPrimitive{
 				Color:   "magenta",
-				Options: []string{"bold"},
+				Options: []string{"underscore"},
 			},
 		},
 	}
@@ -25,6 +29,7 @@ func main() {
 ```
 
 Check the [`style.Formatting`](https://github.com/mszostok/version/blob/main/style/formatting.go#L4) struct for all possible settings.
+
 
 ## Config file
 

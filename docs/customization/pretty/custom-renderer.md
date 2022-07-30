@@ -2,6 +2,10 @@
 
 If the custom [formatting](./format.md) and [layout](./layout.md) don't fulfil you needs, you can simply specify your own rendering function.
 
+!!! tip
+
+    Want to try? See the [custom renderer](/examples#custom-renderer) example!
+
 ```go
 func NewRoot() *cobra.Command {
 	cmd := &cobra.Command{
@@ -11,7 +15,7 @@ func NewRoot() *cobra.Command {
 
 	renderFn := func(in *version.Info) (string, error) {
 		return fmt.Sprintf(`
-      Version             %v
+      Version             %q
       Git Commit          %.4s
    `, in.Version, in.GitCommit), nil
 	}
