@@ -13,7 +13,7 @@ func colorSprintf(opts ...color.Color) func(in ...string) string {
 	}
 }
 
-func newGookitStyle(in PropertyFormat) color.Style {
+func newGookitStyle(in FormatPrimitive) color.Style {
 	c := color.New()
 	if in.Color != "" {
 		c.Add(colorGookit(in.Color))

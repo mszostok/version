@@ -21,46 +21,38 @@ type Printer interface {
 type PrinterContainer struct {
 	output OutputFormat
 
-	printers map[OutputFormat]Printer
-	name     string
+	printers      map[OutputFormat]Printer
+	prettyOptions []PrettyPrinterOption
+	name          string
 }
 
 // NewPrinter returns a new PrinterContainer instance.
-func NewPrinter(opts ...PrinterOption) *PrinterContainer {
+func NewPrinter(opts ...PrinterContainerOption) *PrinterContainer {
 	p := &PrinterContainer{
 		printers: map[OutputFormat]Printer{
-			JSONFormat:   &JSON{},
-			YAMLFormat:   &YAML{},
-			ShortFormat:  &Short{},
-			PrettyFormat: NewPrettyPrinter(),
+			JSONFormat:  &JSON{},
+			YAMLFormat:  &YAML{},
+			ShortFormat: &Short{},
 		},
 		name:   os.Args[0],
 		output: PrettyFormat,
 	}
 
 	for _, opt := range opts {
-		opt(p)
+		opt.ApplyToPrinterContainer(p)
 	}
+
+	p.printers[PrettyFormat] = NewPrettyPrinter(p.prettyOptions...)
 
 	return p
 }
 
-// PrinterOption allows PrinterContainer instance customization.
-type PrinterOption func(printer *PrinterContainer)
-
-// WithDefaultOutputFormat sets a default format type.
-func WithDefaultOutputFormat(format OutputFormat) PrinterOption {
-	return func(r *PrinterContainer) {
-		r.output = format
-	}
-}
-
-// WithCLIName sets a custom CLI name.
-func WithCLIName(name string) PrinterOption {
-	return func(r *PrinterContainer) {
-		r.name = name
-	}
-}
+//WithCLIName sets a custom CLI name.
+//func WithCLIName(name string) PrinterOption {
+//	return func(r *PrinterContainer) {
+//		r.name = name
+//	}
+//}
 
 // RegisterPFlags registers PrinterContainer terminal flags.
 func (r *PrinterContainer) RegisterPFlags(flags *pflag.FlagSet) {

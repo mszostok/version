@@ -11,19 +11,19 @@ type (
 
 	// Header holds template 'header' func related settings.
 	Header struct {
-		Prefix         string `json:"prefix"  yaml:"prefix"`
-		PropertyFormat `json:",inline" yaml:",inline"`
-		Name           string `json:"name"    yaml:"name"`
+		Prefix          string `json:"prefix"  yaml:"prefix"`
+		FormatPrimitive `json:",inline" yaml:",inline"`
+		Name            string `json:"name"    yaml:"name"`
 	}
 
 	// Key holds template 'key' func related settings.
 	Key struct {
-		PropertyFormat `json:",inline"  yaml:",inline"`
+		FormatPrimitive `json:",inline"  yaml:",inline"`
 	}
 
 	// Val holds template 'val' func related settings.
 	Val struct {
-		PropertyFormat `json:",inline"  yaml:",inline"`
+		FormatPrimitive `json:",inline"  yaml:",inline"`
 	}
 
 	// Date holds template 'date' func related settings.
@@ -31,8 +31,8 @@ type (
 		EnableHumanizedSuffix bool `json:"enableHumanizedSuffix" yaml:"enableHumanizedSuffix"`
 	}
 
-	// PropertyFormat holds general formatting options.
-	PropertyFormat struct {
+	// FormatPrimitive holds general formatting options.
+	FormatPrimitive struct {
 		Color      string   `json:"color"       yaml:"color"`
 		Background string   `json:"background"  yaml:"background"`
 		Options    []string `json:"options"     yaml:"options"`
@@ -42,18 +42,18 @@ type (
 var defaultFormatting = Formatting{
 	Header: Header{
 		Prefix: "▓▓▓ ",
-		PropertyFormat: PropertyFormat{
+		FormatPrimitive: FormatPrimitive{
 			Color: "magenta",
 		},
 	},
 	Key: Key{
-		PropertyFormat{
+		FormatPrimitive{
 			Color:   "gray",
 			Options: []string{"bold"},
 		},
 	},
 	Val: Val{
-		PropertyFormat{
+		FormatPrimitive{
 			Color: "white",
 		},
 	},

@@ -15,20 +15,20 @@ import (
 	"github.com/mattn/go-runewidth"
 )
 
-// Render provides a functionality to render input data based on a given style.
-type Render struct {
-	config Config
+// GoTemplateRender provides a functionality to render input data based on a given style.
+type GoTemplateRender struct {
+	config *Config
 }
 
-// NewRender returns new Render instance.
-func NewRender() *Render {
-	return &Render{
-		config: DefaultConfig(),
+// NewGoTemplateRender returns new GoTemplateRender instance.
+func NewGoTemplateRender(cfg *Config) *GoTemplateRender {
+	return &GoTemplateRender{
+		config: cfg,
 	}
 }
 
 // Render renders input data based on configured given style.
-func (r *Render) Render(in any) (string, error) {
+func (r *GoTemplateRender) Render(in any) (string, error) {
 	tpl, err := template.New("pretty").
 		Funcs(sprig.FuncMap()).
 		Funcs(colorFuncMap).
@@ -47,8 +47,8 @@ func (r *Render) Render(in any) (string, error) {
 	return buff.String(), nil
 }
 
-func (r *Render) header() string {
-	c := newGookitStyle(r.config.Formatting.Header.PropertyFormat)
+func (r *GoTemplateRender) header() string {
+	c := newGookitStyle(r.config.Formatting.Header.FormatPrimitive)
 	name := r.config.Formatting.Header.Name
 	if name == "" {
 		name = os.Args[0]
@@ -56,34 +56,34 @@ func (r *Render) header() string {
 	return c.Sprintf("%s%s", r.config.Formatting.Header.Prefix, name)
 }
 
-func (r *Render) key(in string) string {
-	c := newGookitStyle(r.config.Formatting.Key.PropertyFormat)
+func (r *GoTemplateRender) key(in string) string {
+	c := newGookitStyle(r.config.Formatting.Key.FormatPrimitive)
 
 	return c.Sprint(in)
 }
 
-func (*Render) commit(in string) string {
+func (*GoTemplateRender) commit(in string) string {
 	return strings.TrimSpace(fmt.Sprintf("%.7s", in))
 }
 
-func (r *Render) val(in string) string {
-	c := newGookitStyle(r.config.Formatting.Val.PropertyFormat)
+func (r *GoTemplateRender) val(in string) string {
+	c := newGookitStyle(r.config.Formatting.Val.FormatPrimitive)
 	return c.Sprintf("%-*s", 37, in)
 }
 
-func (*Render) repeatMax(max int, sing, in string) string {
+func (*GoTemplateRender) repeatMax(max int, sing, in string) string {
 	max -= runewidth.StringWidth(color.ClearCode(in))
 	return fmt.Sprintf("%s%s", in, strings.Repeat(sing, max))
 }
 
-func (*Render) fmtBool(in bool) string {
+func (*GoTemplateRender) fmtBool(in bool) string {
 	if in {
 		return "yes"
 	}
 	return "no"
 }
 
-func (r *Render) fmtDate(in string) string {
+func (r *GoTemplateRender) fmtDate(in string) string {
 	if in == "" {
 		return ""
 	}

@@ -7,8 +7,8 @@ type Config struct {
 }
 
 // DefaultConfig returns default style config.
-func DefaultConfig() Config {
-	return Config{
+func DefaultConfig() *Config {
+	return &Config{
 		Formatting: defaultFormatting,
 		Layout: Layout{
 			GoTemplate: KeyValueLayoutGoTpl,

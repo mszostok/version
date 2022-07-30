@@ -17,9 +17,18 @@ var example = `
 <cli> version -o=short
 `
 
+type CobraExtensionOptions struct {
+	printerOptions []PrinterContainerOption
+}
+
 // NewCobraCmd returns a root cobra.Command for printing CLI version.
-func NewCobraCmd() *cobra.Command {
-	printer := NewPrinter()
+func NewCobraCmd(opts ...CobraExtensionOption) *cobra.Command {
+	var options CobraExtensionOptions
+	for _, opt := range opts {
+		opt.ApplyCobraExtensionOption(&options)
+	}
+
+	printer := NewPrinter(options.printerOptions...)
 	CollectFromBuildInfo()
 
 	ver := &cobra.Command{

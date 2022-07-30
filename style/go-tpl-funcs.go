@@ -6,7 +6,7 @@ import (
 	"github.com/gookit/color"
 )
 
-func (r *Render) styleFuncMap() template.FuncMap {
+func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
 	return template.FuncMap{
 		"header":  r.header,
 		"key":     r.key,
@@ -16,7 +16,7 @@ func (r *Render) styleFuncMap() template.FuncMap {
 	}
 }
 
-func (r *Render) generalHelpersFuncMap() template.FuncMap {
+func (r *GoTemplateRender) generalHelpersFuncMap() template.FuncMap {
 	return template.FuncMap{
 		"commit":    r.commit,
 		"repeatMax": r.repeatMax,
@@ -42,15 +42,6 @@ var colorFuncMap = template.FuncMap{
 	"lightWhite":   colorSprintf(color.FgLightWhite),
 	"gray":         colorSprintf(color.FgGray),
 
-	// Option settings
-	"opBold":          colorSprintf(color.OpBold),
-	"opFuzzy":         colorSprintf(color.OpFuzzy),
-	"opItalic":        colorSprintf(color.OpItalic),
-	"opUnderscore":    colorSprintf(color.OpUnderscore),
-	"opReverse":       colorSprintf(color.OpReverse),
-	"opConcealed":     colorSprintf(color.OpConcealed),
-	"opStrikethrough": colorSprintf(color.OpStrikethrough),
-
 	// Background colors
 	"bgBlack":        colorSprintf(color.BgBlack),
 	"bgRed":          colorSprintf(color.BgRed),
@@ -68,4 +59,15 @@ var colorFuncMap = template.FuncMap{
 	"bgLightCyan":    colorSprintf(color.BgLightCyan),
 	"bgLightWhite":   colorSprintf(color.BgLightWhite),
 	"bgGray":         colorSprintf(color.BgGray),
+
+	// Option settings
+	"bold":          colorSprintf(color.OpBold),
+	"fuzzy":         colorSprintf(color.OpFuzzy),
+	"italic":        colorSprintf(color.OpItalic),
+	"underscore":    colorSprintf(color.OpUnderscore),
+	"reverse":       colorSprintf(color.OpReverse),
+	"concealed":     colorSprintf(color.OpConcealed),
+	"strikethrough": colorSprintf(color.OpStrikethrough),
 }
+
+// consider https://github.com/muesli/termenv#template-helpers
