@@ -9,7 +9,7 @@ readonly YELLOW='\033[1;33m'
 readonly NC='\033[0m' # No Color
 
 CURRENT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-REPO_ROOT_DIR=$(cd "${CURRENT_DIR}/.." && pwd)
+REPO_ROOT_DIR=$(cd "${CURRENT_DIR}/../.." && pwd)
 readonly CURRENT_DIR
 readonly REPO_ROOT_DIR
 
@@ -28,7 +28,7 @@ capture() {
 	clear
 
 	cd "$REPO_ROOT_DIR/example" || exit
-	go install -ldflags "-X 'github.com/mszostok/version.buildDate=$(date)' -X 'github.com/mszostok/version.version=0.42.0'" ./$program
+	go install -ldflags "-X 'github.com/mszostok/version.buildDate=$(date)' -X 'github.com/mszostok/version.version=v0.6.0'" ./$program
 	cd "$HOME" || exit
 
 	# shellcheck disable=SC2059
@@ -40,12 +40,12 @@ capture() {
 	local filename="${REPO_ROOT_DIR}/docs/assets/examples/screen-$program-${ver// /_}.png"
 	rm -f "$filename" || true
 
-  # only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
+	# only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
 	screencapture -x -R0,25,1285,650 "$filename"
 }
 
 main() {
-
+	# Big
 	setup "version-cmd"
 
 	capture "plain" ""
@@ -55,16 +55,23 @@ main() {
 
 	capture "custom-formatting" ""
 
-	setup "help-cmd"
-	sleep 1
-	capture "cobra" "version -h"
-
+	# Medium
 	setup "custom-pretty-cmd"
 	sleep 1
-	capture "custom-layout"     ""
-	capture "custom-renderer"   ""
 
+	capture "upgrade-notice-box" "version"
+
+	capture "upgrade-notice" "version"
+	capture "upgrade-notice" "version -ojson"
+
+	capture "custom-layout" ""
+	capture "custom-renderer" ""
+
+	# Small
+	setup "help-cmd"
+	sleep 1
+
+	capture "cobra" "version -h"
 }
 
 main
-

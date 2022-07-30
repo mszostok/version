@@ -19,7 +19,7 @@ import (
 var (
 	defaultLayoutGoTpl = heredoc.Doc(`
 		│ A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-		│ {{ .ReleaseURL  | italic }}`)
+		│ {{ .ReleaseURL  | underscore | blue }}`)
 )
 
 type (

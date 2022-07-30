@@ -8,7 +8,7 @@ import (
 
 var forBoxLayoutGoTpl = heredoc.Doc(`
 		A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-		{{ .ReleaseURL  | italic }}`)
+		{{ .ReleaseURL  | underscore | blue }}`)
 
 type BoxColor string
 

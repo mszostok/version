@@ -29,6 +29,9 @@
 
 ## [Upgrade notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice/main.go)
 
+![](assets/examples/screen-upgrade-notice-version.png)
+![](assets/examples/screen-upgrade-notice-version_-ojson.png)
+
 !!! run-example "Run in terminal"
     ```bash
     # Build
@@ -36,7 +39,20 @@
 
     # Showcase
     ./example version
-    ./example version -oyaml
+    ./example version -ojson
+    ```
+
+## [Upgrade notice (box)](https://github.com/mszostok/version/tree/main/example/upgrade-notice-box/main.go)
+
+![](assets/examples/screen-upgrade-notice-box-version.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'github.com/mszostok/version.version=0.6.0'" -o example ./upgrade-notice-box
+
+    # Showcase
+    ./example version
     ```
 
 ## [Printer](https://github.com/mszostok/version/tree/main/example/printer/main.go)
