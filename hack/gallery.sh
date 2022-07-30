@@ -52,11 +52,18 @@ main() {
 	capture "cobra" "version"
 	capture "printer" ""
 	capture "printer" "-oyaml"
-	capture "printer" "-oshort"
+
+	capture "custom-formatting" ""
 
 	setup "help-cmd"
 	sleep 1
 	capture "cobra" "version -h"
+
+	setup "custom-pretty-cmd"
+	sleep 1
+	capture "custom-layout"     ""
+	capture "custom-renderer"   ""
+
 }
 
 main

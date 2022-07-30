@@ -12,6 +12,7 @@ import (
 const (
 	GolangciLintVersion = "1.47.2"
 	MdoxVersion         = "" // latest
+	MuffetVersion       = "2.5.0"
 	bin                 = "bin"
 )
 
@@ -29,7 +30,7 @@ var (
 // Lint Runs linters on the codebase
 func Lint() error {
 	lo.Must0(deps.EnsureGolangciLint(bin, GolangciLintVersion))
-	return shx.MustCmdf(`./bin/golangci-lint run --fix ./...`).Run()
+	return shx.MustCmdf(`./bin/golangci-lint run --fix ./...`).RunV()
 }
 
 // "Docs" Targets
@@ -52,6 +53,8 @@ func (d Docs) Check() error {
 
 // CheckDeadLinks Detects dead links in documentation.
 func (d Docs) CheckDeadLinks() error {
+	mg.Deps(mg.F(deps.EnsureMuffet, bin, MuffetVersion))
+	lo.Must0(shx.MustCmdf(" pip install -r requirements.txt").RunS())
 	return target.CheckDeadLinks()
 }
 
@@ -71,6 +74,10 @@ func (t Test) Coverage() error {
 }
 
 type Gen mg.Namespace
+
+func (Gen) All() {
+	mg.Deps(Gen.PrettyExamples)
+}
 
 func (Gen) PrettyExamples() {
 	target.EmbedDefaultPrettyFormatting()

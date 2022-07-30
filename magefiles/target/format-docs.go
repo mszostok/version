@@ -9,9 +9,11 @@ import (
 
 var excludedFromFormatting = []string{
 	// TODO: add option to ignore section by mdox
-	"docs/customization/build-ldflags/magefile.md",
-	"docs/customization/usage/urfave-cli.md",
+	"docs/get-started/build-ldflags/magefile.md",
+	"docs/get-started/usage/urfave-cli.md",
 	"docs/examples.md",
+	"docs/customization/pretty/layout.md",
+	"docs/customization/pretty/format.md",
 }
 
 func FmtDocs(onlyCheck bool) error {

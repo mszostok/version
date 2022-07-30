@@ -8,13 +8,14 @@ Format allows you to define your own theme and adjust output for your branding c
 ## Go
 
 Example usage:
+
 ```go
 func main() {
 	format := style.Formatting{
 		Header: style.Header{
 			Prefix: "▓▓▓ ",
 			FormatPrimitive: style.FormatPrimitive{
-				Color: "magenta",
+				Color:   "magenta",
 				Options: []string{"bold"},
 			},
 		},

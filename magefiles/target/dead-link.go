@@ -25,7 +25,7 @@ func CheckDeadLinks() error {
 
 	time.Sleep(time.Second) // mkdocs needs some time
 
-	return shx.MustCmdf("muffet http://localhost:60123 --skip-tls-verification --rate-limit=50 %s -v", exclude(excludedLinks)).Run()
+	return shx.MustCmdf("./bin/muffet http://localhost:60123 --skip-tls-verification --rate-limit=50 %s -v", exclude(excludedLinks)).Run()
 }
 
 func exclude(in []string) string {

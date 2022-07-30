@@ -47,8 +47,8 @@ func NewPrinter(opts ...PrinterContainerOption) *PrinterContainer {
 	return p
 }
 
-//WithCLIName sets a custom CLI name.
-//func WithCLIName(name string) PrinterOption {
+// WithCLIName sets a custom CLI name.
+// func WithCLIName(name string) PrinterOption {
 //	return func(r *PrinterContainer) {
 //		r.name = name
 //	}

@@ -5,8 +5,9 @@ go 1.18
 require (
 	github.com/magefile/mage v1.13.0
 	github.com/mszostok/version v0.0.0-00010101000000-000000000000
+	github.com/muesli/reflow v0.3.0
 	github.com/samber/lo v1.26.0
-	go.szostok.io/magex v0.0.0-20220728204812-aba09193b9ce
+	go.szostok.io/magex v0.0.0-20220730010718-0b22ae609432
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -34,7 +35,6 @@ require (
 	github.com/mholt/archiver/v3 v3.5.1 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
-	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/nwaples/rardecode v1.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.2 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect

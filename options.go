@@ -42,7 +42,7 @@ func (c *CustomPrettyRenderer) ApplyToPrinterContainer(cfg *PrinterContainer) {
 }
 
 func (c *CustomPrettyRenderer) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
-	cfg.printerOptions = append(cfg.printerOptions, c)
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
 }
 
 func (c *CustomPrettyRenderer) ApplyPrettyPrinterOption(cfg *Pretty) {
@@ -52,11 +52,11 @@ func (c *CustomPrettyRenderer) ApplyPrettyPrinterOption(cfg *Pretty) {
 // CustomPrettyFormatting
 
 type CustomPrettyFormatting struct {
-	formatting style.Formatting
+	formatting *style.Formatting
 }
 
 // WithPrettyFormatting sets a custom pretty formatting.
-func WithPrettyFormatting(formatting style.Formatting) *CustomPrettyFormatting {
+func WithPrettyFormatting(formatting *style.Formatting) *CustomPrettyFormatting {
 	return &CustomPrettyFormatting{
 		formatting: formatting,
 	}
@@ -67,11 +67,14 @@ func (c *CustomPrettyFormatting) ApplyToPrinterContainer(cfg *PrinterContainer) 
 }
 
 func (c *CustomPrettyFormatting) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
-	cfg.printerOptions = append(cfg.printerOptions, c)
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
 }
 
 func (c *CustomPrettyFormatting) ApplyPrettyPrinterOption(cfg *Pretty) {
-	cfg.defaultRenderConfig.Formatting = c.formatting
+	if c == nil || c.formatting == nil {
+		return
+	}
+	cfg.defaultRenderConfig.Formatting = *c.formatting
 }
 
 // CustomPrettyLayout
@@ -92,7 +95,7 @@ func (c *CustomPrettyLayout) ApplyToPrinterContainer(cfg *PrinterContainer) {
 }
 
 func (c *CustomPrettyLayout) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
-	cfg.printerOptions = append(cfg.printerOptions, c)
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
 }
 
 func (c *CustomPrettyLayout) ApplyPrettyPrinterOption(cfg *Pretty) {
@@ -102,13 +105,13 @@ func (c *CustomPrettyLayout) ApplyPrettyPrinterOption(cfg *Pretty) {
 // CustomPrettyStyle
 
 type CustomPrettyStyle struct {
-	style *style.Config
+	cfg *style.Config
 }
 
 // WithPrettyStyle sets a custom pretty style.
-func WithPrettyStyle(style *style.Config) *CustomPrettyStyle {
+func WithPrettyStyle(cfg *style.Config) *CustomPrettyStyle {
 	return &CustomPrettyStyle{
-		style: style,
+		cfg: cfg,
 	}
 }
 
@@ -117,9 +120,9 @@ func (c *CustomPrettyStyle) ApplyToPrinterContainer(cfg *PrinterContainer) {
 }
 
 func (c *CustomPrettyStyle) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
-	cfg.printerOptions = append(cfg.printerOptions, c)
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
 }
 
 func (c *CustomPrettyStyle) ApplyPrettyPrinterOption(cfg *Pretty) {
-	cfg.defaultRenderConfig = c.style
+	cfg.defaultRenderConfig = c.cfg
 }

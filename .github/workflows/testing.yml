@@ -54,6 +54,9 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x # for mkdocs
       - name: "Format *.md files"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:

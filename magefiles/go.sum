@@ -91,8 +91,8 @@ github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 h1:nIPpBwaJSVYIxUFsDv3M8ofm
 github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8/go.mod h1:HUYIGzjTL3rfEspMxjDjgmT5uz5wzYJKVo23qUhYTos=
 github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 h1:QldyIu/L63oPpyvQmHgvgickp1Yw510KJOqX7H24mg8=
 github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778/go.mod h1:2MuV+tbUrU1zIOPMxZ5EncGwgmMJsa+9ucAQZXxsObs=
-go.szostok.io/magex v0.0.0-20220728204812-aba09193b9ce h1:bm13XU49gG0d1Md+qcEODsH9AoDMd2Q0Vo43vMy9QkU=
-go.szostok.io/magex v0.0.0-20220728204812-aba09193b9ce/go.mod h1:KYG9H9qrQdtpoUc2ugjHTeiIKdcnAmaWqeI1arLZOgo=
+go.szostok.io/magex v0.0.0-20220730010718-0b22ae609432 h1:qRKnT0uvdnhTnhAcHc4dYWpOR6Lsgen6KuthL7vrIBc=
+go.szostok.io/magex v0.0.0-20220730010718-0b22ae609432/go.mod h1:KYG9H9qrQdtpoUc2ugjHTeiIKdcnAmaWqeI1arLZOgo=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200414173820-0848c9571904 h1:bXoxMPcSLOq08zI3/c5dEBT6lE4eh+jOh886GHrn6V8=
 golang.org/x/crypto v0.0.0-20200414173820-0848c9571904/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=

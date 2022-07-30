@@ -43,7 +43,7 @@ theme:
     - search.suggest
     - navigation.tabs
     - content.tabs.link
-
+    - content.code.annotate
 edit_uri: edit/main/docs/
 
 nav:
@@ -53,23 +53,24 @@ nav:
       - Runnable Examples: examples.md
       - Troubleshooting: troubleshooting.md
   - Get Started:
+      - get-started/index.md
       - Usage:
-          - customization/usage/index.md
-          - customization/usage/cobra.md
-          - customization/usage/printer.md
-          - customization/usage/plain.md
-          - customization/usage/urfave-cli.md
+          - get-started/usage/index.md
+          - get-started/usage/cobra.md
+          - get-started/usage/printer.md
+          - get-started/usage/plain.md
+          - get-started/usage/urfave-cli.md
       - Build (-ldflags):
-          - customization/build-ldflags/index.md
-          - customization/build-ldflags/goreleaser.md
-          - customization/build-ldflags/makefile.md
-          - customization/build-ldflags/magefile.md
+          - get-started/build-ldflags/index.md
+          - get-started/build-ldflags/goreleaser.md
+          - get-started/build-ldflags/makefile.md
+          - get-started/build-ldflags/magefile.md
   - Customization:
       - Pretty Style:
           - customization/pretty/index.md
           - customization/pretty/format.md
           - customization/pretty/layout.md
-          - customization/pretty/custom-branding.md
+          - customization/pretty/custom-renderer.md
       - Upgrade notice:
           - customization/upgrade-notice/index.md
 

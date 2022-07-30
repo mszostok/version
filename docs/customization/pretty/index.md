@@ -4,9 +4,7 @@ Did you find your muse? or wants to align with your cool branding?
 
 **We've got your back!**
 
-## Options
-
-### Go believers
+## Go believers
 
 You can define both the formatting and layout using Go code. With dedicated functions:
 
@@ -15,7 +13,7 @@ You can define both the formatting and layout using Go code. With dedicated func
 
 you can achieve what you need without leaving you favourite language.
 
-### I come from K8s ecosystem
+## I come from K8s ecosystem
 
 So YAMLs, then? Yes! However, we are not so strict, you can also provide a JSON if you want.
 

@@ -7,8 +7,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// TODO: func options to inform if server version
-
 var example = `
 <cli> version
 <cli> version -o=json
@@ -18,7 +16,7 @@ var example = `
 `
 
 type CobraExtensionOptions struct {
-	printerOptions []PrinterContainerOption
+	PrinterOptions []PrinterContainerOption
 }
 
 // NewCobraCmd returns a root cobra.Command for printing CLI version.
@@ -28,7 +26,7 @@ func NewCobraCmd(opts ...CobraExtensionOption) *cobra.Command {
 		opt.ApplyCobraExtensionOption(&options)
 	}
 
-	printer := NewPrinter(options.printerOptions...)
+	printer := NewPrinter(options.PrinterOptions...)
 	CollectFromBuildInfo()
 
 	ver := &cobra.Command{

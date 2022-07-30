@@ -16,7 +16,7 @@ These fields can be access in your Go template definition:
 | `.DirtyBuild` | Dirty build value, set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.modified` tag. |
 | `.GoVersion`  | Go version taken from `runtime.Version()`.                                                                   |
 | `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                   |
-| `.Platform`   | Platform build, in format of  `runtime.GOOS/runtime.GOARCH`.                                                 |
+| `.Platform`   | Platform build, in format of `runtime.GOOS/runtime.GOARCH`.                                                  |
 
 ## Go
 

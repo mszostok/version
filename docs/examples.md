@@ -55,3 +55,39 @@ go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example
 ./example -oyaml
 ./example version -oshort
 ```
+
+## [Custom Formatting](https://github.com/mszostok/version/tree/main/example/custom-formatting/main.go)
+
+![](assets/examples/screen-custom-formatting-.png)
+
+```bash
+# Build
+go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-formatting
+
+# Showcase
+./example
+```
+
+## [Custom Layout](https://github.com/mszostok/version/tree/main/example/custom-layout/main.go)
+
+![](assets/examples/screen-custom-layout-.png)
+
+```bash
+# Build
+go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-layout
+
+# Showcase
+./example
+```
+
+## [Custom Renderer](https://github.com/mszostok/version/tree/main/example/custom-renderer/main.go)
+
+![](assets/examples/screen-custom-renderer-.png)
+
+```bash
+# Build
+go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-renderer
+
+# Showcase
+./example
+```
