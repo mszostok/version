@@ -26,7 +26,7 @@ type PrinterContainer struct {
 	printers          map[OutputFormat]Printer
 	name              string
 	upgradeNotice     *upgrade.GitHubDetector
-	upgradeNoticeChan chan bool
+	upgradeNoticeChan chan checkRelease
 }
 
 type PrinterContainerOptions struct {
@@ -51,7 +51,7 @@ func NewPrinter(customize ...PrinterContainerOption) *PrinterContainer {
 		name:              os.Args[0],
 		output:            PrettyFormat,
 		upgradeNotice:     opts.upgradeNotice,
-		upgradeNoticeChan: make(chan bool, 1),
+		upgradeNoticeChan: make(chan checkRelease, 1),
 	}
 
 	return p
@@ -69,7 +69,7 @@ func (r *PrinterContainer) OutputFormat() OutputFormat {
 
 // Print prints Info object in requested format.
 func (r *PrinterContainer) Print(w io.Writer) error {
-	go r.checkReleasesIfNeeded()
+	go r.checkLatestReleaseIfNeeded()
 
 	printer, found := r.printers[r.output]
 	if !found {
@@ -114,12 +114,16 @@ func (r *PrinterContainer) printUpgradeNoticeIfAvailable() error {
 		return nil
 	}
 
-	detectedNewVersion := <-r.upgradeNoticeChan
-	if !detectedNewVersion {
+	release := <-r.upgradeNoticeChan
+	if release.CheckErr != nil {
+		return release.CheckErr
+	}
+
+	if !release.Out.Found {
 		return nil
 	}
 
-	upgradeNotice, err := r.upgradeNotice.Render()
+	upgradeNotice, err := r.upgradeNotice.Render(release.Out.ReleaseInfo)
 	if err != nil {
 		return err
 	}
@@ -128,9 +132,20 @@ func (r *PrinterContainer) printUpgradeNoticeIfAvailable() error {
 	return err
 }
 
-func (r *PrinterContainer) checkReleasesIfNeeded() {
+type checkRelease struct {
+	CheckErr error
+	Out      upgrade.LookForLatestReleaseOutput
+}
+
+func (r *PrinterContainer) checkLatestReleaseIfNeeded() {
 	if r.upgradeNotice == nil {
 		return
 	}
-	r.upgradeNoticeChan <- r.upgradeNotice.CheckForUpdate(version)
+	out, err := r.upgradeNotice.LookForLatestRelease(upgrade.LookForLatestReleaseInput{
+		CurrentVersion: version,
+	})
+	r.upgradeNoticeChan <- checkRelease{
+		Out:      out,
+		CheckErr: err,
+	}
 }

@@ -4,40 +4,45 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path/filepath"
 	"strings"
-	"sync"
 	"time"
 
-	"github.com/gookit/color"
 	"github.com/hashicorp/go-version"
 
 	"github.com/mszostok/version/style"
 )
 
+const stateFileName = "upgrade-state.yaml"
+
 type (
-	RenderFunc       func(in *Info) (string, error)
-	PostRenderFunc   func(body string) (string, error)
+	// RenderFunc represents render function signature.
+	RenderFunc func(in *Info) (string, error)
+	// PostRenderFunc represents post render function signature.
+	PostRenderFunc func(body string) (string, error)
+	// IsVerGreaterFunc represents version check function signature.
 	IsVerGreaterFunc func(current string, new string) bool
-	Options          func(options *GitHubDetector)
+	// Options represents function mutating default options.
+	Options func(options *GitHubDetector)
 )
 
+// GitHubDetector provides functionality to check GitHub for project's latest release.
 type GitHubDetector struct {
 	customRenderFn     RenderFunc
 	postRenderFn       PostRenderFunc
 	style              *style.Config
 	repo               string
-	mux                sync.RWMutex
-	info               *Info
 	stateFilePath      string
 	isVerGreater       IsVerGreaterFunc
 	updateCheckTimeout time.Duration
 	recheckInterval    time.Duration
 }
 
+// NewGitHubDetector returns GitHubDetector instance.
 func NewGitHubDetector(owner, repo string, opts ...Options) *GitHubDetector {
 	gh := GitHubDetector{
 		style:              style.DefaultConfig(defaultLayoutGoTpl),
-		stateFilePath:      "/tmp/state.yml",
+		stateFilePath:      filepath.Join(ConfigDir(), stateFileName),
 		repo:               fmt.Sprintf("%s/%s", owner, repo),
 		isVerGreater:       semvVerGreater,
 		updateCheckTimeout: 10 * time.Second,
@@ -46,28 +51,13 @@ func NewGitHubDetector(owner, repo string, opts ...Options) *GitHubDetector {
 	for _, opt := range opts {
 		opt(&gh)
 	}
-	//if err := options.Validate(); err != nil {
-	//	return "", err
-	//}
 
 	return &gh
 }
 
-func (gh *GitHubDetector) Validate() error {
-	if gh == nil {
-		return errors.New("config is nil")
-	}
-	if gh.repo == "" {
-		return errors.New("repository URL is required")
-	}
-	return nil
-}
-
-func (gh *GitHubDetector) Render() (string, error) {
-	if err := gh.Validate(); err != nil {
-		return "", err
-	}
-	body, err := gh.render()
+// Render returns rendered input version with configured style.
+func (gh *GitHubDetector) Render(info *Info) (string, error) {
+	body, err := gh.render(info)
 	if err != nil {
 		return "", err
 	}
@@ -79,50 +69,73 @@ func (gh *GitHubDetector) Render() (string, error) {
 	return body, nil
 }
 
-func (gh *GitHubDetector) render() (string, error) {
+// LookForLatestReleaseOutput holds output data for LookForLatestRelease function.
+type LookForLatestReleaseOutput struct {
+	Found       bool
+	ReleaseInfo *Info
+}
+
+// LookForLatestReleaseInput holds input data for LookForLatestRelease function.
+type LookForLatestReleaseInput struct {
+	CurrentVersion string
+}
+
+// LookForLatestRelease if a given time elapsed, check project's latest release.
+func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (LookForLatestReleaseOutput, error) {
+	var empty LookForLatestReleaseOutput
+	if err := gh.validate(); err != nil { // TODO: move to constructor
+		return empty, err
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), gh.updateCheckTimeout)
+	defer cancel()
+
+	rel, err := GetLatestRelease(ctx, gh.stateFilePath, gh.repo, gh.recheckInterval)
+	if err != nil || rel == nil {
+		return empty, err
+	}
+	if !gh.isVerGreater(in.CurrentVersion, rel.Version) {
+		return empty, err
+	}
+
+	return LookForLatestReleaseOutput{
+		Found: true,
+		ReleaseInfo: &Info{
+			Version:    in.CurrentVersion,
+			NewVersion: rel.Version,
+			ReleaseURL: rel.URL,
+		},
+	}, nil
+}
+
+func (gh *GitHubDetector) render(info *Info) (string, error) {
 	if gh.customRenderFn != nil {
-		return gh.customRenderFn(gh.info)
+		return gh.customRenderFn(info)
 	}
 
 	renderBody := style.NewGoTemplateRender(gh.style)
-	body, err := renderBody.Render(gh.info)
+	body, err := renderBody.Render(info)
 	if err != nil {
 		return "", err
 	}
 	return body, nil
 }
 
-func (gh *GitHubDetector) CheckForUpdate(currentVersion string) bool {
-	ctx, cancel := context.WithTimeout(context.Background(), gh.updateCheckTimeout)
-	defer cancel()
-
-	rel, err := GetLatestRelease(ctx, gh.stateFilePath, gh.repo, gh.recheckInterval)
-	if err != nil || rel == nil {
-		fmt.Println(err)
-		return false
+func (gh *GitHubDetector) validate() error {
+	if gh == nil {
+		return errors.New("config cannot be nil")
 	}
-	if !gh.isVerGreater(currentVersion, rel.Version) {
-		return false
+	if gh.repo == "" {
+		return errors.New("repository URL is required")
 	}
-
-	gh.mux.Lock()
-	defer gh.mux.Unlock()
-
-	gh.info = &Info{
-		Version:     currentVersion,
-		NewVersion:  rel.Version,
-		BrewUpgrade: fmt.Sprintf("To upgrade, run: %s", color.Gray.Sprint("brew update && brew upgrade gh")),
-		ReleaseURL:  rel.URL,
-	}
-
-	return true
+	return nil
 }
 
-func semvVerGreater(current, new string) bool {
+func semvVerGreater(current, got string) bool {
 	current = strings.TrimPrefix(current, "v")
-	new = strings.TrimPrefix(new, "v")
+	got = strings.TrimPrefix(got, "v")
 	currv, curre := version.NewVersion(current)
-	newv, newe := version.NewVersion(new)
+	newv, newe := version.NewVersion(got)
 
 	return curre == nil && newe == nil && newv.GreaterThan(currv)
 }

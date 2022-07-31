@@ -45,7 +45,7 @@ func GetLatestRelease(ctx context.Context, stateFilePath, repo string, minRechec
 
 func getLatestReleaseInfo(ctx context.Context, repo string) (*ReleaseInfoResponse, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -101,11 +101,11 @@ func setStateEntry(stateFilePath string, t time.Time) error {
 		return err
 	}
 
-	err = os.MkdirAll(filepath.Dir(stateFilePath), 0755)
+	err = os.MkdirAll(filepath.Dir(stateFilePath), 0o755)
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile(stateFilePath, content, 0600)
+	err = os.WriteFile(stateFilePath, content, 0o600)
 	return err
 }
