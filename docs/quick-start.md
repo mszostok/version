@@ -63,4 +63,4 @@ See the customization documentation for more guidelines on how to meet what you 
 - [usage examples](/get-started/usage)
 
 - [build options](/get-started/build-ldflags)
-- and [pretty format customization](/customization/pretty)
+- and [customization](/customization/)
