@@ -35,7 +35,7 @@ func (p *YAML) Print(in *Info, w io.Writer) error {
 	return err
 }
 
-func yamlLine(k string, v any, quote bool) string {
+func yamlLine(k string, v interface{}, quote bool) string {
 	key := color.New(color.Yellow).Sprintf
 	val := color.White.Sprintf
 

@@ -25,10 +25,11 @@ go get go.szostok.io/version
 - Print version in YAML, JSON, short and pretty formats
 - Parse any date strings
 - Print date in the local time
-- Autodiscover installation method
+<!--- - Autodiscover installation method --->
 - Display an upgrade notice if a newer version was released
-- Highly customizable pretty output format
+- Highly customizable output format
 - No `init()` function usage inside this package
+<!--- - All provided functionality is fully tested to ensure no regression --->
 
 <br />
 <img src="./assets/pretty-gif.gif" width="74%" align="right"/>

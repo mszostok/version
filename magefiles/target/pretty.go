@@ -37,7 +37,7 @@ func EmbedDefaultPrettyLayout() {
 	replacePrettyExample(layoutMDFilePath, "Layout", layout)
 }
 
-func replacePrettyExample(fileName, sectionName string, in any) {
+func replacePrettyExample(fileName, sectionName string, in interface{}) {
 	// YAML
 	var buff bytes.Buffer
 	buff.WriteString("```yaml\n")
