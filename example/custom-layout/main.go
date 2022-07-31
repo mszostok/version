@@ -12,7 +12,7 @@ func main() {
 	version.CollectFromBuildInfo()
 
 	printer := version.NewPrinter(version.WithPrettyLayout(style.Layout{
-		GoTemplate: style.BoxLayoutGoTpl,
+		GoTemplate: version.PrettyBoxLayoutGoTpl,
 	}))
 	if err := printer.Print(os.Stdout); err != nil {
 		log.Fatal(err)

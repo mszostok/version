@@ -11,7 +11,7 @@ import (
 func main() {
 	version.CollectFromBuildInfo()
 
-	formatting := style.DefaultConfig().Formatting
+	formatting := style.DefaultFormatting()
 	formatting.Header = style.Header{
 		Prefix: "💡 ",
 		FormatPrimitive: style.FormatPrimitive{
@@ -23,7 +23,7 @@ func main() {
 	}
 	formatting.Key.Color = "yellow"
 	formatting.Val.Color = ""
-	printer := version.NewPrinter(version.WithPrettyFormatting(formatting))
+	printer := version.NewPrinter(version.WithPrettyFormatting(&formatting))
 	if err := printer.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}

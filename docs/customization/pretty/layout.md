@@ -1,7 +1,7 @@
 # Layout
 
-!!! tip
-    Layout is mostly about structured arrangement of a pretty version's data.
+!!! note ""
+    Layout focuses on structured arrangement of a pretty version's data.
 
 To define the layout use the [Go templating](https://pkg.go.dev/html/template). You can use also [version's pkg built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [formatting settings](./format.md). Additionally, all helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
 
@@ -20,7 +20,23 @@ These fields can be access in your Go template definition:
 
 ## Go
 
-Example usage:
+!!! tip
+
+    Want to try? See the [custom layout](/examples#custom-layout) example!
+
+You can the use predefined [Box layout](https://github.com/mszostok/version/blob/ce5cb41430b71d4bfe21280f4d440257d030280e/style/layout.go#L25):
+
+```go
+func main() {
+	// ...
+	layout := style.Layout{
+		GoTemplate: version.PrettyBoxLayoutGoTpl,
+	}
+	version.NewPrinter(version.WithPrettyLayout(layout))
+}
+```
+
+or provide your own:
 
 ```go
 var CustomLayoutGoTpl = `
@@ -37,6 +53,7 @@ var CustomLayoutGoTpl = `
 `
 
 func main() {
+	// ...
 	layout := style.Layout{
 		GoTemplate: CustomLayoutGoTpl,
 	}
@@ -44,7 +61,12 @@ func main() {
 }
 ```
 
+
 ## Config file
+
+!!! pied-piper "Coming soon"
+
+    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
 
 The config file can be loaded by:
 
@@ -72,7 +94,7 @@ The config file can be loaded by:
 
 === "JSON"
 
-    !!! pied-piper "Coming soon"
+    !!! note ""
 
         You need to admit that it's not the best option for multiline strings 😬
 

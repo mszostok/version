@@ -3,9 +3,9 @@ package style
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"os"
 	"strings"
+	"text/template"
 	"time"
 
 	"github.com/Masterminds/sprig/v3"
@@ -28,9 +28,9 @@ func NewGoTemplateRender(cfg *Config) *GoTemplateRender {
 }
 
 // Render renders input data based on configured given style.
-func (r *GoTemplateRender) Render(in any) (string, error) {
+func (r *GoTemplateRender) Render(in interface{}) (string, error) {
 	tpl, err := template.New("pretty").
-		Funcs(sprig.FuncMap()).
+		Funcs(sprig.TxtFuncMap()).
 		Funcs(colorFuncMap).
 		Funcs(r.styleFuncMap()).
 		Funcs(r.generalHelpersFuncMap()).

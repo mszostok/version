@@ -29,11 +29,11 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - Print version in YAML, JSON, short and pretty formats
 - Parse any date strings
 - Print date in the local time
-- Autodiscover installation method
+<!--- - Autodiscover installation method --->
 - Display an upgrade notice if a newer version was released
-- Highly customizable pretty output format
+- Highly customizable output format
 - No `init()` function usage inside this package
-- All provided functionality is fully tested to ensure no regression
+<!--- - All provided functionality is fully tested to ensure no regression --->
 
 <br /><br />
 

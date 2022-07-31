@@ -12,6 +12,7 @@ import (
 	"github.com/samber/lo"
 	"gopkg.in/yaml.v3"
 
+	"github.com/mszostok/version"
 	"github.com/mszostok/version/style"
 )
 
@@ -21,24 +22,22 @@ const (
 )
 
 func EmbedDefaultPrettyFormatting() {
-	cfg := style.DefaultConfig()
-	formatting := map[string]any{ // workaround omit empty struct for JSON marshaller
-		"formatting": cfg.Formatting,
+	formatting := map[string]any{
+		"formatting": style.DefaultFormatting(),
 	}
 
 	replacePrettyExample(formatMDFilePath, "Format", formatting)
 }
 
 func EmbedDefaultPrettyLayout() {
-	cfg := style.DefaultConfig()
-	layout := map[string]any{ // workaround omit empty struct for JSON marshaller
-		"layout": cfg.Layout,
+	layout := map[string]any{
+		"layout": version.PrettyKVLayoutGoTpl,
 	}
 
 	replacePrettyExample(layoutMDFilePath, "Layout", layout)
 }
 
-func replacePrettyExample(fileName, sectionName string, in any) {
+func replacePrettyExample(fileName, sectionName string, in interface{}) {
 	// YAML
 	var buff bytes.Buffer
 	buff.WriteString("```yaml\n")
