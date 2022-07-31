@@ -4,7 +4,7 @@ import "go.szostok.io/version"
 
 Importable Go package to present your CLI version in a classy way. All magic included!
 
-![](docs/assets/preview.png)
+![](docs/assets/preview.gif)
 
 Like the idea? Give a GitHub star ⭐!
 
@@ -27,12 +27,10 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - For Go 1.18+ detect `version`, `commit`, `commitDate`, `dirtyBuild` automatically
   - Allow to override the data via `-ldflags`
 - Print version in YAML, JSON, short and pretty formats
-- Parse any date strings
-- Print date in the local time
-<!--- - Autodiscover installation method --->
-- Display an upgrade notice if a newer version was released
+- Detects and display an upgrade notice if a newer version was released
 - Highly customizable output format
-- No `init()` function usage inside this package
+- Parse any dates and print it in the local time
+<!--- - Autodiscover installation method --->
 <!--- - All provided functionality is fully tested to ensure no regression --->
 
 <br /><br />
@@ -41,7 +39,7 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 
 ### `pretty` format
 
-There are two different built-in styles. However, you can easily create your own. You can customize formatting or layout only or do both.
+There are two different built-in styles. However, you can easily create your own. You can customize formatting or layout or provide own renderer.
 <br /><br /> <br /><br /> <br /><br />
 
 <img src="./docs/assets/json.png" width="65%" align="left"/>
