@@ -62,6 +62,10 @@ func getLatestReleaseInfo(ctx context.Context, repo string) (*ReleaseInfoRespons
 		return nil, err
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("go unexpected status code %v", resp.Status)
+	}
+
 	var latestRelease ReleaseInfoResponse
 	err = json.Unmarshal(rawBody, &latestRelease)
 	if err != nil {

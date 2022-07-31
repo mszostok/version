@@ -58,6 +58,7 @@ main() {
 	# Medium
 	setup "custom-pretty-cmd"
 	sleep 1
+	capture "upgrade-notice-sub-cmd" "version check"
 
 	capture "upgrade-notice-box" "version"
 

@@ -24,7 +24,9 @@ func NewRoot() *cobra.Command {
 		upgrade.WithLayout(&style.Layout{
 			GoTemplate: forBoxLayoutGoTpl,
 		}),
-		upgrade.WithPostRenderHook(SprintInBox),
+		upgrade.WithPostRenderHook(func(body string) (string, error) {
+			return body + "\ncustom footer", nil
+		}),
 	}
 
 	format := style.DefaultFormatting()
