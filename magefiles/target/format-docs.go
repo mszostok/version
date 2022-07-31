@@ -14,6 +14,10 @@ var excludedFromFormatting = []string{
 	"docs/examples.md",
 	"docs/customization/pretty/layout.md",
 	"docs/customization/pretty/format.md",
+	"docs/customization/pretty/custom-renderer.md",
+	"docs/customization/index.md",
+	"docs/customization/extra-fields.md",
+	"docs/customization/omit-unset.md",
 }
 
 func FmtDocs(onlyCheck bool) error {

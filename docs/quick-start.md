@@ -62,6 +62,5 @@ As you saw, in a few seconds, you got a powerful `version` command! However, thi
 See the customization documentation for more guidelines on how to meet what you need. For example:
 - [usage examples](/get-started/usage)
 
-
 - [build options](/get-started/build-ldflags)
 - and [pretty format customization](/customization/pretty)
