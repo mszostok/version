@@ -63,7 +63,7 @@ func getLatestReleaseInfo(ctx context.Context, repo string) (*ReleaseInfoRespons
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("go unexpected status code %v", resp.Status)
+		return nil, fmt.Errorf("got unexpected status code %v", resp.Status)
 	}
 
 	var latestRelease ReleaseInfoResponse
