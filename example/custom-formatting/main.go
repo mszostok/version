@@ -11,7 +11,7 @@ import (
 func main() {
 	version.CollectFromBuildInfo()
 
-	formatting := style.DefaultConfig().Formatting
+	formatting := style.DefaultFormatting()
 	formatting.Header = style.Header{
 		Prefix: "💡 ",
 		FormatPrimitive: style.FormatPrimitive{

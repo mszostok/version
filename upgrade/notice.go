@@ -8,46 +8,35 @@ import (
 	"sync"
 	"time"
 
-	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/gookit/color"
 	"github.com/hashicorp/go-version"
-	"github.com/muesli/reflow/indent"
 
 	"github.com/mszostok/version/style"
 )
 
-var (
-	defaultLayoutGoTpl = heredoc.Doc(`
-		│ A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-		│ {{ .ReleaseURL  | underscore | blue }}`)
-)
-
 type (
 	RenderFunc       func(in *Info) (string, error)
+	PostRenderFunc   func(body string) (string, error)
 	IsVerGreaterFunc func(current string, new string) bool
 	Options          func(options *GitHubDetector)
 )
 
 type GitHubDetector struct {
-	customRenderFn RenderFunc
-	style          *style.Config
-	repo           string
-	mux            sync.RWMutex
-	info           *Info
-	stateFilePath  string
-
-	boxed              bool
-	boxedColor         BoxColor
+	customRenderFn     RenderFunc
+	postRenderFn       PostRenderFunc
+	style              *style.Config
+	repo               string
+	mux                sync.RWMutex
+	info               *Info
+	stateFilePath      string
 	isVerGreater       IsVerGreaterFunc
 	updateCheckTimeout time.Duration
 	recheckInterval    time.Duration
 }
 
 func NewGitHubDetector(owner, repo string, opts ...Options) *GitHubDetector {
-	styleCfg := style.DefaultConfig()
-	styleCfg.Layout.GoTemplate = defaultLayoutGoTpl
 	gh := GitHubDetector{
-		style:              styleCfg,
+		style:              style.DefaultConfig(defaultLayoutGoTpl),
 		stateFilePath:      "/tmp/state.yml",
 		repo:               fmt.Sprintf("%s/%s", owner, repo),
 		isVerGreater:       semvVerGreater,
@@ -78,6 +67,19 @@ func (gh *GitHubDetector) Render() (string, error) {
 	if err := gh.Validate(); err != nil {
 		return "", err
 	}
+	body, err := gh.render()
+	if err != nil {
+		return "", err
+	}
+
+	if gh.postRenderFn != nil {
+		return gh.postRenderFn(body)
+	}
+
+	return body, nil
+}
+
+func (gh *GitHubDetector) render() (string, error) {
 	if gh.customRenderFn != nil {
 		return gh.customRenderFn(gh.info)
 	}
@@ -87,12 +89,7 @@ func (gh *GitHubDetector) Render() (string, error) {
 	if err != nil {
 		return "", err
 	}
-
-	if !gh.boxed {
-		return indent.String(body+"\n", 2), nil
-	}
-
-	return SprintInBox(body, gh.boxedColor), nil
+	return body, nil
 }
 
 func (gh *GitHubDetector) CheckForUpdate(currentVersion string) bool {

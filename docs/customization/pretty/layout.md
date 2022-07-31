@@ -30,13 +30,13 @@ You can the use predefined [Box layout](https://github.com/mszostok/version/blob
 func main() {
 	// ...
 	layout := style.Layout{
-		GoTemplate: style.BoxLayoutGoTpl,
+		GoTemplate: version.PrettyBoxLayoutGoTpl,
 	}
 	version.NewPrinter(version.WithPrettyLayout(layout))
 }
 ```
 
-or provided your own:
+or provide your own:
 
 ```go
 var CustomLayoutGoTpl = `

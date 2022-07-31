@@ -11,6 +11,38 @@ var _ Printer = &Pretty{}
 
 type PrettyRenderFunc func(in *Info) (string, error)
 
+var (
+	// PrettyKVLayoutGoTpl prints all version data in a 'key  value' manner.
+	PrettyKVLayoutGoTpl = `
+{{ header }}
+
+  {{ key "Version" }}             {{ .Version                     | val }}
+  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
+  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}
+  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val }}
+  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val }}
+  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val }}
+  {{ key "Compiler" }}            {{ .Compiler                    | val }}
+  {{ key "Platform" }}            {{ .Platform                    | val }}
+`
+
+	// PrettyBoxLayoutGoTpl prints all version data in box.
+	// https://knowyourmeme.com/memes/this-is-fine
+	PrettyBoxLayoutGoTpl = `
+╭───{{ repeatMax 57 "─" header }}{{/* ─────────────────────────────────── */}}╮
+│                                  {{ repeatMax 25 " " ""                  }} │
+│  {{ key "Version" }}             {{ .Version                     | val   }} │
+│  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val   }} │
+│  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val   }} │
+│  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val   }} │
+│  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val   }} │
+│  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val   }} │
+│  {{ key "Compiler" }}            {{ .Compiler                    | val   }} │
+│  {{ key "Platform" }}            {{ .Platform                    | val   }} │
+╰───{{ repeatMax 57 "─" ""}}{{/* ──────────────────────────────────────── */}}╯
+`
+)
+
 // Pretty prints human-readable version.
 type Pretty struct {
 	customRenderFn      PrettyRenderFunc
@@ -20,7 +52,7 @@ type Pretty struct {
 
 func NewPrettyPrinter(opts ...PrettyPrinterOption) *Pretty {
 	p := &Pretty{
-		defaultRenderConfig: style.DefaultConfig(),
+		defaultRenderConfig: style.DefaultConfig(PrettyKVLayoutGoTpl),
 	}
 
 	for _, opt := range opts {

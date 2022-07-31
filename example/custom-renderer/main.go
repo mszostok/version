@@ -20,7 +20,7 @@ func main() {
 }
 
 func prettyRender(in *version.Info) (string, error) {
-	renderBody := style.NewGoTemplateRender(style.DefaultConfig())
+	renderBody := style.NewGoTemplateRender(style.DefaultConfig(version.PrettyKVLayoutGoTpl))
 	body, err := renderBody.Render(in)
 	if err != nil {
 		return "", err

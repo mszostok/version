@@ -15,6 +15,13 @@ func WithRenderer(renderer RenderFunc) Options {
 	}
 }
 
+// WithPostRenderHook sets a custom post render function.
+func WithPostRenderHook(renderer PostRenderFunc) Options {
+	return func(options *GitHubDetector) {
+		options.postRenderFn = renderer
+	}
+}
+
 // WithFormatting sets a custom pretty formatting.
 func WithFormatting(formatting *style.Formatting) Options {
 	if formatting == nil {
@@ -44,16 +51,6 @@ func WithStyle(cfg *style.Config) Options {
 	}
 	return func(options *GitHubDetector) {
 		options.style = cfg
-	}
-}
-
-// WithBoxed sets a box style.
-// Disabled by default.
-func WithBoxed(color BoxColor) Options {
-	return func(options *GitHubDetector) {
-		options.style.Layout.GoTemplate = forBoxLayoutGoTpl
-		options.boxed = true
-		options.boxedColor = color
 	}
 }
 

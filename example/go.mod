@@ -6,13 +6,14 @@ replace github.com/mszostok/version => ./..
 
 require (
 	github.com/Delta456/box-cli-maker/v2 v2.2.3-0.20220726152659-05b4b886eb7b
+	github.com/MakeNowJust/heredoc/v2 v2.0.1
 	github.com/mszostok/version v0.0.0-00010101000000-000000000000
+	github.com/muesli/reflow v0.3.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 )
 
 require (
-	github.com/MakeNowJust/heredoc/v2 v2.0.1 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
@@ -31,7 +32,6 @@ require (
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
-	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
