@@ -14,7 +14,7 @@ builds:
       - -X go.szostok.io/version.buildDate={{.Date}}
 ```
 
-The rest properties are set based on the built-in data. However, if you want to have a full customization, add:
+The rest properties are set based on the built-in data. However, if you want to have a full customization, use:
 
 ```yaml
 # .goreleaser.yaml

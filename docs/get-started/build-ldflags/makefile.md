@@ -24,7 +24,7 @@ GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
 VERSION?="dev"
 
-# The ldflags for the go build process to set the version related data.
+# The ldflags for the Go build process to set the version related data.
 GO_BUILD_VERSION_LDFLAGS=\
   -X go.szostok.io/version.version=$(VERSION) \
   -X go.szostok.io/version.buildDate=$(shell date +"%Y-%m-%dT%H:%M:%S%z") \

@@ -18,6 +18,8 @@ var excludedFromFormatting = []string{
 	"docs/customization/index.md",
 	"docs/customization/extra-fields.md",
 	"docs/customization/omit-unset.md",
+	"docs/customization/upgrade-notice/index.md",
+	"docs/customization/upgrade-notice/layout.md",
 }
 
 func FmtDocs(onlyCheck bool) error {

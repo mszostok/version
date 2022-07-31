@@ -1,6 +1,6 @@
 # Quick Start
 
-The quick start describes the most popular way of creating CLIs in Go. It futures, [Cobra](https://cobra.dev/) and [GoReleaser](https://goreleaser.com/).
+The quick start describes the most popular way of creating CLIs in Go. It uses [Cobra](https://cobra.dev/) and [GoReleaser](https://goreleaser.com/).
 
 ## Register `version` command
 

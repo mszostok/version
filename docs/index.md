@@ -68,6 +68,7 @@ YAML format can be useful for scripting purposes, e.g.
 ### `short` format
 
 Short format can be useful for CI purposes to easily validate that the correct version is used.
+
 <br /><br />
 
 ## <img src="./assets/bell-icon.png" /> Staying Informed

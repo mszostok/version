@@ -4,7 +4,7 @@ This page lists solutions to problems you might encounter with `go.szostok.io/ve
 
 ## Build binary doesn't have default version data
 
-If your binary doesn't have default version data, for example:
+Your binary doesn't have default version data. For example:
 
 ```bash
   Version             (devel)
@@ -24,13 +24,13 @@ Instead of running:
 go build -o example ./cmd/client/main.go
 ```
 
-Run
+Run:
 
 ```bash
 go build -o example ./cmd/client # NOTE: only folder specified.
 ```
 
-Difference
+Difference:
 
 ```diff
 -go build -o example ./cobra/main.go

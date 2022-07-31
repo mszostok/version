@@ -73,6 +73,10 @@ nav:
           - customization/pretty/custom-renderer.md
       - Upgrade notice:
           - customization/upgrade-notice/index.md
+          - About: customization/upgrade-notice/index.md
+          - customization/upgrade-notice/layout.md
+          - customization/upgrade-notice/custom-renderer.md
+          - "`version check` sub-command": customization/upgrade-notice/check-sub-command.md
       - Omit unset fields: customization/omit-unset.md
       - Extra fields: customization/extra-fields.md
 
