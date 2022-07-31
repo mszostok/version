@@ -24,19 +24,7 @@ These fields can be access in your Go template definition:
 
     Want to try? See the [custom layout](/examples#custom-layout) example!
 
-You can the use predefined [Box layout](https://github.com/mszostok/version/blob/ce5cb41430b71d4bfe21280f4d440257d030280e/style/layout.go#L25):
-
-```go
-func main() {
-	// ...
-	layout := style.Layout{
-		GoTemplate: version.PrettyBoxLayoutGoTpl,
-	}
-	version.NewPrinter(version.WithPrettyLayout(layout))
-}
-```
-
-or provide your own:
+Example usage:
 
 ```go
 var CustomLayoutGoTpl = `

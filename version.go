@@ -20,9 +20,10 @@ type Info struct {
 	Meta Meta `json:"-" yaml:"-"`
 }
 
-// TODO generic? so if fulfils you can pass struct with more "fields"
+// Meta holds additional version metadata.
+// TODO(https://github.com/mszostok/version/issues/14)
 type Meta struct {
-	Name string
+	CLIName string
 }
 
 // Get returns the overall codebase version.
@@ -36,13 +37,9 @@ type Meta struct {
 //      * commitDate is taken from the vcs.time tag.
 //      * dirtyBuild is taken from the vcs.modified tag.
 //   3. in their absence fallback to the settings in ./base.go.
-func Get(program ...string) *Info {
-	var n string
-	if len(program) > 0 {
-		n = program[0]
-	}
+func Get() *Info {
 	return &Info{
-		Meta:       Meta{Name: n},
+		Meta:       Meta{CLIName: name},
 		Version:    version,
 		GitCommit:  commit,
 		BuildDate:  buildDate,

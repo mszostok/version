@@ -18,8 +18,7 @@ func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
 
 func (r *GoTemplateRender) generalHelpersFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"commit":    r.commit,
-		"repeatMax": r.repeatMax,
+		"commit": r.commit,
 	}
 }
 

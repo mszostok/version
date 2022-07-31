@@ -24,7 +24,6 @@ type PrinterContainer struct {
 	output OutputFormat
 
 	printers          map[OutputFormat]Printer
-	name              string
 	upgradeNotice     *upgrade.GitHubDetector
 	upgradeNoticeChan chan checkRelease
 }
@@ -48,7 +47,6 @@ func NewPrinter(customize ...PrinterContainerOption) *PrinterContainer {
 			ShortFormat:  &Short{},
 			PrettyFormat: NewPrettyPrinter(opts.prettyOptions...),
 		},
-		name:              os.Args[0],
 		output:            PrettyFormat,
 		upgradeNotice:     opts.upgradeNotice,
 		upgradeNoticeChan: make(chan checkRelease, 1),
@@ -76,7 +74,7 @@ func (r *PrinterContainer) Print(w io.Writer) error {
 		return fmt.Errorf("printer %q is not available", r.output)
 	}
 
-	if err := printer.Print(Get(r.name), w); err != nil {
+	if err := printer.Print(Get(), w); err != nil {
 		return err
 	}
 

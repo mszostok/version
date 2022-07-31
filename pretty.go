@@ -9,7 +9,12 @@ import (
 
 var _ Printer = &Pretty{}
 
-type PrettyRenderFunc func(in *Info) (string, error)
+type (
+	// PrettyRenderFunc represents render function signature.
+	PrettyRenderFunc func(in *Info) (string, error)
+	// PrettyPostRenderFunc represents post render function signature.
+	PrettyPostRenderFunc func(body string) (string, error)
+)
 
 var (
 	// PrettyKVLayoutGoTpl prints all version data in a 'key  value' manner.
@@ -25,22 +30,6 @@ var (
   {{ key "Compiler" }}            {{ .Compiler                    | val }}
   {{ key "Platform" }}            {{ .Platform                    | val }}
 `
-
-	// PrettyBoxLayoutGoTpl prints all version data in box.
-	// https://knowyourmeme.com/memes/this-is-fine
-	PrettyBoxLayoutGoTpl = `
-╭───{{ repeatMax 57 "─" header }}{{/* ─────────────────────────────────── */}}╮
-│                                  {{ repeatMax 25 " " ""                  }} │
-│  {{ key "Version" }}             {{ .Version                     | val   }} │
-│  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val   }} │
-│  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val   }} │
-│  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val   }} │
-│  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val   }} │
-│  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val   }} │
-│  {{ key "Compiler" }}            {{ .Compiler                    | val   }} │
-│  {{ key "Platform" }}            {{ .Platform                    | val   }} │
-╰───{{ repeatMax 57 "─" ""}}{{/* ──────────────────────────────────────── */}}╯
-`
 )
 
 // Pretty prints human-readable version.
@@ -48,6 +37,7 @@ type Pretty struct {
 	customRenderFn      PrettyRenderFunc
 	defaultRender       *style.GoTemplateRender
 	defaultRenderConfig *style.Config
+	postRenderFunc      PrettyPostRenderFunc
 }
 
 func NewPrettyPrinter(opts ...PrettyPrinterOption) *Pretty {
@@ -68,6 +58,13 @@ func (p *Pretty) Print(in *Info, w io.Writer) error {
 	out, err := p.execute(in)
 	if err != nil {
 		return err
+	}
+
+	if p.postRenderFunc != nil {
+		out, err = p.postRenderFunc(out)
+		if err != nil {
+			return err
+		}
 	}
 
 	_, err = fmt.Fprint(w, out)

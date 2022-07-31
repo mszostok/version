@@ -130,6 +130,31 @@ func (c *CustomPrettyStyle) ApplyPrettyPrinterOption(cfg *Pretty) {
 	cfg.defaultRenderConfig = c.cfg
 }
 
+// PrettyPostRenderHook
+
+type PrettyPostRenderHook struct {
+	fn PrettyPostRenderFunc
+}
+
+// WithPrettyPostRenderHook sets post render function.
+func WithPrettyPostRenderHook(fn PrettyPostRenderFunc) *PrettyPostRenderHook {
+	return &PrettyPostRenderHook{
+		fn: fn,
+	}
+}
+
+func (c *PrettyPostRenderHook) ApplyToPrinterContainerOption(cfg *PrinterContainerOptions) {
+	cfg.prettyOptions = append(cfg.prettyOptions, c)
+}
+
+func (c *PrettyPostRenderHook) ApplyCobraExtensionOption(cfg *CobraExtensionOptions) {
+	cfg.PrinterOptions = append(cfg.PrinterOptions, c)
+}
+
+func (c *PrettyPostRenderHook) ApplyPrettyPrinterOption(cfg *Pretty) {
+	cfg.postRenderFunc = c.fn
+}
+
 // EnableUpgradeNotice
 
 type EnableUpgradeNotice struct {
