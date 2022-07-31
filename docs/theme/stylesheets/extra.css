@@ -73,21 +73,21 @@
 }
 
 :root {
-	--md-admonition-icon--pied-piper: url('https://img.icons8.com/dotty/80/000000/under-construction.png')
+	--md-admonition-icon--coming-soon: url('https://img.icons8.com/dotty/80/000000/under-construction.png')
 }
-.md-typeset .admonition.pied-piper,
-.md-typeset details.pied-piper {
+.md-typeset .admonition.coming-soon,
+.md-typeset details.coming-soon {
 	border-color: rgb(43, 155, 70);
 }
-.md-typeset .pied-piper > .admonition-title,
-.md-typeset .pied-piper > summary {
+.md-typeset .coming-soon > .admonition-title,
+.md-typeset .coming-soon > summary {
 	background-color: rgba(43, 155, 70, 0.1);
 }
-.md-typeset .pied-piper > .admonition-title::before,
-.md-typeset .pied-piper > summary::before {
+.md-typeset .coming-soon > .admonition-title::before,
+.md-typeset .coming-soon > summary::before {
 	background-color: rgb(43, 155, 70);
-	-webkit-mask-image: var(--md-admonition-icon--pied-piper);
-	mask-image: var(--md-admonition-icon--pied-piper);
+	-webkit-mask-image: var(--md-admonition-icon--coming-soon);
+	mask-image: var(--md-admonition-icon--coming-soon);
 }
 
 

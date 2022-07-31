@@ -1,6 +1,6 @@
 # Custom Renderer
 
-If the custom formatting and [layout](./layout.md) don't fulfil you needs, you can simply specify your own rendering function.
+If the custom formatting and [layout](./layout.md) don't fulfill you needs, you can simply specify your own rendering function.
 
 ```go
 // NewRoot returns a root cobra.Command for the whole CLI.
@@ -23,7 +23,7 @@ func NewRoot() *cobra.Command {
 	cmd.AddCommand(
 		// 1. Register 'version' command
 		version.NewCobraCmd(
-			// 2. Explict turn on upgrade notice
+			// 2. Explicit turn on upgrade notice
 			version.WithUpgradeNotice("mszostok", "codeowners-validator", opts...)),
 	)
 

@@ -33,7 +33,7 @@ Check the [`style.Formatting`](https://github.com/mszostok/version/blob/main/sty
 
 ## Config file
 
-!!! pied-piper "Coming soon"
+!!! coming-soon "Coming soon"
 
     See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
 

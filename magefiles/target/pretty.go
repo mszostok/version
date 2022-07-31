@@ -31,7 +31,7 @@ func EmbedDefaultPrettyFormatting() {
 
 func EmbedDefaultPrettyLayout() {
 	layout := map[string]any{
-		"layout": version.PrettyKVLayoutGoTpl,
+		"layout": style.Layout{GoTemplate: version.PrettyKVLayoutGoTpl},
 	}
 
 	replacePrettyExample(layoutMDFilePath, "Layout", layout)
