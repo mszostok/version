@@ -54,7 +54,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.x # for mkdocs
       - name: "Format *.md files"
