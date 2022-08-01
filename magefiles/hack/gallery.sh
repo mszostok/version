@@ -52,6 +52,8 @@ main() {
 	capture "cobra" "version"
 	capture "printer" ""
 	capture "printer" "-oyaml"
+	capture "printer" "-ojson"
+	capture "printer" "-oshort"
 
 	capture "custom-formatting" ""
 
