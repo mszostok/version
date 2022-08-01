@@ -6,7 +6,7 @@ repo_url: 'https://github.com/mszostok/version'
 copyright: 'Copyright &copy; 2022 Mateusz Szostok'
 
 theme:
-  custom_dir: docs/theme
+  custom_dir: docs/mkdocs-theme
   logo: assets/logo.png
   name: material
   palette:
@@ -48,10 +48,10 @@ edit_uri: edit/main/docs/
 
 nav:
   - Home:
-      - index.md
       - Quick Start: quick-start.md
       - Runnable Examples: examples.md
       - Troubleshooting: troubleshooting.md
+      - About: https://version.szostok.io
   - Get Started:
       - get-started/index.md
       - Usage:
@@ -88,8 +88,10 @@ extra:
       link: https://twitter.com/m_szostok
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/mszostok/
+  homepage: https://version.szostok.io
+
 extra_css:
-  - theme/stylesheets/extra.css
+  -  mkdocs-theme/stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.superfences
