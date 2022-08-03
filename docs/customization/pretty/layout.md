@@ -68,7 +68,7 @@ The config file can be loaded by:
     layout:
       goTemplate: |2
         {{ header }}
-
+    
           {{ key "Version" }}             {{ .Version                     | val }}
           {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
           {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}

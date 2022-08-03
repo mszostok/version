@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mszostok/version"
+	"go.szostok.io/version"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.

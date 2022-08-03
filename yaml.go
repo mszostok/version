@@ -5,7 +5,10 @@ import (
 	"io"
 	"strings"
 
-	"github.com/gookit/color"
+	"github.com/muesli/termenv"
+
+	"go.szostok.io/version/style/termenvx"
+	"go.szostok.io/version/term"
 )
 
 var _ Printer = &YAML{}
@@ -20,7 +23,11 @@ func (p *YAML) Print(in *Info, w io.Writer) error {
 	}
 	var buff strings.Builder
 
-	sep := color.New(color.Yellow).Sprint
+	profile := p.colorProfile(w)
+
+	sep := p.string(profile, termenv.ANSIYellow)
+	yamlLine := p.yamlLine(profile)
+
 	buff.WriteString(sep("---\n"))
 	buff.WriteString(yamlLine("version", in.Version, true))
 	buff.WriteString(yamlLine("gitCommit", in.GitCommit, false))
@@ -35,13 +42,33 @@ func (p *YAML) Print(in *Info, w io.Writer) error {
 	return err
 }
 
-func yamlLine(k string, v interface{}, quote bool) string {
-	key := color.New(color.Yellow).Sprintf
-	val := color.White.Sprintf
+func (p *YAML) yamlLine(profile termenv.Profile) func(k string, v interface{}, quote bool) string {
+	key := p.string(profile, termenv.ANSIYellow)
+	val := p.string(profile, termenv.ANSIWhite)
 
-	rv := fmt.Sprintf("%v", v)
-	if quote {
-		rv = fmt.Sprintf("%q", rv)
+	return func(k string, v interface{}, quote bool) string {
+		rv := fmt.Sprintf("%v", v)
+		if quote {
+			rv = fmt.Sprintf("%q", rv)
+		}
+		return key("%s: ", k) + val("%s\n", rv)
 	}
-	return key("%s: ", k) + val("%s\n", rv)
+}
+
+func (*YAML) string(p termenv.Profile, color termenv.Color) func(format string, args ...interface{}) string {
+	return func(format string, args ...interface{}) string {
+		msg := fmt.Sprintf(format, args...)
+		return termenv.
+			String(msg).
+			Foreground(p.Convert(color)).
+			String()
+	}
+}
+
+func (*YAML) colorProfile(w io.Writer) termenv.Profile {
+	if term.IsSmart(w) {
+		return termenvx.ColorProfile()
+	}
+
+	return termenv.Ascii
 }

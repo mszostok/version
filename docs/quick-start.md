@@ -10,8 +10,8 @@ package main
 import (
 	"os"
 
-	"github.com/mszostok/version"
 	"github.com/spf13/cobra"
+	"go.szostok.io/version"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.

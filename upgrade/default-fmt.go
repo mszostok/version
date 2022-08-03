@@ -3,8 +3,8 @@ package upgrade
 import "strings"
 
 var defaultLayoutGoTpl = removeStartingNewLines(`
-  │ A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-  │ {{ .ReleaseURL  | underscore | blue }}
+  │ A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
+  │ {{ .ReleaseURL  | Underline | Blue }}
 `)
 
 func removeStartingNewLines(in string) string {

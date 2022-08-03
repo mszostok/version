@@ -20,7 +20,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./cobra
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./cobra
 
     # Showcase
     ./example version -h
@@ -35,7 +35,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.version=0.6.0'" -o example ./upgrade-notice
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice
 
     # Showcase
     ./example version
@@ -49,7 +49,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.version=0.6.0'" -o example ./upgrade-notice-box
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-box
 
     # Showcase
     ./example version
@@ -64,7 +64,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./printer
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./printer
 
     # Showcase
     ./example
@@ -80,7 +80,7 @@
 
     ```bash
     # Build
-    go build  -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./plain
+    go build  -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./plain
 
     # Showcase
     ./example
@@ -93,7 +93,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-formatting
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-formatting
 
     # Showcase
     ./example
@@ -106,7 +106,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-layout
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-layout
 
     # Showcase
     ./example
@@ -119,7 +119,7 @@
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'github.com/mszostok/version.buildDate=`date`'" -o example ./custom-renderer
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-renderer
 
     # Showcase
     ./example

@@ -12,6 +12,7 @@ CURRENT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 REPO_ROOT_DIR=$(cd "${CURRENT_DIR}/../.." && pwd)
 readonly CURRENT_DIR
 readonly REPO_ROOT_DIR
+readonly ASSET_EXAMPLES_DIR="${REPO_ROOT_DIR}/docs/assets/examples"
 
 setup() {
 	cd "$CURRENT_DIR" || true
@@ -28,7 +29,7 @@ capture() {
 	clear
 
 	cd "$REPO_ROOT_DIR/example" || exit
-	go install -ldflags "-X 'github.com/mszostok/version.buildDate=$(date)' -X 'github.com/mszostok/version.version=v0.6.0'" ./$program
+	go install -ldflags "-X 'go.szostok.io/version.buildDate=$(date)' -X 'go.szostok.io/version.version=v0.6.1'" ./$program
 	cd "$HOME" || exit
 
 	# shellcheck disable=SC2059
@@ -37,7 +38,7 @@ capture() {
 	# shellcheck disable=SC2086
 	$program $ver
 
-	local filename="${REPO_ROOT_DIR}/docs/assets/examples/screen-$program-${ver// /_}.png"
+	local filename="${ASSET_EXAMPLES_DIR}/screen-$program-${ver// /_}.png"
 	rm -f "$filename" || true
 
 	# only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
@@ -45,8 +46,11 @@ capture() {
 }
 
 main() {
+	rm -rf "${ASSET_EXAMPLES_DIR}"
+	mkdir "${ASSET_EXAMPLES_DIR}"
 	# Big
 	setup "version-cmd"
+	sleep 1
 
 	capture "plain" ""
 	capture "cobra" "version"

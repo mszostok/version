@@ -12,8 +12,8 @@ import (
 	"github.com/samber/lo"
 	"gopkg.in/yaml.v3"
 
-	"github.com/mszostok/version"
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version"
+	"go.szostok.io/version/style"
 )
 
 const (

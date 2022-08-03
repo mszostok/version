@@ -8,9 +8,9 @@ import (
 	"github.com/muesli/reflow/indent"
 	"github.com/spf13/cobra"
 
-	"github.com/mszostok/version"
-	"github.com/mszostok/version/style"
-	"github.com/mszostok/version/upgrade"
+	"go.szostok.io/version"
+	"go.szostok.io/version/style"
+	"go.szostok.io/version/upgrade"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.
@@ -28,7 +28,7 @@ func NewRoot() *cobra.Command {
 	}
 
 	format := style.DefaultFormatting()
-	format.Header.Color = "yellow"
+	format.Header.Color = "Yellow"
 	cmd.AddCommand(
 		// 1. Register 'version' command
 		version.NewCobraCmd(
@@ -47,8 +47,8 @@ func main() {
 }
 
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-{{ .ReleaseURL  | underscore | blue }}`)
+A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
+{{ .ReleaseURL  | Underline | Blue }}`)
 
 func SprintInBox(body string) (string, error) {
 	cfg := box.Config{Px: 1, Py: 0, Type: "Round", Color: "Yellow", ContentAlign: "Left"}

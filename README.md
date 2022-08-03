@@ -27,7 +27,9 @@ Visit the [version.szostok.io](https://version.szostok.io) for complete document
 - For Go 1.18+ detect `version`, `commit`, `commitDate`, `dirtyBuild` automatically
   - Allow to override the data via `-ldflags`
 - Print version in YAML, JSON, short and pretty formats
-- Detects and display an upgrade notice if a newer version was released
+- Detect and display an upgrade notice if a newer version was released
+- Automatically disable color output for non-tty output streams
+  - Handle version and upgrade notice separately
 - Highly customizable output format
 - Parse any dates and print it in the local time
 <!--- - Autodiscover installation method --->

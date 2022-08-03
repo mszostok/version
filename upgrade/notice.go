@@ -10,7 +10,7 @@ import (
 
 	"github.com/hashicorp/go-version"
 
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version/style"
 )
 
 const stateFileName = "upgrade-state.yaml"
@@ -56,8 +56,8 @@ func NewGitHubDetector(owner, repo string, opts ...Options) *GitHubDetector {
 }
 
 // Render returns rendered input version with configured style.
-func (gh *GitHubDetector) Render(info *Info) (string, error) {
-	body, err := gh.render(info)
+func (gh *GitHubDetector) Render(info *Info, isSmartTerminal bool) (string, error) {
+	body, err := gh.render(info, isSmartTerminal)
 	if err != nil {
 		return "", err
 	}
@@ -109,13 +109,13 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	}, nil
 }
 
-func (gh *GitHubDetector) render(info *Info) (string, error) {
+func (gh *GitHubDetector) render(info *Info, isSmartTerminal bool) (string, error) {
 	if gh.customRenderFn != nil {
 		return gh.customRenderFn(info)
 	}
 
 	renderBody := style.NewGoTemplateRender(gh.style)
-	body, err := renderBody.Render(info)
+	body, err := renderBody.Render(info, isSmartTerminal)
 	if err != nil {
 		return "", err
 	}

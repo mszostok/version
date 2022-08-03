@@ -43,18 +43,18 @@ var defaultFormatting = Formatting{
 	Header: Header{
 		Prefix: "▓▓▓ ",
 		FormatPrimitive: FormatPrimitive{
-			Color: "magenta",
+			Color: "Magenta",
 		},
 	},
 	Key: Key{
 		FormatPrimitive{
-			Color:   "gray",
-			Options: []string{"bold"},
+			Color:   "Gray",
+			Options: []string{"Bold"},
 		},
 	},
 	Val: Val{
 		FormatPrimitive{
-			Color: "white",
+			Color: "White",
 		},
 	},
 	Date: Date{

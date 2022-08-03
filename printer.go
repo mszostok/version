@@ -9,7 +9,8 @@ import (
 
 	"github.com/spf13/pflag"
 
-	"github.com/mszostok/version/upgrade"
+	"go.szostok.io/version/term"
+	"go.szostok.io/version/upgrade"
 )
 
 // Printer is an interface that knows how to print Info object.
@@ -121,12 +122,15 @@ func (r *PrinterContainer) printUpgradeNoticeIfAvailable() error {
 		return nil
 	}
 
-	upgradeNotice, err := r.upgradeNotice.Render(release.Out.ReleaseInfo)
+	out := os.Stderr
+	isSmartTerminal := term.IsSmart(out)
+
+	upgradeNotice, err := r.upgradeNotice.Render(release.Out.ReleaseInfo, isSmartTerminal)
 	if err != nil {
 		return err
 	}
 
-	_, err = fmt.Fprint(os.Stderr, "\n"+upgradeNotice) // TODO: customize os.Stderr/os.Stdout/file?
+	_, err = fmt.Fprint(out, "\n"+upgradeNotice) // TODO: customize os.Stderr/os.Stdout/file?
 	return err
 }
 

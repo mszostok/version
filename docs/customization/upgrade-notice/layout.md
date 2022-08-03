@@ -24,8 +24,8 @@ Example usage:
 
 ```go
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | green }}
-{{ .ReleaseURL  | underscore | blue }}`)
+A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
+{{ .ReleaseURL  | Underline | Blue }}`)
 
 func NewRoot() *cobra.Command {
 	cmd := &cobra.Command{

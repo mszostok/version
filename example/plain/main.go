@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mszostok/version"
+	"go.szostok.io/version"
 )
 
 func main() {

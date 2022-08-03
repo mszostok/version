@@ -7,8 +7,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mszostok/version"
-	"github.com/mszostok/version/upgrade"
+	"go.szostok.io/version"
+	"go.szostok.io/version/term"
+	"go.szostok.io/version/upgrade"
 )
 
 func NewVersionWithCheck() *cobra.Command {
@@ -35,7 +36,10 @@ func NewVersionWithCheck() *cobra.Command {
 				return nil
 			}
 
-			body, err := ghUpgrade.Render(out.ReleaseInfo)
+			output := cmd.ErrOrStderr()
+			isSmartTerminal := term.IsSmart(output)
+
+			body, err := ghUpgrade.Render(out.ReleaseInfo, isSmartTerminal)
 			if err != nil {
 				return err
 			}

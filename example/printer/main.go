@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/pflag"
 
-	"github.com/mszostok/version"
+	"go.szostok.io/version"
 )
 
 func main() {

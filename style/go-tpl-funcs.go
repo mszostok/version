@@ -1,9 +1,12 @@
 package style
 
 import (
+	"strings"
 	"text/template"
 
-	"github.com/gookit/color"
+	"github.com/muesli/termenv"
+
+	"go.szostok.io/version/style/termenvx"
 )
 
 func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
@@ -22,51 +25,50 @@ func (r *GoTemplateRender) generalHelpersFuncMap() template.FuncMap {
 	}
 }
 
-var colorFuncMap = template.FuncMap{
-	// Foreground colors
-	"black":        colorSprintf(color.FgBlack),
-	"red":          colorSprintf(color.FgRed),
-	"green":        colorSprintf(color.FgGreen),
-	"yellow":       colorSprintf(color.FgYellow),
-	"blue":         colorSprintf(color.FgBlue),
-	"magenta":      colorSprintf(color.FgMagenta),
-	"cyan":         colorSprintf(color.FgCyan),
-	"white":        colorSprintf(color.FgWhite),
-	"lightRed":     colorSprintf(color.FgLightRed),
-	"lightGreen":   colorSprintf(color.FgLightGreen),
-	"lightYellow":  colorSprintf(color.FgLightYellow),
-	"lightBlue":    colorSprintf(color.FgLightBlue),
-	"lightMagenta": colorSprintf(color.FgLightMagenta),
-	"lightCyan":    colorSprintf(color.FgLightCyan),
-	"lightWhite":   colorSprintf(color.FgLightWhite),
-	"gray":         colorSprintf(color.FgGray),
+func (r *GoTemplateRender) termenvColorFuncMap() template.FuncMap {
+	return template.FuncMap{
+		// Foreground colors
+		"Black":   r.colorSprintf(termenvx.ColorsMapping["Black"]),
+		"Red":     r.colorSprintf(termenvx.ColorsMapping["Red"]),
+		"Green":   r.colorSprintf(termenvx.ColorsMapping["Green"]),
+		"Yellow":  r.colorSprintf(termenvx.ColorsMapping["Yellow"]),
+		"Blue":    r.colorSprintf(termenvx.ColorsMapping["Blue"]),
+		"Magenta": r.colorSprintf(termenvx.ColorsMapping["Magenta"]),
+		"Cyan":    r.colorSprintf(termenvx.ColorsMapping["Cyan"]),
+		"White":   r.colorSprintf(termenvx.ColorsMapping["White"]),
+		"Gray":    r.colorSprintf(termenvx.ColorsMapping["Gray"]),
 
-	// Background colors
-	"bgBlack":        colorSprintf(color.BgBlack),
-	"bgRed":          colorSprintf(color.BgRed),
-	"bgGreen":        colorSprintf(color.BgGreen),
-	"bgYellow":       colorSprintf(color.BgYellow),
-	"bgBlue":         colorSprintf(color.BgBlue),
-	"bgMagenta":      colorSprintf(color.BgMagenta),
-	"bgCyan":         colorSprintf(color.BgCyan),
-	"bgWhite":        colorSprintf(color.BgWhite),
-	"bgLightRed":     colorSprintf(color.BgLightRed),
-	"bgLightGreen":   colorSprintf(color.BgLightGreen),
-	"bgLightYellow":  colorSprintf(color.BgLightYellow),
-	"bgLightBlue":    colorSprintf(color.BgLightBlue),
-	"bgLightMagenta": colorSprintf(color.BgLightMagenta),
-	"bgLightCyan":    colorSprintf(color.BgLightCyan),
-	"bgLightWhite":   colorSprintf(color.BgLightWhite),
-	"bgGray":         colorSprintf(color.BgGray),
-
-	// Option settings
-	"bold":          colorSprintf(color.OpBold),
-	"fuzzy":         colorSprintf(color.OpFuzzy),
-	"italic":        colorSprintf(color.OpItalic),
-	"underscore":    colorSprintf(color.OpUnderscore),
-	"reverse":       colorSprintf(color.OpReverse),
-	"concealed":     colorSprintf(color.OpConcealed),
-	"strikethrough": colorSprintf(color.OpStrikethrough),
+		// Background colors
+		"BgBlack":   r.bgColorSprintf(termenvx.ColorsMapping["Black"]),
+		"BgRed":     r.bgColorSprintf(termenvx.ColorsMapping["Red"]),
+		"BgGreen":   r.bgColorSprintf(termenvx.ColorsMapping["Green"]),
+		"BgYellow":  r.bgColorSprintf(termenvx.ColorsMapping["Yellow"]),
+		"BgBlue":    r.bgColorSprintf(termenvx.ColorsMapping["Blue"]),
+		"BgMagenta": r.bgColorSprintf(termenvx.ColorsMapping["Magenta"]),
+		"BgCyan":    r.bgColorSprintf(termenvx.ColorsMapping["Cyan"]),
+		"BgWhite":   r.bgColorSprintf(termenvx.ColorsMapping["White"]),
+		"BgGray":    r.bgColorSprintf(termenvx.ColorsMapping["Gray"]),
+	}
 }
 
-// consider https://github.com/muesli/termenv#template-helpers
+func (r *GoTemplateRender) colorSprintf(c termenv.Color) func(in ...string) string {
+	return func(in ...string) string {
+		return termenv.
+			String().
+			Foreground(r.colorProfile.Convert(c)).
+			Styled(strings.Join(in, " "))
+	}
+}
+
+func (r *GoTemplateRender) bgColorSprintf(c termenv.Color) func(in ...string) string {
+	return func(in ...string) string {
+		return termenv.
+			String().
+			Background(r.colorProfile.Convert(c)).
+			Styled(strings.Join(in, " "))
+	}
+}
+
+func (r *GoTemplateRender) termenvHelpersFuncMap() template.FuncMap {
+	return termenvx.TemplateFuncs(r.colorProfile)
+}

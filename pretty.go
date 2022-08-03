@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version/style"
+	"go.szostok.io/version/term"
 )
 
 var _ Printer = &Pretty{}
 
 type (
 	// PrettyRenderFunc represents render function signature.
-	PrettyRenderFunc func(in *Info) (string, error)
+	PrettyRenderFunc func(in *Info, isSmartTerminal bool) (string, error)
 	// PrettyPostRenderFunc represents post render function signature.
 	PrettyPostRenderFunc func(body string) (string, error)
 )
@@ -55,7 +56,8 @@ func NewPrettyPrinter(opts ...PrettyPrinterOption) *Pretty {
 }
 
 func (p *Pretty) Print(in *Info, w io.Writer) error {
-	out, err := p.execute(in)
+	isSmartTerminal := term.IsSmart(w)
+	out, err := p.execute(in, isSmartTerminal)
 	if err != nil {
 		return err
 	}
@@ -71,10 +73,10 @@ func (p *Pretty) Print(in *Info, w io.Writer) error {
 	return err
 }
 
-func (p *Pretty) execute(in *Info) (string, error) {
+func (p *Pretty) execute(in *Info, isSmartTerminal bool) (string, error) {
 	if p.customRenderFn == nil {
-		return p.defaultRender.Render(in)
+		return p.defaultRender.Render(in, isSmartTerminal)
 	}
 
-	return p.customRenderFn(in)
+	return p.customRenderFn(in, isSmartTerminal)
 }

@@ -1,8 +1,8 @@
 package version
 
 import (
-	"github.com/mszostok/version/style"
-	"github.com/mszostok/version/upgrade"
+	"go.szostok.io/version/style"
+	"go.szostok.io/version/upgrade"
 )
 
 // Inspired by https://github.com/kubernetes-sigs/controller-runtime/blob/v0.12.3/pkg/client/options.go

@@ -6,8 +6,8 @@ import (
 
 	"github.com/Delta456/box-cli-maker/v2"
 
-	"github.com/mszostok/version"
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version"
+	"go.szostok.io/version/style"
 )
 
 func main() {
@@ -19,9 +19,9 @@ func main() {
 	}
 }
 
-func prettyRender(in *version.Info) (string, error) {
+func prettyRender(in *version.Info, isSmartTerminal bool) (string, error) {
 	renderBody := style.NewGoTemplateRender(style.DefaultConfig(version.PrettyKVLayoutGoTpl))
-	body, err := renderBody.Render(in)
+	body, err := renderBody.Render(in, isSmartTerminal)
 	if err != nil {
 		return "", err
 	}

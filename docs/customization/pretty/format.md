@@ -19,8 +19,8 @@ func main() {
 		Header: style.Header{
 			Prefix: "💡 ",
 			FormatPrimitive: style.FormatPrimitive{
-				Color:   "magenta",
-				Options: []string{"underscore"},
+				Color:   "Magenta",
+				Options: []string{"Underline"},
 			},
 		},
 	}
@@ -49,17 +49,17 @@ The config file can be loaded by:
     formatting:
       header:
         prefix: '▓▓▓ '
-        color: magenta
+        color: Magenta
         background: ""
         options: []
         name: ""
       key:
-        color: gray
+        color: Gray
         background: ""
         options:
-          - bold
+          - Bold
       val:
-        color: white
+        color: White
         background: ""
         options: []
       date:
@@ -75,20 +75,20 @@ The config file can be loaded by:
       "formatting": {
         "header": {
           "prefix": "▓▓▓ ",
-          "color": "magenta",
+          "color": "Magenta",
           "background": "",
           "options": null,
           "name": ""
         },
         "key": {
-          "color": "gray",
+          "color": "Gray",
           "background": "",
           "options": [
-            "bold"
+            "Bold"
           ]
         },
         "val": {
-          "color": "white",
+          "color": "White",
           "background": "",
           "options": null
         },

@@ -3,7 +3,7 @@ package upgrade
 import (
 	"time"
 
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version/style"
 )
 
 var noop = func(options *GitHubDetector) {}

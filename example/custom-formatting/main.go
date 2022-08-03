@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/mszostok/version"
-	"github.com/mszostok/version/style"
+	"go.szostok.io/version"
+	"go.szostok.io/version/style"
 )
 
 func main() {
@@ -15,13 +15,13 @@ func main() {
 	formatting.Header = style.Header{
 		Prefix: "💡 ",
 		FormatPrimitive: style.FormatPrimitive{
-			Color: "magenta",
+			Color: "Magenta",
 			Options: []string{
-				"underscore",
+				"Underline",
 			},
 		},
 	}
-	formatting.Key.Color = "yellow"
+	formatting.Key.Color = "Yellow"
 	formatting.Val.Color = ""
 	printer := version.NewPrinter(version.WithPrettyFormatting(&formatting))
 	if err := printer.Print(os.Stdout); err != nil {
