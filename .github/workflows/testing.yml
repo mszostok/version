@@ -54,7 +54,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.x # for mkdocs
       - name: "Format *.md files"
@@ -79,7 +79,7 @@ jobs:
           fi
 
   dead-links-checker:
-    name: Check documentation
+    name: Check for dead links
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout code"
@@ -89,7 +89,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.x # for mkdocs
       - name: "Check links for homepage"
@@ -98,8 +98,10 @@ jobs:
           version: latest
           args: -v docs:checkDeadLinks
       - name: "(Hack) remove the homepage custom page"
+        if: always()
         run: echo "" > ./docs/index.md
       - name: "Check links for the whole site"
+        if: always()
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
           version: latest

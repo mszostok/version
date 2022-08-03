@@ -11,6 +11,7 @@ import (
 
 var excludedLinks = []string{
 	"https://github.com/mszostok/version.*", // repo is private for now
+	".*/projects/version/static/.*",
 	"https://linkedin.com/in/mszostok",
 	"https://fonts.gstatic.com",
 	"https://twitter.com/m_szostok",

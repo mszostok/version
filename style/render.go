@@ -23,7 +23,6 @@ type GoTemplateRender struct {
 }
 
 // NewGoTemplateRender returns new GoTemplateRender instance.
-// The forOutput is needed to check if colors and formatting is supported.
 func NewGoTemplateRender(cfg *Config) *GoTemplateRender {
 	renderer := GoTemplateRender{
 		config:       cfg,
@@ -34,6 +33,7 @@ func NewGoTemplateRender(cfg *Config) *GoTemplateRender {
 }
 
 // Render renders input data based on configured given style.
+// If isSmartTerminal is set to 'true', colors and formatting are used.
 func (r *GoTemplateRender) Render(in interface{}, isSmartTerminal bool) (string, error) {
 	if isSmartTerminal {
 		r.colorProfile = termenvx.ColorProfile()
