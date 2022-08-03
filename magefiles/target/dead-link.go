@@ -17,7 +17,7 @@ var excludedLinks = []string{
 }
 
 func CheckDeadLinks() error {
-	printer.Title("Checking dead links in docs...")
+	printer.Title("Checking for dead links in docs...")
 
 	mkdocsSvr := shx.MustAsyncCmdf("mkdocs serve -a localhost:60123")
 	mkdocsSvr.MustStart()
