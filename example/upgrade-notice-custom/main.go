@@ -30,7 +30,7 @@ func main() {
 }
 
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | Green }} ({{ .PublishedAt | fmtDateHumanized }})
+A new release is available: {{ .Version }} → {{ .NewVersion | Green }} ({{ .PublishedAt | FmtDateHumanized }})
 {{ .ReleaseURL  | Underline | Blue }}`)
 
 func SprintInBox(body string) (string, error) {
