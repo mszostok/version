@@ -11,18 +11,18 @@ import (
 
 func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"header":           r.header,
-		"key":              r.key,
-		"val":              r.val,
-		"fmtDate":          r.fmtDate,
-		"fmtDateHumanized": r.fmtDateHumanized,
-		"fmtBool":          r.fmtBool,
+		"Header":           r.header,
+		"Key":              r.key,
+		"Val":              r.val,
+		"FmtDate":          r.fmtDate,
+		"FmtDateHumanized": r.fmtDateHumanized,
+		"FmtBool":          r.fmtBool,
 	}
 }
 
 func (r *GoTemplateRender) generalHelpersFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"commit": r.commit,
+		"Commit": r.commit,
 	}
 }
 

@@ -28,14 +28,14 @@ func main() {
 }
 
 var layoutGoTpl = heredoc.Doc(`
-  {{ key "Version" }}             {{ .Version                     | val   }}
-  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val   }}
-  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val   }}
-  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val   }}
-  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val   }}
-  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val   }}
-  {{ key "Compiler" }}            {{ .Compiler                    | val   }}
-  {{ key "Platform" }}            {{ .Platform                    | val   }}`)
+  {{ Key "Version" }}             {{ .Version                     | Val   }}
+  {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val   }}
+  {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val   }}
+  {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val   }}
+  {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val   }}
+  {{ Key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| Val   }}
+  {{ Key "Compiler" }}            {{ .Compiler                    | Val   }}
+  {{ Key "Platform" }}            {{ .Platform                    | Val   }}`)
 
 func SprintInBox(body string) (string, error) {
 	cfg := box.Config{Px: 2, Py: 1, Type: "Round", Color: "Yellow", ContentAlign: "Left", TitlePos: "Top"}

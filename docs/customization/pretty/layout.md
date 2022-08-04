@@ -28,16 +28,16 @@ Example usage:
 
 ```go
 var CustomLayoutGoTpl = `
-{{ header }}
+{{ Header .Meta.CLIName }}
 
-  {{ key "Version" }}             {{ .Version                     | val }}
-  {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
-  {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}
-  {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val }}
-  {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val }}
-  {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val }}
-  {{ key "Compiler" }}            {{ .Compiler                    | val }}
-  {{ key "Platform" }}            {{ .Platform                    | val }}
+  {{ Key "Version" }}             {{ .Version                     | Val }}
+  {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
+  {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}
+  {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val }}
+  {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val }}
+  {{ Key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
+  {{ Key "Compiler" }}            {{ .Compiler                    | Val }}
+  {{ Key "Platform" }}            {{ .Platform                    | Val }}
 `
 
 func main() {
@@ -67,16 +67,16 @@ The config file can be loaded by:
     ```yaml
     layout:
       goTemplate: |2
-        {{ header }}
-    
-          {{ key "Version" }}             {{ .Version                     | val }}
-          {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val }}
-          {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val }}
-          {{ key "Commit Date" }}         {{ .CommitDate | fmtDate        | val }}
-          {{ key "Dirty Build" }}         {{ .DirtyBuild | fmtBool        | val }}
-          {{ key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| val }}
-          {{ key "Compiler" }}            {{ .Compiler                    | val }}
-          {{ key "Platform" }}            {{ .Platform                    | val }}
+        {{ Header .Meta.CLIName }}
+
+          {{ Key "Version" }}             {{ .Version                     | Val }}
+          {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
+          {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}
+          {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val }}
+          {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val }}
+          {{ Key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
+          {{ Key "Compiler" }}            {{ .Compiler                    | Val }}
+          {{ Key "Platform" }}            {{ .Platform                    | Val }}
     ```
     <!-- YAMLLayout end -->
 
@@ -90,7 +90,7 @@ The config file can be loaded by:
     ```json
     {
       "layout": {
-        "goTemplate": "\n{{ header }}\n\n  {{ key \"Version\" }}             {{ .Version                     | val }}\n  {{ key \"Git Commit\" }}          {{ .GitCommit  | commit         | val }}\n  {{ key \"Build Date\" }}          {{ .BuildDate  | fmtDate        | val }}\n  {{ key \"Commit Date\" }}         {{ .CommitDate | fmtDate        | val }}\n  {{ key \"Dirty Build\" }}         {{ .DirtyBuild | fmtBool        | val }}\n  {{ key \"Go Version\" }}          {{ .GoVersion  | trimPrefix \"go\"| val }}\n  {{ key \"Compiler\" }}            {{ .Compiler                    | val }}\n  {{ key \"Platform\" }}            {{ .Platform                    | val }}\n"
+        "goTemplate": "\n{{ header }}\n\n  {{ Key \"Version\" }}             {{ .Version                     | Val }}\n  {{ Key \"Git Commit\" }}          {{ .GitCommit  | Commit         | Val }}\n  {{ Key \"Build Date\" }}          {{ .BuildDate  | FmtDate        | Val }}\n  {{ Key \"Commit Date\" }}         {{ .CommitDate | FmtDate        | Val }}\n  {{ Key \"Dirty Build\" }}         {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go Version\" }}          {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\" }}            {{ .Compiler                    | Val }}\n  {{ Key \"Platform\" }}            {{ .Platform                    | Val }}\n"
       }
     }
     ```
