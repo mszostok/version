@@ -12,7 +12,7 @@ import (
 	"github.com/samber/lo"
 	"gopkg.in/yaml.v3"
 
-	"go.szostok.io/version"
+	"go.szostok.io/version/printer"
 	"go.szostok.io/version/style"
 )
 
@@ -31,7 +31,7 @@ func EmbedDefaultPrettyFormatting() {
 
 func EmbedDefaultPrettyLayout() {
 	layout := map[string]any{
-		"layout": style.Layout{GoTemplate: version.PrettyKVLayoutGoTpl},
+		"layout": style.Layout{GoTemplate: printer.PrettyLayoutGoTpl},
 	}
 
 	replacePrettyExample(layoutMDFilePath, "Layout", layout)

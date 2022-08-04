@@ -1,4 +1,4 @@
-package version
+package printer
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 
 	"github.com/muesli/termenv"
 
+	"go.szostok.io/version"
 	"go.szostok.io/version/style/termenvx"
 	"go.szostok.io/version/term"
 )
@@ -17,7 +18,8 @@ var _ Printer = &YAML{}
 type YAML struct{}
 
 // Print marshals input data to YAML format and writes it to a given writer.
-func (p *YAML) Print(in *Info, w io.Writer) error {
+// Prints colored output only if a given writer supports that.
+func (p *YAML) Print(in *version.Info, w io.Writer) error {
 	if in == nil {
 		return nil
 	}
@@ -30,9 +32,9 @@ func (p *YAML) Print(in *Info, w io.Writer) error {
 
 	buff.WriteString(sep("---\n"))
 	buff.WriteString(yamlLine("version", in.Version, true))
-	buff.WriteString(yamlLine("gitCommit", in.GitCommit, false))
-	buff.WriteString(yamlLine("buildDate", in.BuildDate, false))
-	buff.WriteString(yamlLine("commitDate", in.CommitDate, false))
+	buff.WriteString(yamlLine("gitCommit", in.GitCommit, true))
+	buff.WriteString(yamlLine("buildDate", in.BuildDate, true))
+	buff.WriteString(yamlLine("commitDate", in.CommitDate, true))
 	buff.WriteString(yamlLine("dirtyBuild", in.DirtyBuild, false))
 	buff.WriteString(yamlLine("goVersion", in.GoVersion, true))
 	buff.WriteString(yamlLine("compiler", in.Compiler, true))

@@ -11,11 +11,12 @@ import (
 
 func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"header":  r.header,
-		"key":     r.key,
-		"val":     r.val,
-		"fmtDate": r.fmtDate,
-		"fmtBool": r.fmtBool,
+		"header":           r.header,
+		"key":              r.key,
+		"val":              r.val,
+		"fmtDate":          r.fmtDate,
+		"fmtDateHumanized": r.fmtDateHumanized,
+		"fmtBool":          r.fmtBool,
 	}
 }
 

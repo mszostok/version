@@ -66,10 +66,12 @@ main() {
 	sleep 1
 	capture "upgrade-notice-sub-cmd" "version check"
 
-	capture "upgrade-notice-box" "version"
+	capture "upgrade-notice-custom" "version"
 
-	capture "upgrade-notice" "version"
-	capture "upgrade-notice" "version -ojson"
+	capture "printer-post-hook" ""
+
+	capture "upgrade-notice-cobra" "version"
+	capture "upgrade-notice-cobra" "version -ojson"
 
 	capture "custom-layout" ""
 	capture "custom-renderer" ""

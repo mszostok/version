@@ -6,15 +6,15 @@ import (
 
 	"github.com/spf13/pflag"
 
-	"go.szostok.io/version"
+	"go.szostok.io/version/printer"
 )
 
 func main() {
-	printer := version.NewPrinter()
-	printer.RegisterPFlags(pflag.CommandLine) // optionally register `--output/-o` flag.
+	verPrinter := printer.New()
+	verPrinter.RegisterPFlags(pflag.CommandLine) // register `--output/-o` flag
 	pflag.Parse()
 
-	if err := printer.Print(os.Stdout); err != nil {
+	if err := verPrinter.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }

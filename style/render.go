@@ -3,7 +3,6 @@ package style
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"strings"
 	"text/template"
 	"time"
@@ -57,15 +56,9 @@ func (r *GoTemplateRender) Render(in interface{}, isSmartTerminal bool) (string,
 	return buff.String(), nil
 }
 
-func (r *GoTemplateRender) header() string {
+func (r *GoTemplateRender) header(in string) string {
 	c := NewTermenvStyle(r.colorProfile, r.config.Formatting.Header.FormatPrimitive)
-
-	name := r.config.Formatting.Header.Name
-	if name == "" {
-		// name = version.Get().Meta.CLIName TODO: after package split
-		name = os.Args[0]
-	}
-	return c.Styled(fmt.Sprintf("%s%s", r.config.Formatting.Header.Prefix, name))
+	return c.Styled(fmt.Sprintf("%s%s", r.config.Formatting.Header.Prefix, in))
 }
 
 func (r *GoTemplateRender) key(in string) string {
@@ -89,19 +82,36 @@ func (*GoTemplateRender) fmtBool(in bool) string {
 	return "no"
 }
 
-func (r *GoTemplateRender) fmtDate(in string) string {
-	if in == "" {
-		return ""
+func (r *GoTemplateRender) fmtDate(in interface{}) string {
+	var normalized time.Time
+	switch date := in.(type) {
+	case time.Time:
+		normalized = date
+	case string:
+		t, err := dateparse.ParseAny(date)
+		if err != nil {
+			return ""
+		}
+		normalized = t
 	}
-
-	t, err := dateparse.ParseAny(in)
-	if err != nil {
-		return ""
-	}
-
 	suffix := ""
 	if r.config.Formatting.Date.EnableHumanizedSuffix {
-		suffix = " (" + humanize.Time(t) + ")"
+		suffix = " (" + humanize.Time(normalized) + ")"
 	}
-	return fmt.Sprintf("%s%s", t.Local().Format(time.RFC822), suffix)
+	return fmt.Sprintf("%s%s", normalized.Local().Format(time.RFC822), suffix)
+}
+
+func (r *GoTemplateRender) fmtDateHumanized(in interface{}) string {
+	var normalized time.Time
+	switch date := in.(type) {
+	case time.Time:
+		normalized = date
+	case string:
+		t, err := dateparse.ParseAny(date)
+		if err != nil {
+			return ""
+		}
+		normalized = t
+	}
+	return humanize.Time(normalized)
 }

@@ -7,18 +7,19 @@ import (
 	"github.com/Delta456/box-cli-maker/v2"
 
 	"go.szostok.io/version"
+	"go.szostok.io/version/printer"
 	"go.szostok.io/version/style"
 )
 
 func main() {
-	printer := version.NewPrinter(version.WithPrettyRenderer(prettyRender))
-	if err := printer.Print(os.Stdout); err != nil {
+	p := printer.New(printer.WithPrettyRenderer(prettyRender))
+	if err := p.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func prettyRender(in *version.Info, isSmartTerminal bool) (string, error) {
-	renderBody := style.NewGoTemplateRender(style.DefaultConfig(version.PrettyKVLayoutGoTpl))
+	renderBody := style.NewGoTemplateRender(style.DefaultConfig(printer.PrettyLayoutGoTpl))
 	body, err := renderBody.Render(in, isSmartTerminal)
 	if err != nil {
 		return "", err

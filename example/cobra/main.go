@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"go.szostok.io/version"
+	"go.szostok.io/version/extension"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.
@@ -17,7 +17,7 @@ func NewRoot() *cobra.Command {
 
 	cmd.AddCommand(
 		// you just need to add this, and you are done.
-		version.NewCobraCmd(),
+		extension.NewVersionCobraCmd(),
 	)
 
 	return cmd

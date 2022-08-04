@@ -18,7 +18,7 @@ These fields can be access in your Go template definition:
 
 !!! tip
 
-    Want to try? See the [custom layout](/examples/#upgrade-notice-box) example!
+    Want to try? See the [custom layout](/examples/#custom-upgrade-notice) example!
 
 Example usage:
 

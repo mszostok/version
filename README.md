@@ -83,3 +83,7 @@ Short format can be useful for CI purposes to easily validate that the correct v
 Follow the [@mszostok](https://twitter.com/m_szostok) on Twitter to get the latest news. You can also subscribe for new [`version`](https://github.com/mszostok/version/releases) releases on GitHub. I post there a detailed changelog for every release.
 
 For more additional content check the [Mateusz's Szostok blog](https://szostok.io).
+
+### Wakatime
+
+[![wakatime](https://wakatime.com/badge/user/0ee796b4-650a-4f94-aed2-70d942ab9287/project/298bf7b1-1b2e-4e21-8329-2f1338d11d73.svg)](https://wakatime.com/badge/user/0ee796b4-650a-4f94-aed2-70d942ab9287/project/298bf7b1-1b2e-4e21-8329-2f1338d11d73)

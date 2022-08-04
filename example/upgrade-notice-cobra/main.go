@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"go.szostok.io/version"
+	"go.szostok.io/version/extension"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.
@@ -17,9 +17,9 @@ func NewRoot() *cobra.Command {
 
 	cmd.AddCommand(
 		// 1. Register 'version' command
-		version.NewCobraCmd(
+		extension.NewVersionCobraCmd(
 			// 2. Explict turn on upgrade notice
-			version.WithUpgradeNotice("mszostok", "codeowners-validator"),
+			extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
 		),
 	)
 
