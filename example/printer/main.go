@@ -10,8 +10,6 @@ import (
 )
 
 func main() {
-	version.CollectFromBuildInfo()
-
 	printer := version.NewPrinter()
 	printer.RegisterPFlags(pflag.CommandLine) // optionally register `--output/-o` flag.
 	pflag.Parse()

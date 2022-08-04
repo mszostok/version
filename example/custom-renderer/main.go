@@ -11,8 +11,6 @@ import (
 )
 
 func main() {
-	version.CollectFromBuildInfo()
-
 	printer := version.NewPrinter(version.WithPrettyRenderer(prettyRender))
 	if err := printer.Print(os.Stdout); err != nil {
 		log.Fatal(err)

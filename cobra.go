@@ -27,7 +27,7 @@ func NewCobraCmd(opts ...CobraExtensionOption) *cobra.Command {
 	}
 
 	printer := NewPrinter(options.PrinterOptions...)
-	CollectFromBuildInfo()
+	collectFromBuildInfo()
 
 	ver := &cobra.Command{
 		Use:     "version",

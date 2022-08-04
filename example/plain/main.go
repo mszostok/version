@@ -7,8 +7,6 @@ import (
 )
 
 func main() {
-	version.CollectFromBuildInfo()
-
 	info := version.Get()
 	fmt.Println()
 	fmt.Println("Version: ", info.Version)
