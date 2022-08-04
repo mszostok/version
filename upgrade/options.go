@@ -6,6 +6,17 @@ import (
 	"go.szostok.io/version/style"
 )
 
+type (
+	// RenderFunc represents render function signature.
+	RenderFunc func(in *Info) (string, error)
+	// PostRenderFunc represents post render function signature.
+	PostRenderFunc func(body string) (string, error)
+	// IsVerGreaterFunc represents version check function signature.
+	IsVerGreaterFunc func(current string, new string) bool
+	// Options represents function mutating default options.
+	Options func(options *GitHubDetector)
+)
+
 var noop = func(options *GitHubDetector) {}
 
 // WithRenderer sets a custom renderer function.

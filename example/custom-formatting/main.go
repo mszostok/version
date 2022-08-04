@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"go.szostok.io/version"
+	"go.szostok.io/version/printer"
 	"go.szostok.io/version/style"
 )
 
@@ -21,8 +21,12 @@ func main() {
 	}
 	formatting.Key.Color = "Yellow"
 	formatting.Val.Color = ""
-	printer := version.NewPrinter(version.WithPrettyFormatting(&formatting))
-	if err := printer.Print(os.Stdout); err != nil {
+
+	p := printer.New(
+		printer.WithPrettyFormatting(&formatting),
+	)
+
+	if err := p.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }

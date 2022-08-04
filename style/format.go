@@ -13,7 +13,6 @@ type (
 	Header struct {
 		Prefix          string `json:"prefix"  yaml:"prefix"`
 		FormatPrimitive `json:",inline" yaml:",inline"`
-		Name            string `json:"name"    yaml:"name"`
 	}
 
 	// Key holds template 'key' func related settings.

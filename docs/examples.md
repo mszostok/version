@@ -27,10 +27,10 @@
     ./example version
     ```
 
-## [Upgrade notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice/main.go)
+## [Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice/main.go)
 
-![](assets/examples/screen-upgrade-notice-version.png)
-![](assets/examples/screen-upgrade-notice-version_-ojson.png)
+![](assets/examples/screen-upgrade-notice-cobra-version.png)
+![](assets/examples/screen-upgrade-notice-cobra-version_-ojson.png)
 
 !!! run-example "Run in terminal"
     ```bash
@@ -42,14 +42,14 @@
     ./example version -ojson
     ```
 
-## [Upgrade notice (box)](https://github.com/mszostok/version/tree/main/example/upgrade-notice-box/main.go)
+## [Custom Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice-custom/main.go)
 
-![](assets/examples/screen-upgrade-notice-box-version.png)
+![](assets/examples/screen-upgrade-notice-custom-version.png)
 
 !!! run-example "Run in terminal"
     ```bash
     # Build
-    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-box
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-custom
 
     # Showcase
     ./example version
@@ -70,6 +70,19 @@
     ./example
     ./example -oyaml
     ./example version -oshort
+    ```
+
+## [Printer Post Hook](https://github.com/mszostok/version/tree/main/example/printer-post-hook/main.go)
+
+![](assets/examples/screen-printer-post-hook-.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./printer-post-hook
+
+    # Showcase
+    ./example
     ```
 
 ## [Plain](https://github.com/mszostok/version/tree/main/example/plain/main.go)

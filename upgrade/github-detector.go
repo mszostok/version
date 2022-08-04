@@ -4,27 +4,18 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-version"
+	semver "github.com/hashicorp/go-version"
 
 	"go.szostok.io/version/style"
+	"go.szostok.io/version/term"
 )
 
 const stateFileName = "upgrade-state.yaml"
-
-type (
-	// RenderFunc represents render function signature.
-	RenderFunc func(in *Info) (string, error)
-	// PostRenderFunc represents post render function signature.
-	PostRenderFunc func(body string) (string, error)
-	// IsVerGreaterFunc represents version check function signature.
-	IsVerGreaterFunc func(current string, new string) bool
-	// Options represents function mutating default options.
-	Options func(options *GitHubDetector)
-)
 
 // GitHubDetector provides functionality to check GitHub for project's latest release.
 type GitHubDetector struct {
@@ -109,6 +100,28 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	}, nil
 }
 
+// PrintIfFoundGreater prints an upgrade notice if a newer version is available.
+// It's a syntax sugar for using the LookForLatestRelease and Render functions.
+func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string) error {
+	rel, err := gh.LookForLatestRelease(LookForLatestReleaseInput{
+		CurrentVersion: currentVersion,
+	})
+	if err != nil {
+		return err
+	}
+
+	if !rel.Found {
+		return nil
+	}
+	out, err := gh.Render(rel.ReleaseInfo, term.IsSmart(w))
+	if err != nil {
+		return err
+	}
+
+	_, err = fmt.Fprint(w, out)
+	return err
+}
+
 func (gh *GitHubDetector) render(info *Info, isSmartTerminal bool) (string, error) {
 	if gh.customRenderFn != nil {
 		return gh.customRenderFn(info)
@@ -135,8 +148,8 @@ func (gh *GitHubDetector) validate() error {
 func semvVerGreater(current, got string) bool {
 	current = strings.TrimPrefix(current, "v")
 	got = strings.TrimPrefix(got, "v")
-	currv, curre := version.NewVersion(current)
-	newv, newe := version.NewVersion(got)
+	currv, curre := semver.NewVersion(current)
+	newv, newe := semver.NewVersion(got)
 
 	return curre == nil && newe == nil && newv.GreaterThan(currv)
 }

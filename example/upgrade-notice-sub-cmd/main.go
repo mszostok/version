@@ -1,19 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"time"
 
 	"github.com/spf13/cobra"
 
 	"go.szostok.io/version"
-	"go.szostok.io/version/term"
+	"go.szostok.io/version/extension"
 	"go.szostok.io/version/upgrade"
 )
 
 func NewVersionWithCheck() *cobra.Command {
-	verCmd := version.NewCobraCmd()
+	verCmd := extension.NewVersionCobraCmd()
 
 	verCmd.AddCommand(&cobra.Command{
 		Use:   "check",
@@ -23,28 +22,7 @@ func NewVersionWithCheck() *cobra.Command {
 				"mszostok", "codeowners-validator",
 				upgrade.WithMinElapseTimeForRecheck(time.Second),
 			)
-
-			checkInput := upgrade.LookForLatestReleaseInput{
-				CurrentVersion: version.Get().Version,
-			}
-			out, err := ghUpgrade.LookForLatestRelease(checkInput)
-			if err != nil {
-				return err
-			}
-
-			if !out.Found {
-				return nil
-			}
-
-			output := cmd.ErrOrStderr()
-			isSmartTerminal := term.IsSmart(output)
-
-			body, err := ghUpgrade.Render(out.ReleaseInfo, isSmartTerminal)
-			if err != nil {
-				return err
-			}
-			_, err = fmt.Fprint(cmd.ErrOrStderr(), "\n"+body)
-			return err
+			return ghUpgrade.PrintIfFoundGreater(cmd.ErrOrStderr(), version.Get().Version)
 		},
 	})
 

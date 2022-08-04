@@ -1,4 +1,4 @@
-package version
+package printer
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 // Implements pflag.Value interface.
 type OutputFormat string
 
-// ErrInvalidOutputFormatType is returned when an unsupported format type is used
+// ErrInvalidOutputFormatType is returned when an unsupported format type is used.
 var ErrInvalidOutputFormatType = fmt.Errorf("invalid output format type")
 
 const (

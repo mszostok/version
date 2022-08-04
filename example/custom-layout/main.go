@@ -10,25 +10,24 @@ import (
 	"github.com/muesli/reflow/indent"
 
 	"go.szostok.io/version"
+	"go.szostok.io/version/printer"
 	"go.szostok.io/version/style"
 )
 
 func main() {
-	opts := []version.PrinterContainerOption{
-		version.WithPrettyPostRenderHook(SprintInBox),
-		version.WithPrettyLayout(style.Layout{
-			GoTemplate: BoxLayoutGoTpl,
+	opts := []printer.ContainerOption{
+		printer.WithPrettyPostRenderHook(SprintInBox),
+		printer.WithPrettyLayout(style.Layout{
+			GoTemplate: layoutGoTpl,
 		}),
 	}
-	printer := version.NewPrinter(opts...)
-	if err := printer.Print(os.Stdout); err != nil {
+	p := printer.New(opts...)
+	if err := p.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }
 
-// BoxLayoutGoTpl prints all version data in box.
-// https://knowyourmeme.com/memes/this-is-fine
-var BoxLayoutGoTpl = heredoc.Doc(`
+var layoutGoTpl = heredoc.Doc(`
   {{ key "Version" }}             {{ .Version                     | val   }}
   {{ key "Git Commit" }}          {{ .GitCommit  | commit         | val   }}
   {{ key "Build Date" }}          {{ .BuildDate  | fmtDate        | val   }}
