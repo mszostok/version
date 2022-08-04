@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"runtime"
 	"runtime/debug"
+	"sync"
 )
 
 // Info contains versioning information.
@@ -26,6 +27,8 @@ type Meta struct {
 	CLIName string
 }
 
+var collectOnce sync.Once
+
 // Get returns the overall codebase version.
 // It's for detecting what code a binary was built from.
 //
@@ -38,6 +41,7 @@ type Meta struct {
 //      * dirtyBuild is taken from the vcs.modified tag.
 //   3. in their absence fallback to the settings in ./base.go.
 func Get() *Info {
+	collectOnce.Do(collectFromBuildInfo)
 	return &Info{
 		Meta:       Meta{CLIName: name},
 		Version:    version,
@@ -51,9 +55,9 @@ func Get() *Info {
 	}
 }
 
-// CollectFromBuildInfo tries to set the build information embedded in the running binary via Go module.
+// collectFromBuildInfo tries to set the build information embedded in the running binary via Go module.
 // It doesn't override data if were already set by Go -ldflags.
-func CollectFromBuildInfo() {
+func collectFromBuildInfo() {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		return

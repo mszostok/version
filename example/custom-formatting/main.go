@@ -9,8 +9,6 @@ import (
 )
 
 func main() {
-	version.CollectFromBuildInfo()
-
 	formatting := style.DefaultFormatting()
 	formatting.Header = style.Header{
 		Prefix: "💡 ",

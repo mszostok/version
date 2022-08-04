@@ -14,8 +14,6 @@ import (
 )
 
 func main() {
-	version.CollectFromBuildInfo()
-
 	opts := []version.PrinterContainerOption{
 		version.WithPrettyPostRenderHook(SprintInBox),
 		version.WithPrettyLayout(style.Layout{
