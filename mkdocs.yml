@@ -66,6 +66,7 @@ nav:
           - get-started/build-ldflags/goreleaser.md
           - get-started/build-ldflags/makefile.md
           - get-started/build-ldflags/magefile.md
+      - get-started/upgrade-notice.md
   - Customization:
       - customization/index.md
       - Pretty Style:

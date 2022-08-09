@@ -24,28 +24,23 @@ Example usage:
 
 ```go
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
+A new release is available: {{ .Version }} → {{ .NewVersion | Green }} ({{ .PublishedAt | FmtDateHumanized }})
 {{ .ReleaseURL  | Underline | Blue }}`)
 
-func NewRoot() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "example",
-		Short: "An example CLI built with github.com/spf13/cobra",
-	}
-
-	opts := []upgrade.Options{
+func main() {
+	upgradeOpts := []upgrade.Options{
 		upgrade.WithLayout(&style.Layout{
 			GoTemplate: forBoxLayoutGoTpl,
 		}),
+		upgrade.WithPostRenderHook(func(body string) (string, error) {
+			return body + "\n footer", nil
+		}),
 	}
 
-	cmd.AddCommand(
-		// 1. Register 'version' command
-		version.NewCobraCmd(
-			// 2. Explicit turn on upgrade notice
-			version.WithUpgradeNotice("mszostok", "codeowners-validator", opts...)),
-	)
-
-	return cmd
+	notice := upgrade.NewGitHubDetector("mszostok", "codeowners-validator", upgradeOpts...)
+	err := notice.PrintIfFoundGreater(os.Stderr, "0.5.4")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 ```

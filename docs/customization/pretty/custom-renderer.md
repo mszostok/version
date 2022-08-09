@@ -7,24 +7,17 @@ If the custom [formatting](./format.md) and [layout](./layout.md) don't fulfill 
     Want to try? See the [custom renderer](/examples#custom-renderer) example!
 
 ```go
-func NewRoot() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "example",
-		Short: "An example CLI built with github.com/spf13/cobra",
-	}
-
-	renderFn := func(in *version.Info) (string, error) {
+func main() {
+	renderFn := func(in *version.Info, isSmartTerminal bool) (string, error) {
 		return fmt.Sprintf(`
       Version             %q
       Git Commit          %.4s
    `, in.Version, in.GitCommit), nil
 	}
 
-	cmd.AddCommand(
-		// you just need to add this, and you are done.
-		version.NewCobraCmd(version.WithPrettyRenderer(renderFn)),
-	)
-
-	return cmd
+	p := printer.New(printer.WithPrettyRenderer(renderFn))
+	if err := p.Print(os.Stdout); err != nil {
+		log.Fatal(err)
+	}
 }
 ```

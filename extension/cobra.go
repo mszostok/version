@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"go.szostok.io/version/printer"
-	"go.szostok.io/version/upgrade"
 )
 
 var example = `
@@ -18,29 +17,11 @@ var example = `
 <cli> version -o=short
 `
 
-type CobraExtensionOption func(*CobraExtensionOptions)
-
-type CobraExtensionOptions struct {
-	PrinterOptions []printer.ContainerOption
-}
-
-func WithPrinterOptions(opts ...printer.ContainerOption) CobraExtensionOption {
-	return func(options *CobraExtensionOptions) {
-		options.PrinterOptions = opts
-	}
-}
-
-func WithUpgradeNotice(owner, repo string, opts ...upgrade.Options) CobraExtensionOption {
-	return func(options *CobraExtensionOptions) {
-		options.PrinterOptions = append(options.PrinterOptions, printer.WithUpgradeNotice(owner, repo, opts...))
-	}
-}
-
 // NewVersionCobraCmd returns a root cobra.Command for printing CLI version.
-func NewVersionCobraCmd(opts ...CobraExtensionOption) *cobra.Command {
-	var options CobraExtensionOptions
+func NewVersionCobraCmd(opts ...CobraOption) *cobra.Command {
+	var options CobraOptions
 	for _, customize := range opts {
-		customize(&options)
+		customize.ApplyToCobraOption(&options)
 	}
 
 	verPrinter := printer.New(options.PrinterOptions...)

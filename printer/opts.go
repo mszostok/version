@@ -91,11 +91,11 @@ func (c *CustomPrettyFormatting) ApplyToPrettyOption(cfg *PrettyOptions) {
 
 // CustomPrettyLayout provides an option to set a custom pretty layout across multiple constructors.
 type CustomPrettyLayout struct {
-	layout style.Layout
+	layout *style.Layout
 }
 
 // WithPrettyLayout sets a custom pretty layout.
-func WithPrettyLayout(layout style.Layout) *CustomPrettyLayout {
+func WithPrettyLayout(layout *style.Layout) *CustomPrettyLayout {
 	return &CustomPrettyLayout{
 		layout: layout,
 	}
@@ -108,7 +108,10 @@ func (c *CustomPrettyLayout) ApplyToContainerOption(cfg *ContainerOptions) {
 
 // ApplyToPrettyOption sets a given option to Pretty printer.
 func (c *CustomPrettyLayout) ApplyToPrettyOption(cfg *PrettyOptions) {
-	cfg.RenderConfig.Layout = c.layout
+	if c == nil || c.layout == nil {
+		return
+	}
+	cfg.RenderConfig.Layout = *c.layout
 }
 
 // CustomPrettyStyle provides an option to set a custom pretty style across multiple constructors.
