@@ -20,7 +20,7 @@ type ReleaseInfoResponse struct {
 	PublishedAt time.Time `json:"published_at"`
 }
 
-// GetLatestRelease checks whether there is a newer release on GitHub.
+// GetLatestRelease checks whether there is a newer release on GitHub. If yes, returns it, otherwise returns nil.
 func GetLatestRelease(ctx context.Context, stateFilePath, repo string, minRecheckTime time.Duration) (*ReleaseInfoResponse, error) {
 	stateEntry, err := getStateEntry(stateFilePath)
 	if err != nil {

@@ -17,6 +17,11 @@ import (
 
 const stateFileName = "upgrade-state.yaml"
 
+var defaultLayoutGoTpl = `
+  │ A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
+  │ {{ .ReleaseURL  | Underline | Blue }}
+`
+
 // GitHubDetector provides functionality to check GitHub for project's latest release.
 type GitHubDetector struct {
 	customRenderFn     RenderFunc

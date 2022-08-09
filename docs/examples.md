@@ -27,7 +27,7 @@
     ./example version
     ```
 
-## [Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice/main.go)
+## [Cobra Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice-cobra/main.go)
 
 ![](assets/examples/screen-upgrade-notice-cobra-version.png)
 ![](assets/examples/screen-upgrade-notice-cobra-version_-ojson.png)
@@ -53,6 +53,19 @@
 
     # Showcase
     ./example version
+    ```
+
+## [Upgrade Notice sub-command](https://github.com/mszostok/version/tree/main/example/upgrade-notice-sub-cmd)
+
+![](assets/examples/screen-upgrade-notice-sub-cmd-version_check.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-sub-cmd
+
+    # Showcase
+    ./example version check
     ```
 
 ## [Printer](https://github.com/mszostok/version/tree/main/example/printer/main.go)

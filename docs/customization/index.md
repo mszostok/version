@@ -8,9 +8,9 @@ Did you find your muse? or wants to align with your cool branding?
 
 You can define both the formatting and layout using Go code. With dedicated functions:
 
-- `version.WithPrettyFormat` to override only the format
-- `version.WithPrettyLayout` to override only the layout
-- `version.WithPrettyRenderer` to provide your own render function
+- `printer.WithPrettyFormatting` to override only the format
+- `printer.WithPrettyLayout` to override only the layout
+- `printer.WithPrettyRenderer` to provide your own render function
 
 you can achieve what you need without leaving you favourite language.
 

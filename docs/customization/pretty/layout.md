@@ -45,7 +45,7 @@ func main() {
 	layout := style.Layout{
 		GoTemplate: CustomLayoutGoTpl,
 	}
-	version.NewPrinter(version.WithPrettyLayout(layout))
+	printer.New(printer.WithPrettyLayout(&layout))
 }
 ```
 
@@ -58,8 +58,8 @@ func main() {
 
 The config file can be loaded by:
 
-- enabling loading style from environment variable via `version.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
-- or using `version.WithPrettyStyleFile` function directly.
+- enabling loading style from environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
+- or using `printer.WithPrettyStyleFile` function directly.
 
 === "YAML"
 
@@ -74,7 +74,7 @@ The config file can be loaded by:
           {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}
           {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val }}
           {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val }}
-          {{ Key "Go Version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
+          {{ Key "Go version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
           {{ Key "Compiler" }}            {{ .Compiler                    | Val }}
           {{ Key "Platform" }}            {{ .Platform                    | Val }}
     ```
@@ -90,7 +90,7 @@ The config file can be loaded by:
     ```json
     {
       "layout": {
-        "goTemplate": "\n{{ header }}\n\n  {{ Key \"Version\" }}             {{ .Version                     | Val }}\n  {{ Key \"Git Commit\" }}          {{ .GitCommit  | Commit         | Val }}\n  {{ Key \"Build Date\" }}          {{ .BuildDate  | FmtDate        | Val }}\n  {{ Key \"Commit Date\" }}         {{ .CommitDate | FmtDate        | Val }}\n  {{ Key \"Dirty Build\" }}         {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go Version\" }}          {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\" }}            {{ .Compiler                    | Val }}\n  {{ Key \"Platform\" }}            {{ .Platform                    | Val }}\n"
+        "goTemplate": "\n{{ Header .Meta.CLIName }}\n\n  {{ Key \"Version\" }}             {{ .Version                     | Val }}\n  {{ Key \"Git Commit\" }}          {{ .GitCommit  | Commit         | Val }}\n  {{ Key \"Build Date\" }}          {{ .BuildDate  | FmtDate        | Val }}\n  {{ Key \"Commit Date\" }}         {{ .CommitDate | FmtDate        | Val }}\n  {{ Key \"Dirty Build\" }}         {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go version\" }}          {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\" }}            {{ .Compiler                    | Val }}\n  {{ Key \"Platform\" }}            {{ .Platform                    | Val }}\n"
       }
     }
     ```

@@ -24,7 +24,7 @@ func main() {
 			},
 		},
 	}
-	version.NewPrinter(version.WithPrettyFormatting(format))
+	printer.New(printer.WithPrettyFormatting(&format))
 }
 ```
 
@@ -39,8 +39,8 @@ Check the [`style.Formatting`](https://github.com/mszostok/version/blob/main/sty
 
 The config file can be loaded by:
 
-- enabling loading style from environment variable via `version.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
-- or using `version.WithPrettyStyleFile` function directly.
+- enabling loading style from environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
+- or using `printer.WithPrettyStyleFile` function directly.
 
 === "YAML"
 
@@ -52,7 +52,6 @@ The config file can be loaded by:
         color: Magenta
         background: ""
         options: []
-        name: ""
       key:
         color: Gray
         background: ""
@@ -77,8 +76,7 @@ The config file can be loaded by:
           "prefix": "▓▓▓ ",
           "color": "Magenta",
           "background": "",
-          "options": null,
-          "name": ""
+          "options": null
         },
         "key": {
           "color": "Gray",

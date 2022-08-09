@@ -17,7 +17,7 @@ import (
 func main() {
 	opts := []printer.ContainerOption{
 		printer.WithPrettyPostRenderHook(SprintInBox),
-		printer.WithPrettyLayout(style.Layout{
+		printer.WithPrettyLayout(&style.Layout{
 			GoTemplate: layoutGoTpl,
 		}),
 	}

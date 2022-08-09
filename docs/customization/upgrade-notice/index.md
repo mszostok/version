@@ -1,23 +1,41 @@
 # Upgrade notice
 
-![](../../assets/examples/screen-upgrade-notice-version.png)
+![](../../assets/examples/screen-upgrade-notice-cobra-version.png)
 
 !!! tip ""
     Currently, it works only for GitHub releases.
 
-The upgrade notice is disabled by default. To enable, add dedicated option function to constructor:
+The upgrade notice is disabled by default. You can easily enable it based on your usage:
 
-```go
-// Turn on upgrade notice
-version.WithUpgradeNotice("mszostok", "codeowners-validator")
-```
+1. Printer:
+	  ```go
+	  p := printer.New(
+	  	printer.WithUpgradeNotice("mszostok", "codeowners-validator", upgradeOpts...),
+	  )
+	  ```
+	 It prints the notice on standard error. As a result, executing e.g. `<cli> -ojson | jq .gitCommit` works properly even if upgrade notice is displayed.
 
-Once enabled, each `<cli> version` execution checks for new releases, but only once every 24 hours. If a newer version was found, displays upgrade notice for each output format on standard
+2. Cobra CLI:
+	  ```go
+	  extension.NewVersionCobraCmd(
+	  	// 2. Explict turn on upgrade notice
+	  	extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
+	  ),
+	  ```
+	 It prints the notice on standard error. As a result, executing e.g. `<cli> version -ojson | jq .gitCommit` works properly even if upgrade notice is displayed.
+
+3. Standalone:
+
+    ```go
+    notice := upgrade.NewGitHubDetector("mszostok", "codeowners-validator")
+    err := notice.PrintIfFoundGreater(os.Stderr, "0.5.4")
+    ```
+
+
+Once enabled, each execution checks for new releases, but only once every 24 hours. If a newer version was found, displays upgrade notice for each output format on standard
 error.
 
-By printing on standard error, we ensure that, e.g. `<cli> version -ojson | jq .gitCommit` works properly even if upgrade notice is displayed.
-
-You can customize almost all aspect of upgrade check:
+You can customize almost all aspect of the upgrade check:
 
 - Set maximum duration time for update check operation (default 10s).
 
@@ -48,7 +66,7 @@ You can customize almost all aspect of upgrade check:
 			Key:    style.Key{},
 			Val:    style.Val{},
 			Date:   style.Date{},
-		}),
+		})
     ```
 
 - Change [layout](./layout.md).
@@ -56,7 +74,13 @@ You can customize almost all aspect of upgrade check:
     ```go
     upgrade.WithLayout(&style.Layout{
     			GoTemplate: forBoxLayoutGoTpl,
-    		}),
+    		})
+    ```
+
+- Change both formatting and layout.
+
+    ```go
+    upgrade.WithStyle(&style.Config{})
     ```
 
 - Define [custom renderer](./custom-renderer.md).
@@ -76,5 +100,5 @@ You can customize almost all aspect of upgrade check:
     ```go
     upgrade.WithPostRenderHook(func(body string) (string, error) {
     	return body + "\ncustom footer", nil
-    }),
+    })
     ```

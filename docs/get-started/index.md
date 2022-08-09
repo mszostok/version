@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Visit the [version.szostok.io/quick-start](https://version.szostok.io/quick-start) for the most popular way of the setup.
+Navigate to [quick-start](../quick-start.md) for the most popular way of the setup.
 
 ## Other
 
