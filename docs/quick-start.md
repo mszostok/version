@@ -11,19 +11,23 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"go.szostok.io/version"
+
+	"go.szostok.io/version/extension"
 )
 
 // NewRoot returns a root cobra.Command for the whole CLI.
 func NewRoot() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "cobra",
+		Use:   "example",
 		Short: "An example CLI built with github.com/spf13/cobra",
 	}
 
 	cmd.AddCommand(
-		// you just need to add this, and you are done.
-		version.NewCobraCmd(),
+		// 1. Register 'version' command
+		extension.NewVersionCobraCmd(
+			// 2. Explict turn on upgrade notice
+			extension.WithUpgradeNotice("repo-owner", "repo-name"),
+		),
 	)
 
 	return cmd
@@ -38,7 +42,7 @@ func main() {
 
 In that way you get a fully working `<cli> version` command.
 
-![](assets/examples/screen-cobra-version.png)
+![](assets/examples/screen-upgrade-notice-cobra-version.png)
 ![](assets/examples/screen-cobra-version_-h.png)
 
 ## GoReleaser versioning info with `-ldflags`
@@ -61,6 +65,7 @@ As you saw, in a few seconds, you got a powerful `version` command! However, thi
 
 See the customization documentation for more guidelines on how to meet what you need. For example:
 
-- [usage examples](/get-started/usage)
-- [build options](/get-started/build-ldflags)
-- and [customization](/customization/)
+- [usage examples](./get-started/usage),
+- [build options](./get-started/build-ldflags),
+- [upgrade notice](./get-started/upgrade-notice.md) configuration,
+- and [customization](./customization/).
