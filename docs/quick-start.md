@@ -65,7 +65,7 @@ As you saw, in a few seconds, you got a powerful `version` command! However, thi
 
 See the customization documentation for more guidelines on how to meet what you need. For example:
 
-- [usage examples](./get-started/usage),
-- [build options](./get-started/build-ldflags),
-- [upgrade notice](./get-started/upgrade-notice.md) configuration,
-- and [customization](./customization/).
+- [usage examples](../get-started/usage),
+- [build options](../get-started/build-ldflags),
+- [upgrade notice](../get-started/upgrade-notice) configuration,
+- and [customization](../customization/).

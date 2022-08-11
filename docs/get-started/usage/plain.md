@@ -1,5 +1,5 @@
 ```go
 --8<--
-example/plain/main.go
+examples/plain/main.go
 --8<--
 ```

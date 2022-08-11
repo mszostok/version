@@ -7,7 +7,7 @@
 
 !!! tip
 
-    Want to try? See the [upgrade notice](/examples#cobra-upgrade-notice) examples!
+    Want to try? See the [upgrade notice](../../examples#cobra-upgrade-notice) examples!
 
 The upgrade notice is disabled by default. You can easily enable it based on your usage:
 
@@ -39,4 +39,4 @@ The upgrade notice is disabled by default. You can easily enable it based on you
 Once enabled, each execution checks for new releases, but only once every 24 hours. If a newer version was found, displays upgrade notice for each output format on standard
 error.
 
-You can customize almost all aspect of upgrade check. Please see [customization](../customization/upgrade-notice).
+You can customize almost all aspect of upgrade check. Please see [customization](../../customization/upgrade-notice).

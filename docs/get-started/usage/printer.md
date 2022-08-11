@@ -1,5 +1,5 @@
 ```go
 --8<--
-example/printer/main.go
+examples/printer/main.go
 --8<--
 ```

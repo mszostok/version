@@ -8,11 +8,11 @@
     	 ```bash
     	 gh repo clone mszostok/version
     	 ```
-    2. Navigate to [`example`](https://github.com/mszostok/version/tree/main/example) directory.
+    2. Navigate to [`example`](https://github.com/mszostok/version/tree/main/examples) directory.
     3. Run a given example.
 
 
-## [Cobra](https://github.com/mszostok/version/tree/main/example/cobra/main.go)
+## [Cobra](https://github.com/mszostok/version/tree/main/examples/cobra/main.go)
 
 ![](assets/examples/screen-cobra-version_-h.png)
 ![](assets/examples/screen-cobra-version.png)
@@ -27,7 +27,7 @@
     ./example version
     ```
 
-## [Cobra Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice-cobra/main.go)
+## [Cobra Upgrade Notice](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-cobra/main.go)
 
 ![](assets/examples/screen-upgrade-notice-cobra-version.png)
 ![](assets/examples/screen-upgrade-notice-cobra-version_-ojson.png)
@@ -42,7 +42,7 @@
     ./example version -ojson
     ```
 
-## [Custom Upgrade Notice](https://github.com/mszostok/version/tree/main/example/upgrade-notice-custom/main.go)
+## [Custom Upgrade Notice](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-custom/main.go)
 
 ![](assets/examples/screen-upgrade-notice-custom-version.png)
 
@@ -55,7 +55,7 @@
     ./example version
     ```
 
-## [Upgrade Notice sub-command](https://github.com/mszostok/version/tree/main/example/upgrade-notice-sub-cmd)
+## [Upgrade Notice sub-command](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-sub-cmd)
 
 ![](assets/examples/screen-upgrade-notice-sub-cmd-version_check.png)
 
@@ -68,7 +68,7 @@
     ./example version check
     ```
 
-## [Printer](https://github.com/mszostok/version/tree/main/example/printer/main.go)
+## [Printer](https://github.com/mszostok/version/tree/main/examples/printer/main.go)
 
 ![](assets/examples/screen-printer-.png)
 ![](assets/examples/screen-printer--oyaml.png)
@@ -85,7 +85,7 @@
     ./example version -oshort
     ```
 
-## [Printer Post Hook](https://github.com/mszostok/version/tree/main/example/printer-post-hook/main.go)
+## [Printer Post Hook](https://github.com/mszostok/version/tree/main/examples/printer-post-hook/main.go)
 
 ![](assets/examples/screen-printer-post-hook-.png)
 
@@ -98,7 +98,7 @@
     ./example
     ```
 
-## [Plain](https://github.com/mszostok/version/tree/main/example/plain/main.go)
+## [Plain](https://github.com/mszostok/version/tree/main/examples/plain/main.go)
 
 ![](assets/examples/screen-plain-.png)
 
@@ -112,7 +112,7 @@
     ./example
     ```
 
-## [Custom Formatting](https://github.com/mszostok/version/tree/main/example/custom-formatting/main.go)
+## [Custom Formatting](https://github.com/mszostok/version/tree/main/examples/custom-formatting/main.go)
 
 ![](assets/examples/screen-custom-formatting-.png)
 
@@ -125,7 +125,7 @@
     ./example
     ```
 
-## [Custom Layout](https://github.com/mszostok/version/tree/main/example/custom-layout/main.go)
+## [Custom Layout](https://github.com/mszostok/version/tree/main/examples/custom-layout/main.go)
 
 ![](assets/examples/screen-custom-layout-.png)
 
@@ -138,7 +138,7 @@
     ./example
     ```
 
-## [Custom Renderer](https://github.com/mszostok/version/tree/main/example/custom-renderer/main.go)
+## [Custom Renderer](https://github.com/mszostok/version/tree/main/examples/custom-renderer/main.go)
 
 ![](assets/examples/screen-custom-renderer-.png)
 
