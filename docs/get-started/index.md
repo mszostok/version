@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Navigate to [quick-start](../quick-start.md) for the most popular way of the setup.
+Navigate to [Quick Start](../quick-start.md) for the most common way of the setup.
 
 ## Other
 

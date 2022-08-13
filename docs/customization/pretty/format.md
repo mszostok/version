@@ -1,9 +1,9 @@
 # Format
 
 !!! note ""
-    Formatting focuses on the style of displayed pretty version's data.
+    Formatting focuses on the style of your displayed pretty version data.
 
-Format allows you to define your own theme and adjust output for your branding color. In general, add underscores, bold, italic, and text and background colors.
+Format lets you define your own theme and adjust the output to your branding colors. In general, you can add underscores, bold and italic formatting, text, and background colors.
 
 ## Go
 
@@ -30,17 +30,16 @@ func main() {
 
 Check the [`style.Formatting`](https://github.com/mszostok/version/blob/main/style/formatting.go#L4) struct for all possible settings.
 
-
 ## Config file
 
 !!! coming-soon "Coming soon"
 
-    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
+    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for reference. If you'd like to see it included in a future release, add 👍 under the issue.
 
-The config file can be loaded by:
+To load the config file, you can:
 
-- enabling loading style from environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
-- or using `printer.WithPrettyStyleFile` function directly.
+- Enable loading your custom style from an environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`
+- Use the `printer.WithPrettyStyleFile` function directly
 
 === "YAML"
 

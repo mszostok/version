@@ -20,7 +20,7 @@ With dedicated functional options, you can achieve what you need, all in your fa
 
 So YAMLs (and JSONs), then? Oh yes!
 
-You can configure the `pretty` output style in different ways:
+You can configure the `pretty` output style in a few ways:
 
 - Enable loading your custom style from an environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`
 - Load a style file directly using the Go function: `printer.WithPrettyStyleFile`

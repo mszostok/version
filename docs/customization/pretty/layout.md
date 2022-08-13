@@ -1,22 +1,23 @@
 # Layout
 
 !!! note ""
-    Layout focuses on structured arrangement of a pretty version's data.
+    Layout focuses on structured arrangement of pretty version data.
 
-To define the layout use the [Go templating](https://pkg.go.dev/html/template). You can use also [version's pkg built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [formatting settings](./format.md). Additionally, all helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
+To define the layout, use [Go templating](https://pkg.go.dev/html/template). You can also use the [`version` package's built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [formatting settings](./format.md). All helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
 
-These fields can be access in your Go template definition:
+These are the fields that you can access in your Go template definition:
 
 | Key           | Description                                                                                                  |
 |---------------|--------------------------------------------------------------------------------------------------------------|
 | `.Version`    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                 |
 | `.GitCommit`  | Git commit value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.revision` tag.   |
 | `.BuildDate`  | Build date value set via `-ldflags`, otherwise empty.                                                        |
-| `.CommitDate` | Git commit date value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.time` tag.  |
-| `.DirtyBuild` | Dirty build value, set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.modified` tag. |
+| `.CommitDate` | Git commit date value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` from the `vcs.time` tag.  |
+| `.DirtyBuild` | Dirty build value, set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` from the `vcs.modified` tag. |
 | `.GoVersion`  | Go version taken from `runtime.Version()`.                                                                   |
 | `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                   |
-| `.Platform`   | Platform build, in format of `runtime.GOOS/runtime.GOARCH`.                                                  |
+| `.Platform`   | Build platform, passed in the following format: `runtime.GOOS/runtime.GOARCH`.                                                  |
+
 
 ## Go
 
@@ -54,12 +55,12 @@ func main() {
 
 !!! coming-soon "Coming soon"
 
-    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for a reference. If you want to see it, please add 👍 under the issue.
+    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for reference. If you'd like to see it included in a future release, add 👍 under the issue.
 
-The config file can be loaded by:
+To load the config file, you can:
 
-- enabling loading style from environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`,
-- or using `printer.WithPrettyStyleFile` function directly.
+- Enable loading your custom style from an environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`
+- Use `printer.WithPrettyStyleFile` function directly
 
 === "YAML"
 
