@@ -4,7 +4,7 @@ This page lists solutions to problems you might encounter with `go.szostok.io/ve
 
 ## Build binary doesn't have default version data
 
-Your binary doesn't have default version data. For example:
+You might find that your binary doesn't have the default version data. For example:
 
 ```bash
   Version             (devel)
@@ -17,17 +17,10 @@ Your binary doesn't have default version data. For example:
   Platform            darwin/amd64
 ```
 
-You can see that git commit and commit date are not populated. The problem might be related to the build process. Ensure that you don't specify the `main.go` file directly.
-Instead of running:
+You can see that the git commit and the commit date are not populated. The problem might be related to the build process. In such a case, make sure that you don't specify the `main.go` file directly:
 
 ```bash
-go build -o example ./cmd/client/main.go
-```
-
-Run:
-
-```bash
-go build -o example ./cmd/client # NOTE: only folder specified.
+go build -o example ./cmd/client # NOTE: only the folder is specified
 ```
 
 Difference:
