@@ -4,7 +4,7 @@ The quick start guide describes how to set up `version` with the most common way
 
 ## Register the `version` command
 
-```go
+```go linenums="1" hl_lines="19-22"
 package main
 
 import (
@@ -25,7 +25,7 @@ func NewRoot() *cobra.Command {
 	cmd.AddCommand(
 		// 1. Register the 'version' command
 		extension.NewVersionCobraCmd(
-			// 2. Explicitly turn on upgrade notice
+			// 2. Explicitly enable upgrade notice
 			extension.WithUpgradeNotice("repo-owner", "repo-name"),
 		),
 	)
