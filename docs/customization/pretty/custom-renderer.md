@@ -1,6 +1,6 @@
 # Custom Renderer
 
-If the custom [formatting](./format.md) and [layout](./layout.md) don't fulfill you needs, you can simply specify your own rendering function.
+If the custom [formatting](./format.md) and [layout](./layout.md) don't meet your needs, you can simply specify your own rendering function.
 
 !!! tip
 

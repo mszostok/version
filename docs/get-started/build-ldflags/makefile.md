@@ -1,13 +1,13 @@
 # Makefile
 
-This is an example `Makefile` to build your Go application with `go.szostok.io/version` support:
+This is an example `Makefile` to build your Go application and override the default version information set by the `go.szostok.io/version` package.
 
 ```makefile
 GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
 VERSION?="dev"
 
-# The ldflags for the go build process to set the version related data.
+# The ldflags for the Go build process to set the version related data
 GO_BUILD_VERSION_LDFLAGS=\
   -X go.szostok.io/version.version=$(VERSION)\
   -X go.szostok.io/version.buildDate=$(shell date +"%Y-%m-%dT%H:%M:%S%z")
@@ -17,14 +17,14 @@ build:
 .PHONY: build
 ```
 
-The rest properties are set based on the built-in data. However, if you want to have a full customization, use:
+The remaining properties are set based on the built-in data. However, for full customization, use:
 
 ```makefile
 GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
 VERSION?="dev"
 
-# The ldflags for the Go build process to set the version related data.
+# The ldflags for the Go build process to set the version related data
 GO_BUILD_VERSION_LDFLAGS=\
   -X go.szostok.io/version.version=$(VERSION) \
   -X go.szostok.io/version.buildDate=$(shell date +"%Y-%m-%dT%H:%M:%S%z") \

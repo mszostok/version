@@ -1,6 +1,6 @@
 # GoReleaser
 
-The build customization is nicely described at [goreleaser.com/customization/build](https://goreleaser.com/customization/build). To make it work with `go.szostok.io/version`, adjust your `builds[*].ldfags` sections:
+The build customization is nicely described at [`goreleaser.com/customization/build`](https://goreleaser.com/customization/build). To make it work with `go.szostok.io/version`, adjust your `builds[*].ldfags` sections:
 
 ```yaml
 # .goreleaser.yaml
@@ -14,7 +14,7 @@ builds:
       - -X go.szostok.io/version.buildDate={{.Date}}
 ```
 
-The rest properties are set based on the built-in data. However, if you want to have a full customization, use:
+The remaining properties are set based on the built-in data. However, for full customization, use:
 
 ```yaml
 # .goreleaser.yaml
