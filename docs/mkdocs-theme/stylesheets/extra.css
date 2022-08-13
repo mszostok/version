@@ -38,6 +38,7 @@
 	--md-footer-bg-color: rgb(28, 28, 30);
 	--md-footer-bg-color--dark: rgb(28, 28, 30);
 	--invert-svg: 100%;
+	--md-code-hl-color: #2f2f2fbf;
 }
 
 [data-md-color-scheme="default"] {
@@ -47,6 +48,7 @@
 	--md-footer-bg-color: #fff;
 	--md-footer-bg-color--dark: #fff;
 	--invert-svg: 0;
+	--md-code-hl-color: #49f0ba3b;
 }
 
 .md-footer-copyright {
