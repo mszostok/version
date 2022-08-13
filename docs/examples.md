@@ -2,14 +2,14 @@
 
 ???+ example "Prerequisites"
 
-    To play with it:
+    To play with the examples:
 
     1. Clone the repository:
     	 ```bash
     	 gh repo clone mszostok/version
     	 ```
-    2. Navigate to [`example`](https://github.com/mszostok/version/tree/main/examples) directory.
-    3. Run a given example.
+    2. Navigate to the [`examples`](https://github.com/mszostok/version/tree/main/examples) directory.
+    3. Run a chosen example.
 
 
 ## [Cobra](https://github.com/mszostok/version/tree/main/examples/cobra/main.go)
@@ -22,7 +22,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./cobra
 
-    # Showcase
+    # Try out
     ./example version -h
     ./example version
     ```
@@ -37,7 +37,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice
 
-    # Showcase
+    # Try out
     ./example version
     ./example version -ojson
     ```
@@ -51,7 +51,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-custom
 
-    # Showcase
+    # Try out
     ./example version
     ```
 
@@ -64,7 +64,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-sub-cmd
 
-    # Showcase
+    # Try out
     ./example version check
     ```
 
@@ -79,7 +79,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./printer
 
-    # Showcase
+    # Try out
     ./example
     ./example -oyaml
     ./example version -oshort
@@ -94,7 +94,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./printer-post-hook
 
-    # Showcase
+    # Try out
     ./example
     ```
 
@@ -108,7 +108,7 @@
     # Build
     go build  -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./plain
 
-    # Showcase
+    # Try out
     ./example
     ```
 
@@ -121,7 +121,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-formatting
 
-    # Showcase
+    # Try out
     ./example
     ```
 
@@ -134,7 +134,7 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-layout
 
-    # Showcase
+    # Try out
     ./example
     ```
 
@@ -147,6 +147,6 @@
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-renderer
 
-    # Showcase
+    # Try out
     ./example
     ```
