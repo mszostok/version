@@ -1,6 +1,6 @@
 !!! coming-soon "Coming soon"
 
-    See the [mszostok/version#12](https://github.com/mszostok/version/issues/12) issue for a reference. If you want to see it, please add 👍 under the issue.
+    See the [mszostok/version#12](https://github.com/mszostok/version/issues/12) issue for a reference. If you'd like to see it included in a future release, add 👍 under the issue.
 
 ## Examples
 
