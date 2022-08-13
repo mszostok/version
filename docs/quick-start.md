@@ -1,8 +1,8 @@
 # Quick Start
 
-The quick start describes the most popular way of creating CLIs in Go. It uses [Cobra](https://cobra.dev/) and [GoReleaser](https://goreleaser.com/).
+The quick start guide describes how to set up `version` with the most common way of creating CLIs in Go. It uses [Cobra](https://cobra.dev/) and [GoReleaser](https://goreleaser.com/).
 
-## Register `version` command
+## Register the `version` command
 
 ```go
 package main
@@ -15,7 +15,7 @@ import (
 	"go.szostok.io/version/extension"
 )
 
-// NewRoot returns a root cobra.Command for the whole CLI.
+// NewRoot returns a root cobra.Command for the whole CLI
 func NewRoot() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "example",
@@ -23,9 +23,9 @@ func NewRoot() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		// 1. Register 'version' command
+		// 1. Register the 'version' command
 		extension.NewVersionCobraCmd(
-			// 2. Explict turn on upgrade notice
+			// 2. Explicitly turn on upgrade notice
 			extension.WithUpgradeNotice("repo-owner", "repo-name"),
 		),
 	)
@@ -40,7 +40,7 @@ func main() {
 }
 ```
 
-In that way you get a fully working `<cli> version` command.
+This way you get a fully working `<cli> version` command.
 
 ![](assets/examples/screen-upgrade-notice-cobra-version.png)
 ![](assets/examples/screen-cobra-version_-h.png)
@@ -61,11 +61,11 @@ builds:
 
 ### Summary
 
-As you saw, in a few seconds, you got a powerful `version` command! However, this only scratches the surfaces of possible configuration options.
+As you saw, in the blink of an eye, you got a powerful `version` command! However, this only scratches the surfaces of possible configuration options.
 
-See the customization documentation for more guidelines on how to meet what you need. For example:
+See the documentation for more guidelines on how to customize the `version` command to give you exactly what you need:
 
-- [usage examples](../get-started/usage),
-- [build options](../get-started/build-ldflags),
-- [upgrade notice](../get-started/upgrade-notice) configuration,
-- and [customization](../customization/).
+- [Usage examples](../get-started/usage)
+- [Build options](../get-started/build-ldflags)
+- [Upgrade notice](../get-started/upgrade-notice) configuration
+- [Customization](../customization/)
