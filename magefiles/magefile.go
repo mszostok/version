@@ -83,3 +83,7 @@ func (Gen) PrettyExamples() {
 	target.EmbedDefaultPrettyFormatting()
 	target.EmbedDefaultPrettyLayout()
 }
+
+func (Gen) Homepage() {
+	target.SyncHomepage()
+}
