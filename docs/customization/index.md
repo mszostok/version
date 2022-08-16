@@ -1,6 +1,6 @@
 # From inspiration to creation
 
-Have you found your muse? Are you looking to align with your cool branding?
+Have you found your muse? Are you looking to align with your cool branding? Wanna tweak some defaults?
 
 **We've got your back!**
 
