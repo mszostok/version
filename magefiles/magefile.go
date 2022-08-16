@@ -54,7 +54,7 @@ func (d Docs) Check() error {
 // CheckDeadLinks Detects dead links in documentation.
 func (d Docs) CheckDeadLinks() error {
 	mg.Deps(mg.F(deps.EnsureMuffet, bin, MuffetVersion))
-	lo.Must0(shx.MustCmdf(" pip install -r requirements.txt").RunS())
+	lo.Must0(shx.MustCmdf("pip install -r requirements.txt").RunS())
 	return target.CheckDeadLinks()
 }
 
