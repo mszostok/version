@@ -69,7 +69,7 @@ To load the config file, you can:
     layout:
       goTemplate: |2
         {{ Header .Meta.CLIName }}
-
+    
           {{ Key "Version" }}             {{ .Version                     | Val }}
           {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
           {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}

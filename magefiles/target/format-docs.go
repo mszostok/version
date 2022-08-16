@@ -20,6 +20,7 @@ var excludedFromFormatting = []string{
 	"docs/customization/omit-unset.md",
 	"docs/customization/upgrade-notice/index.md",
 	"docs/customization/upgrade-notice/layout.md",
+	"docs/get-started/upgrade-notice.md",
 }
 
 func FmtDocs(onlyCheck bool) error {

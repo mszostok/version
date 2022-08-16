@@ -1,6 +1,6 @@
 # Get Started
 
-The `version` package was built to remove the repetitiveness in implementing the _version_ command.
+The `version` package was built to remove the repetitiveness in implementing the *version* command.
 As such, it was designed in the form of building blocks, which you can mix and match based on your needs, and integrate with different frameworks.
 
 For example:

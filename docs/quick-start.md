@@ -63,7 +63,7 @@ builds:
 
 As you saw, in the blink of an eye, you got a powerful `version` command! However, this only scratches the surfaces of possible configuration options.
 
-You can easily customize the `version` command and adjust it to give you exactly what you need. 
+You can easily customize the `version` command and adjust it to give you exactly what you need.
 For more details, see the documentation:
 
 - [Usage examples](../get-started/usage)

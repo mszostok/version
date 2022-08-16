@@ -77,6 +77,7 @@ type Gen mg.Namespace
 
 func (Gen) All() {
 	mg.Deps(Gen.PrettyExamples)
+	mg.Deps(Gen.Homepage)
 }
 
 func (Gen) PrettyExamples() {
