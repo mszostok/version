@@ -28,7 +28,7 @@ capture() {
 	ver=$2
 	clear
 
-	cd "$REPO_ROOT_DIR/example" || exit
+	cd "$REPO_ROOT_DIR/examples" || exit
 	go install -ldflags "-X 'go.szostok.io/version.buildDate=$(date)' -X 'go.szostok.io/version.version=v0.6.1'" ./$program
 	cd "$HOME" || exit
 
@@ -42,7 +42,8 @@ capture() {
 	rm -f "$filename" || true
 
 	# only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
-	screencapture -x -R0,25,1285,650 "$filename"
+#	screencapture -x -R0,25,1285,650 "$filename"
+	screencapture -l$(osascript -e 'tell app "iTerm" to id of window 1') "$filename"
 }
 
 main() {
