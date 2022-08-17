@@ -68,7 +68,7 @@
     ./example version check
     ```
 
-## [Printer](https://github.com/mszostok/version/tree/main/examples/printer/main.go)
+## [Printer](https://github.com/mszostok/version/tree/main/examples/printer/main.go) [![playground][play-simple-img]](https://goplay.tools/snippet/3bQdycNnj-j)
 
 ![](assets/examples/screen-printer-.png)
 ![](assets/examples/screen-printer--oyaml.png)
@@ -98,7 +98,7 @@
     ./example
     ```
 
-## [Plain](https://github.com/mszostok/version/tree/main/examples/plain/main.go)
+## [Plain](https://github.com/mszostok/version/tree/main/examples/plain/main.go) [![playground][play-simple-img]](https://goplay.tools/snippet/Bu1giNBkoS-)
 
 ![](assets/examples/screen-plain-.png)
 
@@ -112,7 +112,7 @@
     ./example
     ```
 
-## [Custom Formatting](https://github.com/mszostok/version/tree/main/examples/custom-formatting/main.go)
+## [Custom Formatting](https://github.com/mszostok/version/tree/main/examples/custom-formatting/main.go) [![playground][play-simple-img]](https://goplay.tools/snippet/LE5HuXdYF7v)
 
 ![](assets/examples/screen-custom-formatting-.png)
 
@@ -125,7 +125,7 @@
     ./example
     ```
 
-## [Custom Layout](https://github.com/mszostok/version/tree/main/examples/custom-layout/main.go)
+## [Custom Layout](https://github.com/mszostok/version/tree/main/examples/custom-layout/main.go) [![playground][play-simple-img]](https://goplay.tools/snippet/f8-RCWyfevR)
 
 ![](assets/examples/screen-custom-layout-.png)
 
@@ -138,7 +138,7 @@
     ./example
     ```
 
-## [Custom Renderer](https://github.com/mszostok/version/tree/main/examples/custom-renderer/main.go)
+## [Custom Renderer](https://github.com/mszostok/version/tree/main/examples/custom-renderer/main.go) [![playground][play-simple-img]](https://goplay.tools/snippet/S-Gs299_ZOc)
 
 ![](assets/examples/screen-custom-renderer-.png)
 
@@ -150,3 +150,5 @@
     # Try out
     ./example
     ```
+
+[play-simple-img]: https://img.shields.io/badge/playground-try-29BEB0?style=flat&logo=go
