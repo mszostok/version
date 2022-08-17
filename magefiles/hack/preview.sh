@@ -29,7 +29,7 @@ capture() {
 	clear
 
 	# shellcheck disable=SC2059
-	printf "▲ ${YELLOW}gimme${NC} version\n"
+	printf " ▲ ${YELLOW}gimme${NC} version\n"
 
 	$cmd
 
@@ -37,7 +37,8 @@ capture() {
 
 	# shellcheck disable=SC2155
 	local filepath="${ASSET_EXAMPLES_DIR}/$filename"
-	screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') "$filepath"
+  #	screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') "$filepath"
+  screencapture -x -R0,25,1075,650 "$filepath"
 }
 
 main() {
