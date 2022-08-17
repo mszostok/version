@@ -42,7 +42,7 @@ capture() {
 	rm -f "$filename" || true
 
 	# only term: screencapture -ol$(osascript -e 'tell app "iTerm" to id of window 1') test.png
-#	screencapture -x -R0,25,1285,650 "$filename"
+  #	screencapture -x -R0,25,1285,650 "$filename"
 	screencapture -l$(osascript -e 'tell app "iTerm" to id of window 1') "$filename"
 }
 

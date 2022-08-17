@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"runtime"
 	"runtime/debug"
+	"strconv"
 	"sync"
 )
 
@@ -42,13 +43,14 @@ var collectOnce sync.Once
 //   3. in their absence fallback to the settings in ./base.go.
 func Get() *Info {
 	collectOnce.Do(collectFromBuildInfo)
+	dirty, _ := strconv.ParseBool(dirtyBuild)
 	return &Info{
 		Meta:       Meta{CLIName: name},
 		Version:    version,
 		GitCommit:  commit,
 		BuildDate:  buildDate,
 		CommitDate: commitDate,
-		DirtyBuild: dirtyBuild,
+		DirtyBuild: dirty,
 		GoVersion:  runtime.Version(),
 		Compiler:   runtime.Compiler,
 		Platform:   fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
@@ -78,7 +80,9 @@ func collectFromBuildInfo() {
 				commitDate = kv.Value
 			}
 		case "vcs.modified":
-			dirtyBuild = kv.Value == "true"
+			if dirtyBuild == unknownProperty && kv.Value != "" {
+				dirtyBuild = kv.Value
+			}
 		}
 	}
 }

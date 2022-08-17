@@ -14,5 +14,5 @@ var (
 	commit     = unknownProperty
 	buildDate  = unknownProperty
 	commitDate = unknownProperty
-	dirtyBuild = false
+	dirtyBuild = unknownProperty
 )

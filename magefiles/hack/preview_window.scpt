@@ -1,6 +1,6 @@
 set theApp to "iTerm"
 set appHeight to 510
-set appWidth to 1095
+set appWidth to 880
 
 tell application theApp
 	activate

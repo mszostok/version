@@ -88,3 +88,7 @@ func (Gen) PrettyExamples() {
 func (Gen) Homepage() {
 	target.SyncHomepage()
 }
+
+func (Gen) Preview() {
+	target.TakePreview()
+}

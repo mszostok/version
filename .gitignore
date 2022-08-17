@@ -60,3 +60,4 @@ coverage.txt
 .vscode
 
 /examples/example
+/magefiles/preview
