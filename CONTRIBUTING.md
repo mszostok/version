@@ -23,25 +23,26 @@ To start contributing, follow these steps:
 
 2. Clone the repository locally.
 
-	 > **TIP:** This project uses Go modules, so you can check it out locally wherever you want. It doesn't need to be checked out in `$GOPATH`.
+   > **Note**
+   > This project uses Go modules, so you can check it out locally wherever you want. It doesn't need to be checked out in `$GOPATH`.
 
 3. Set the `version` repository as upstream:
 
-	  ```bash
-		git remote add upstream git@github.com:mszostok/version.git
-		```
+   ```bash
+     git remote add upstream git@github.com:mszostok/version.git
+   ```
 
 4. Fetch all the remote branches for this repository:
 
-	  ```bash
-		git fetch --all
-		```
+   ```bash
+     git fetch --all
+   ```
 
 5. Set the `main` branch to point to upstream:
 
-	  ```bash
-		git branch -u upstream/main main
-		```
+   ```bash
+     git branch -u upstream/main main
+   ```
 
 You're all set! 🚀
 
@@ -70,6 +71,7 @@ This project adheres to the [Go official](https://github.com/golang/go/wiki/Code
   ```sh
   mkdocs serve -D
   ```
+
   Site can be viewed at http://localhost:8000
 
 - Find the documentation page file (`.md` file) under `docs/` and edit it.
