@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/magefile/mage v1.13.0
 	github.com/muesli/reflow v0.3.0
-	github.com/samber/lo v1.27.0
+	github.com/samber/lo v1.28.0
 	go.szostok.io/magex v0.0.0-20220816194429-7d7a89ff1d26
 	go.szostok.io/version v0.0.0-00010101000000-000000000000
 	gopkg.in/yaml.v3 v3.0.1
