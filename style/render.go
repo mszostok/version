@@ -3,6 +3,7 @@ package style
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 	"strings"
 	"text/template"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"github.com/Masterminds/sprig/v3"
 	"github.com/araddon/dateparse"
 	"github.com/dustin/go-humanize"
+	"github.com/mattn/go-runewidth"
 	"github.com/muesli/termenv"
 
 	"go.szostok.io/version/style/termenvx"
@@ -19,6 +21,7 @@ import (
 type GoTemplateRender struct {
 	config       *Config
 	colorProfile termenv.Profile
+	width        int
 }
 
 // NewGoTemplateRender returns new GoTemplateRender instance.
@@ -26,6 +29,7 @@ func NewGoTemplateRender(cfg *Config) *GoTemplateRender {
 	renderer := GoTemplateRender{
 		config:       cfg,
 		colorProfile: termenv.Ascii,
+		width:        15,
 	}
 
 	return &renderer
@@ -56,14 +60,101 @@ func (r *GoTemplateRender) Render(in interface{}, isSmartTerminal bool) (string,
 	return buff.String(), nil
 }
 
+func (r *GoTemplateRender) adjustKeyWidth(in any) string {
+	if in == nil {
+		return ""
+	}
+
+	// could be any underlying type
+	val := reflect.ValueOf(in)
+	// if it's a pointer, resolve its value
+	if val.Kind() == reflect.Ptr {
+		val = reflect.Indirect(val)
+	}
+
+	// should double-check we now have a struct (could still be anything)
+	if val.Kind() != reflect.Struct {
+		return ""
+	}
+
+	// check for the longest name
+	structType := val.Type()
+	for i := 0; i < structType.NumField(); i++ {
+		var (
+			field = structType.Field(i)
+			tag   = field.Tag
+			name  = field.Name
+		)
+		if val, ok := tag.Lookup("pretty"); ok {
+			name = val
+		}
+
+		width := runewidth.StringWidth(name)
+		if r.width < width {
+			r.width = width
+		}
+	}
+
+	return ""
+}
+
 func (r *GoTemplateRender) header(in string) string {
 	c := NewTermenvStyle(r.colorProfile, r.config.Formatting.Header.FormatPrimitive)
 	return c.Styled(fmt.Sprintf("%s%s", r.config.Formatting.Header.Prefix, in))
 }
 
 func (r *GoTemplateRender) key(in string) string {
-	c := NewTermenvStyle(r.colorProfile, r.config.Formatting.Key.FormatPrimitive)
-	return c.Styled(in)
+	ff := r.config.Formatting.Key.FormatPrimitive
+
+	c := NewTermenvStyle(r.colorProfile, ff)
+	initial := runewidth.StringWidth(in)
+	newV := c.Styled(in)
+	varr := runewidth.StringWidth(newV) - initial + 2
+	return fmt.Sprintf("%-*s", r.width+varr, newV)
+}
+
+type KV struct {
+	Key   string
+	Value any
+}
+
+func (r *GoTemplateRender) extra(in any) []KV {
+	var out []KV
+	if in == nil {
+		return out
+	}
+
+	// could be any underlying type
+	val := reflect.ValueOf(in)
+	// if its a pointer, resolve its value
+	if val.Kind() == reflect.Ptr {
+		val = reflect.Indirect(val)
+	}
+
+	// should double-check we now have a struct (could still be anything)
+	if val.Kind() != reflect.Struct {
+		return out
+	}
+
+	// now we grab our values
+	structType := val.Type()
+	for i := 0; i < structType.NumField(); i++ {
+		var (
+			field = structType.Field(i)
+			tag   = field.Tag
+			name  = field.Name
+		)
+
+		if val, ok := tag.Lookup("pretty"); ok {
+			name = val
+		}
+		out = append(out, KV{
+			Key:   name,
+			Value: val.Field(i).Interface(),
+		})
+	}
+
+	return out
 }
 
 func (*GoTemplateRender) commit(in string) string {

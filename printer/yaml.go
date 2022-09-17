@@ -1,11 +1,13 @@
 package printer
 
 import (
-	"fmt"
+	fmt "fmt"
 	"io"
-	"strings"
 
+	"github.com/goccy/go-yaml/lexer"
+	"github.com/goccy/go-yaml/printer"
 	"github.com/muesli/termenv"
+	"gopkg.in/yaml.v3"
 
 	"go.szostok.io/version"
 	"go.szostok.io/version/style/termenvx"
@@ -19,52 +21,17 @@ type YAML struct{}
 
 // Print marshals input data to YAML format and writes it to a given writer.
 // Prints colored output only if a given writer supports that.
-func (p *YAML) Print(in *version.Info, w io.Writer) error {
-	if in == nil {
-		return nil
+func (y *YAML) Print(in *version.Info, w io.Writer) error {
+	out, err := yaml.Marshal(in)
+	if err != nil {
+		return fmt.Errorf("while marshaling: %w", err)
 	}
-	var buff strings.Builder
+	cp := y.colorProfile(w)
 
-	profile := p.colorProfile(w)
+	data := y.colorizedYAML(cp, string(out))
 
-	sep := p.string(profile, termenv.ANSIYellow)
-	yamlLine := p.yamlLine(profile)
-
-	buff.WriteString(sep("---\n"))
-	buff.WriteString(yamlLine("version", in.Version, true))
-	buff.WriteString(yamlLine("gitCommit", in.GitCommit, true))
-	buff.WriteString(yamlLine("buildDate", in.BuildDate, true))
-	buff.WriteString(yamlLine("commitDate", in.CommitDate, true))
-	buff.WriteString(yamlLine("dirtyBuild", in.DirtyBuild, false))
-	buff.WriteString(yamlLine("goVersion", in.GoVersion, true))
-	buff.WriteString(yamlLine("compiler", in.Compiler, true))
-	buff.WriteString(yamlLine("platform", in.Platform, true))
-
-	_, err := fmt.Fprintln(w, buff.String())
+	_, err = fmt.Fprintln(w, data)
 	return err
-}
-
-func (p *YAML) yamlLine(profile termenv.Profile) func(k string, v interface{}, quote bool) string {
-	key := p.string(profile, termenv.ANSIYellow)
-	val := p.string(profile, termenv.ANSIWhite)
-
-	return func(k string, v interface{}, quote bool) string {
-		rv := fmt.Sprintf("%v", v)
-		if quote {
-			rv = fmt.Sprintf("%q", rv)
-		}
-		return key("%s: ", k) + val("%s\n", rv)
-	}
-}
-
-func (*YAML) string(p termenv.Profile, color termenv.Color) func(format string, args ...interface{}) string {
-	return func(format string, args ...interface{}) string {
-		msg := fmt.Sprintf(format, args...)
-		return termenv.
-			String(msg).
-			Foreground(p.Convert(color)).
-			String()
-	}
 }
 
 func (*YAML) colorProfile(w io.Writer) termenv.Profile {
@@ -73,4 +40,64 @@ func (*YAML) colorProfile(w io.Writer) termenv.Profile {
 	}
 
 	return termenv.Ascii
+}
+
+func (*YAML) escape(p termenv.Profile) string {
+	if p.Convert(termenv.ANSIWhite).Sequence(false) == "" {
+		return ""
+	}
+	return fmt.Sprintf("%sm", termenv.CSI+termenv.ResetSeq)
+}
+
+func (*YAML) color(p termenv.Profile, color termenv.Color) string {
+	seq := p.Convert(color).Sequence(false)
+	if seq == "" {
+		return ""
+	}
+	return fmt.Sprintf("%s%sm", termenv.CSI, seq)
+}
+
+func (y *YAML) colorizedYAML(cp termenv.Profile, in string) string {
+	suffix := y.escape(cp)
+
+	tokens := lexer.Tokenize(in)
+	var p printer.Printer
+	p.Bool = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIYellow),
+			Suffix: suffix,
+		}
+	}
+	p.Number = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIMagenta),
+			Suffix: suffix,
+		}
+	}
+	p.MapKey = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIWhite),
+			Suffix: suffix,
+		}
+	}
+	p.Anchor = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIBrightYellow),
+			Suffix: suffix,
+		}
+	}
+	p.Alias = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIBrightYellow),
+			Suffix: suffix,
+		}
+	}
+	p.String = func() *printer.Property {
+		return &printer.Property{
+			Prefix: y.color(cp, termenv.ANSIBrightGreen),
+			Suffix: suffix,
+		}
+	}
+
+	return p.PrintTokens(tokens)
 }
