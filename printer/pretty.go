@@ -20,17 +20,20 @@ type (
 
 var (
 	// PrettyLayoutGoTpl prints all version data in a 'key  value' manner.
-	PrettyLayoutGoTpl = `
+	PrettyLayoutGoTpl = `{{ AdjustKeyWidth .ExtraFields }}
 {{ Header .Meta.CLIName }}
 
-  {{ Key "Version" }}             {{ .Version                     | Val }}
-  {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
-  {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}
-  {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val }}
-  {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val }}
-  {{ Key "Go version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
-  {{ Key "Compiler" }}            {{ .Compiler                    | Val }}
-  {{ Key "Platform" }}            {{ .Platform                    | Val }}
+  {{ Key "Version"     }}    {{ .Version                     | Val }}
+  {{ Key "Git Commit"  }}    {{ .GitCommit  | Commit         | Val }}
+  {{ Key "Build Date"  }}    {{ .BuildDate  | FmtDate        | Val }}
+  {{ Key "Commit Date" }}    {{ .CommitDate | FmtDate        | Val }}
+  {{ Key "Dirty Build" }}    {{ .DirtyBuild | FmtBool        | Val }}
+  {{ Key "Go version"  }}    {{ .GoVersion  | trimPrefix "go"| Val }}
+  {{ Key "Compiler"    }}    {{ .Compiler                    | Val }}
+  {{ Key "Platform"    }}    {{ .Platform                    | Val }}
+  {{- range $item := (.ExtraFields | Extra) }}
+  {{ $item.Key | Key   }}    {{ $item.Value | Val }}
+  {{- end}}
 `
 )
 

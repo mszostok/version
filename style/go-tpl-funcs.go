@@ -13,7 +13,9 @@ func (r *GoTemplateRender) styleFuncMap() template.FuncMap {
 	return template.FuncMap{
 		"Header":           r.header,
 		"Key":              r.key,
+		"Extra":            r.extra,
 		"Val":              r.val,
+		"AdjustKeyWidth":   r.adjustKeyWidth,
 		"FmtDate":          r.fmtDate,
 		"FmtDateHumanized": r.fmtDateHumanized,
 		"FmtBool":          r.fmtBool,
