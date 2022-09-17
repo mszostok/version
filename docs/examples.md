@@ -112,6 +112,19 @@
     ./example
     ```
 
+## [Custom Fields](https://github.com/mszostok/version/tree/main/examples/custom-fields/main.go)
+
+![](assets/examples/screen-custom-fields-.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-fields
+
+    # Try out
+    ./example
+    ```
+
 ## [Custom Formatting](https://github.com/mszostok/version/tree/main/examples/custom-formatting/main.go)
 
 ![](assets/examples/screen-custom-formatting-.png)

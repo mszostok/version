@@ -26,7 +26,7 @@ type Info struct {
 	ExtraFields ExtraFields `json:"-" yaml:"-"`
 }
 
-// MarshalJSON marshal data into JONS but ensures that extra fields are inlined.
+// MarshalJSON marshal data into JSON but ensures that extra fields are inlined.
 func (p *Info) MarshalJSON() ([]byte, error) {
 	if p == nil {
 		return nil, nil

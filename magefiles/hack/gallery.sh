@@ -78,6 +78,7 @@ main() {
 
 	capture "custom-layout" ""
 	capture "custom-renderer" ""
+	capture "custom-fields" ""
 
 	# Small
 	setup "help-cmd"
