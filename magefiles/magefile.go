@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/magefile/mage/mg"
 	"github.com/samber/lo"
 	"go.szostok.io/magex/deps"
@@ -52,10 +54,10 @@ func (d Docs) Check() error {
 }
 
 // CheckDeadLinks Detects dead links in documentation.
-func (d Docs) CheckDeadLinks() error {
+func (d Docs) CheckDeadLinks(warmup time.Duration) error {
 	mg.Deps(mg.F(deps.EnsureMuffet, bin, MuffetVersion))
 	lo.Must0(shx.MustCmdf("pip install -r requirements.txt").RunS())
-	return target.CheckDeadLinks()
+	return target.CheckDeadLinks(warmup)
 }
 
 // "Test" Targets

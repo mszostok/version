@@ -17,14 +17,14 @@ var excludedLinks = []string{
 	"https://twitter.com/m_szostok",
 }
 
-func CheckDeadLinks() error {
+func CheckDeadLinks(warmup time.Duration) error {
 	printer.Title("Checking for dead links in docs...")
 
 	mkdocsSvr := shx.MustAsyncCmdf("mkdocs serve -a localhost:60123")
 	mkdocsSvr.MustStart()
 	defer mkdocsSvr.MustStop()
 
-	time.Sleep(time.Second) // mkdocs needs some time
+	time.Sleep(warmup) // mkdocs needs some time
 
 	return shx.MustCmdf("./bin/muffet http://localhost:60123 --skip-tls-verification --rate-limit=50 %s -v", exclude(excludedLinks)).Run()
 }
