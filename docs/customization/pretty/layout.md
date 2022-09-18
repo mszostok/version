@@ -7,16 +7,16 @@ To define the layout, use [Go templating](https://pkg.go.dev/html/template). You
 
 These are the fields that you can access in your Go template definition:
 
-| Key           | Description                                                                                                  |
-|---------------|--------------------------------------------------------------------------------------------------------------|
-| `.Version`    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                 |
-| `.GitCommit`  | Git commit value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.revision` tag.   |
-| `.BuildDate`  | Build date value set via `-ldflags`, otherwise empty.                                                        |
+| Key           | Description                                                                                                     |
+|---------------|-----------------------------------------------------------------------------------------------------------------|
+| `.Version`    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                    |
+| `.GitCommit`  | Git commit value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.revision` tag.      |
+| `.BuildDate`  | Build date value set via `-ldflags`, otherwise empty.                                                           |
 | `.CommitDate` | Git commit date value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` from the `vcs.time` tag.  |
 | `.DirtyBuild` | Dirty build value, set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` from the `vcs.modified` tag. |
-| `.GoVersion`  | Go version taken from `runtime.Version()`.                                                                   |
-| `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                   |
-| `.Platform`   | Build platform, passed in the following format: `runtime.GOOS/runtime.GOARCH`.                                                  |
+| `.GoVersion`  | Go version taken from `runtime.Version()`.                                                                      |
+| `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                      |
+| `.Platform`   | Build platform, passed in the following format: `runtime.GOOS/runtime.GOARCH`.                                  |
 
 
 ## Go
@@ -69,7 +69,7 @@ To load the config file, you can:
     layout:
       goTemplate: |2
         {{ Header .Meta.CLIName }}
-    
+
           {{ Key "Version" }}             {{ .Version                     | Val }}
           {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
           {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}

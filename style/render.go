@@ -13,6 +13,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/mattn/go-runewidth"
 	"github.com/muesli/termenv"
+	"gopkg.in/yaml.v3"
 
 	"go.szostok.io/version/style/termenvx"
 )
@@ -161,9 +162,19 @@ func (*GoTemplateRender) commit(in string) string {
 	return strings.TrimSpace(fmt.Sprintf("%.7s", in))
 }
 
-func (r *GoTemplateRender) val(in string) string {
+func (r *GoTemplateRender) val(in any) string {
 	c := NewTermenvStyle(r.colorProfile, r.config.Formatting.Val.FormatPrimitive)
-	return c.Styled(in)
+
+	switch str := in.(type) {
+	case string:
+		return c.Styled(str)
+	default:
+		out, err := yaml.Marshal(in)
+		if err != nil {
+			return err.Error()
+		}
+		return c.Styled(string(out))
+	}
 }
 
 func (*GoTemplateRender) fmtBool(in bool) string {
