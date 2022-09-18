@@ -14,7 +14,7 @@ The `version` package supports most popular version fields natively.
      | `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                      |
      | `.Platform`   | Build platform, passed in the following format: `runtime.GOOS/runtime.GOARCH`.                                  |
 
-     Check [build options](../get-started/build-ldflags) to learn how to override them if you need.
+     Check [build options](../../get-started/build-ldflags) to learn how to override them if you need.
 
 However, each project may want to display more information such as documentation or changelog URLs, sometimes even domain related fields. You can provide them using your Go struct.
 
