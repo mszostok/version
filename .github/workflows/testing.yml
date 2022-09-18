@@ -62,11 +62,6 @@ jobs:
         with:
           version: latest
           args: docs:check
-      - name: "Check links *.md files"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: -v docs:checkDeadLinks
       - name: "Detect git changes"
         if: always()
         run: |
@@ -96,7 +91,7 @@ jobs:
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
           version: latest
-          args: -v docs:checkDeadLinks
+          args: -v docs:checkDeadLinks 10s
       - name: "(Hack) remove the homepage custom page"
         if: always()
         run: echo "" > ./docs/index.md
@@ -105,7 +100,7 @@ jobs:
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
           version: latest
-          args: -v docs:checkDeadLinks
+          args: -v docs:checkDeadLinks 10s
 
   language-check:
     name: Check documentation language and grammar
