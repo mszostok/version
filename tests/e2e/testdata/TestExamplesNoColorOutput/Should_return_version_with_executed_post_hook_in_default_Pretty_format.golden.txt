@@ -1,5 +1,5 @@
 
-▓▓▓ ./../../examples/printer-post-hook/example
+▓▓▓ ../../examples/printer-post-hook/example
 
   Version              0.6.1
   Git Commit           324d022

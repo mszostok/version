@@ -24,28 +24,26 @@ const exampleDir = "../../examples"
 func buildBinaryAllLDFlags(t *testing.T, dir string) string {
 	t.Helper()
 
-	var stdout, stderr bytes.Buffer
-	buildDate := time.Date(2022, time.April, 1, 12, 22, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
-	commitDate := time.Date(2022, time.March, 28, 15, 32, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
-	commit := "324d022c190ce49e0440e6bdac6383e4874c7c70"
-	dirtyBuild := "false"
+	var (
+		buildDate  = time.Date(2022, time.April, 1, 12, 22, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
+		commitDate = time.Date(2022, time.March, 28, 15, 32, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
+		commit     = "324d022c190ce49e0440e6bdac6383e4874c7c70"
+		dirtyBuild = "false"
+	)
 
 	ran, code, err := shx.MustCmdf(`go build -ldflags="-X go.szostok.io/version.version=0.6.1 -X 'go.szostok.io/version.buildDate=%s' -X go.szostok.io/version.commit=%s -X go.szostok.io/version.commitDate=%s -X go.szostok.io/version.dirtyBuild=%s -X go.szostok.io/version.name=%s" -o example . `,
 		buildDate,
 		commit,
 		commitDate,
 		dirtyBuild,
-		"example",
-	).
+		"example").
 		In(filepath.Join(exampleDir, dir)).
-		Stdout(&stdout).
-		Stderr(&stderr).
 		Exec()
 
 	require.NoError(t, err)
 	assert.True(t, ran)
 	assert.Equal(t, 0, code)
-	return "./" + filepath.Join(exampleDir, dir, "example")
+	return filepath.Join(exampleDir, dir, "example")
 }
 
 type Executor struct {
