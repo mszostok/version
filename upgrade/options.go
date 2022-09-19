@@ -8,9 +8,9 @@ import (
 
 type (
 	// RenderFunc represents render function signature.
-	RenderFunc func(in *Info) (string, error)
+	RenderFunc func(in *Info, isSmartTerminal bool) (string, error)
 	// PostRenderFunc represents post render function signature.
-	PostRenderFunc func(body string) (string, error)
+	PostRenderFunc func(body string, isSmartTerminal bool) (string, error)
 	// IsVerGreaterFunc represents version check function signature.
 	IsVerGreaterFunc func(current string, new string) bool
 	// Options represents function mutating default options.

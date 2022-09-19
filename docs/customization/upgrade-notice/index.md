@@ -88,7 +88,7 @@ You can customize almost all aspects of the upgrade check:
 - Define a [custom renderer](./custom-renderer.md):
 
     ```go
-    upgrade.WithRenderer(func(in *upgrade.Info) (string, error) {
+    upgrade.WithRenderer(func(in *upgrade.Info, isSmartTerminal bool) (string, error) {
     	return fmt.Sprintf(`
     		Version             %q
     		New Version         %q

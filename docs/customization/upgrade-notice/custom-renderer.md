@@ -11,7 +11,7 @@ func NewRoot() *cobra.Command {
 	}
 
 	opts := []upgrade.Options{
-		upgrade.WithRenderer(func(in *upgrade.Info) (string, error) {
+		upgrade.WithRenderer(func(in *upgrade.Info, isSmartTerminal bool) (string, error) {
 			return fmt.Sprintf(`
       Version             %q
       New Version         %q

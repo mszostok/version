@@ -59,7 +59,7 @@ func (gh *GitHubDetector) Render(info *Info, isSmartTerminal bool) (string, erro
 	}
 
 	if gh.postRenderFn != nil {
-		return gh.postRenderFn(body)
+		return gh.postRenderFn(body, isSmartTerminal)
 	}
 
 	return body, nil
@@ -128,7 +128,7 @@ func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string
 
 func (gh *GitHubDetector) render(info *Info, isSmartTerminal bool) (string, error) {
 	if gh.customRenderFn != nil {
-		return gh.customRenderFn(info)
+		return gh.customRenderFn(info, isSmartTerminal)
 	}
 
 	renderBody := style.NewGoTemplateRender(gh.style)
