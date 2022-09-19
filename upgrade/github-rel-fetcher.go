@@ -2,12 +2,11 @@ package upgrade
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"gopkg.in/yaml.v3"
@@ -15,9 +14,8 @@ import (
 
 // ReleaseInfoResponse stores information about a release.
 type ReleaseInfoResponse struct {
-	Version     string    `json:"tag_name"`
-	URL         string    `json:"html_url"`
-	PublishedAt time.Time `json:"published_at"`
+	Version string
+	URL     string
 }
 
 // GetLatestRelease checks whether there is a newer release on GitHub. If yes, returns it, otherwise returns nil.
@@ -44,35 +42,33 @@ func GetLatestRelease(ctx context.Context, stateFilePath, repo string, minRechec
 }
 
 func getLatestReleaseInfo(ctx context.Context, repo string) (*ReleaseInfoResponse, error) {
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, http.NoBody)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("Accept", "application/vnd.github+json")
+	url := fmt.Sprintf("https://github.com/%s/releases/latest", repo)
 
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	rawBody, err := io.ReadAll(resp.Body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodHead, url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("got unexpected status code %v", resp.Status)
-	}
-
-	var latestRelease ReleaseInfoResponse
-	err = json.Unmarshal(rawBody, &latestRelease)
+	client := newHTTPClient()
+	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
-	return &latestRelease, nil
+	if res.StatusCode != http.StatusFound {
+		return nil, fmt.Errorf("incorrect status code: %d", res.StatusCode)
+	}
+
+	loc := res.Header.Get("Location")
+	if loc == "" {
+		return nil, fmt.Errorf("unable to determine release version")
+	}
+	version := loc[strings.LastIndex(loc, "/")+1:]
+	return &ReleaseInfoResponse{
+		Version: version,
+		URL:     loc,
+	}, nil
 }
 
 type stateEntry struct {

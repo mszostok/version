@@ -54,7 +54,7 @@ You can customize almost all aspects of the upgrade check:
     })
     ```
 
-- Set the minimum time that must elapse before checking for a new release (default: `24h`):
+- Set the minimum time that must elapse before checking for a new release (default: `0min`):
 
     ```go
     upgrade.WithMinElapseTimeForRecheck(time.Second)
@@ -92,8 +92,7 @@ You can customize almost all aspects of the upgrade check:
     	return fmt.Sprintf(`
     		Version             %q
     		New Version         %q
-    		Published At        %v
-    	`, in.Version, in.NewVersion, in.PublishedAt), nil
+    	`, in.Version, in.NewVersion), nil
     })
     ```
 

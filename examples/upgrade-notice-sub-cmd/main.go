@@ -20,7 +20,7 @@ func NewVersionWithCheck() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ghUpgrade := upgrade.NewGitHubDetector(
 				"mszostok", "codeowners-validator",
-				upgrade.WithMinElapseTimeForRecheck(time.Second),
+				upgrade.WithMinElapseTimeForRecheck(30*time.Second),
 			)
 			return ghUpgrade.PrintIfFoundGreater(cmd.ErrOrStderr(), version.Get().Version)
 		},

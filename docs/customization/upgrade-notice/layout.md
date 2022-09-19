@@ -12,7 +12,6 @@ These are the fields that you can access in your Go template definition:
 | `.Version`     | Binary version                                           |
 | `.NewVersion`  | New binary version taken from the latest GitHub release  |
 | `.ReleaseURL`  | GitHub release URL                                       |
-| `.PublishedAt` | GitHub release publish date                              |
 
 ## Go
 
@@ -24,7 +23,7 @@ Example usage:
 
 ```go
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | Green }} ({{ .PublishedAt | FmtDateHumanized }})
+A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
 {{ .ReleaseURL  | Underline | Blue }}`)
 
 func main() {

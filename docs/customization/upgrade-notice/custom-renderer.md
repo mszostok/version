@@ -15,8 +15,7 @@ func NewRoot() *cobra.Command {
 			return fmt.Sprintf(`
       Version             %q
       New Version         %q
-      Published At        %v
-   `, in.Version, in.NewVersion, in.PublishedAt), nil
+   `, in.Version, in.NewVersion), nil
 		}),
 	}
 

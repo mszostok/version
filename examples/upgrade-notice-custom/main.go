@@ -7,6 +7,7 @@ import (
 	"github.com/Delta456/box-cli-maker/v2"
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/muesli/reflow/indent"
+	"github.com/spf13/pflag"
 
 	"go.szostok.io/version/printer"
 	"go.szostok.io/version/style"
@@ -24,13 +25,16 @@ func main() {
 	p := printer.New(
 		printer.WithUpgradeNotice("mszostok", "codeowners-validator", upgradeOpts...),
 	)
+	p.RegisterPFlags(pflag.CommandLine) // register `--output/-o` flag
+	pflag.Parse()
+
 	if err := p.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }
 
 var forBoxLayoutGoTpl = heredoc.Doc(`
-A new release is available: {{ .Version }} → {{ .NewVersion | Green }} ({{ .PublishedAt | FmtDateHumanized }})
+A new release is available: {{ .Version | Red }} → {{ .NewVersion | Green }}
 {{ .ReleaseURL  | Underline | Blue }}`)
 
 func SprintInBox(body string) (string, error) {

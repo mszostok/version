@@ -97,10 +97,9 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	return LookForLatestReleaseOutput{
 		Found: true,
 		ReleaseInfo: &Info{
-			Version:     in.CurrentVersion,
-			NewVersion:  rel.Version,
-			ReleaseURL:  rel.URL,
-			PublishedAt: rel.PublishedAt,
+			Version:    in.CurrentVersion,
+			NewVersion: rel.Version,
+			ReleaseURL: rel.URL,
 		},
 	}, nil
 }

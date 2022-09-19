@@ -82,7 +82,7 @@ func WithIsVersionGreater(comparator IsVerGreaterFunc) Options {
 }
 
 // WithMinElapseTimeForRecheck sets the minimum time that must elapse before checking for a new release.
-// Defaults to 24h.
+// Defaults to 0.
 func WithMinElapseTimeForRecheck(interval time.Duration) Options {
 	return func(options *GitHubDetector) {
 		options.recheckInterval = interval
