@@ -8,4 +8,4 @@
   Dirty Build          no
   Go version           1.19.1
   Compiler             gc
-  Platform             darwin/amd64
+  Platform             normalized

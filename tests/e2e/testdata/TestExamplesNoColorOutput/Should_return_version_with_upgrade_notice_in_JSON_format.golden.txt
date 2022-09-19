@@ -4,7 +4,7 @@
   "compiler": "gc",
   "gitCommit": "324d022c190ce49e0440e6bdac6383e4874c7c70",
   "goVersion": "go1.19.1",
-  "platform": "darwin/amd64",
+  "platform": "normalized",
   "version": "0.6.1"
 }
 

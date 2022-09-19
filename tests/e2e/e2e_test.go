@@ -13,6 +13,7 @@ import (
 
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/araddon/dateparse"
+	"github.com/mattn/go-runewidth"
 	"github.com/mattn/go-shellwords"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
@@ -20,10 +21,11 @@ import (
 )
 
 type TestCases struct {
-	cmd    string
-	skipOS string
-	name   string
-	dir    string
+	cmd      string
+	skipOS   string
+	name     string
+	dir      string
+	bordered bool
 }
 
 var cases = []TestCases{
@@ -107,16 +109,18 @@ var cases = []TestCases{
 
 	// Custom layout
 	{
-		name: "Should return version with custom Pretty layout",
-		cmd:  ``,
-		dir:  "custom-layout",
+		name:     "Should return version with custom Pretty layout",
+		cmd:      ``,
+		bordered: true,
+		dir:      "custom-layout",
 	},
 
 	// Custom renderer
 	{
-		name: "Should return version with custom Pretty renderer",
-		cmd:  ``,
-		dir:  "custom-renderer",
+		name:     "Should return version with custom Pretty renderer",
+		cmd:      ``,
+		bordered: true,
+		dir:      "custom-renderer",
 	},
 
 	// Plain
@@ -249,6 +253,7 @@ func TestExamplesColorOutput(t *testing.T) {
 //	UPDATE_GOLDEN=true TEST_NAME=TestExamplesNoColorOutput mage test:integration
 func TestExamplesNoColorOutput(t *testing.T) {
 	t.Parallel()
+	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 
 	for _, tc := range cases {
 		tc := tc
@@ -261,6 +266,12 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
 
+			normalizedPlatform := "normalized"
+			if tc.bordered {
+				padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
+				normalizedPlatform += strings.Repeat(" ", padding)
+			}
+
 			// when
 			result, err := Exec(binaryPath, tc.cmd).
 				AwaitResultAtMost(10 * time.Second)
@@ -269,9 +280,11 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, 0, result.ExitCode)
 
+			data := result.Stdout + result.Stderr
+			data = strings.ReplaceAll(data, platform, normalizedPlatform)
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
-			g.Assert(t, t.Name(), []byte(result.Stdout+result.Stderr))
+			g.Assert(t, t.Name(), []byte(data))
 		})
 	}
 }

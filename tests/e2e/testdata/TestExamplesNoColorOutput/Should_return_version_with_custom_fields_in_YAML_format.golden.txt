@@ -4,7 +4,7 @@ buildDate: "2022-04-01T12:22:14Z"
 commitDate: "2022-03-28T15:32:14Z"
 goVersion: go1.19.1
 compiler: gc
-platform: darwin/amd64
+platform: normalized
 builtBy: GoReleaser
 docsURL: https://szostok.io/projects/version
 repoURL: https://github.com/mszostok/version
