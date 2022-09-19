@@ -10,11 +10,11 @@ import (
 )
 
 func main() {
-	verPrinter := printer.New()
-	verPrinter.RegisterPFlags(pflag.CommandLine) // register `--output/-o` flag
+	p := printer.New()
+	p.RegisterPFlags(pflag.CommandLine) // register `--output/-o` flag
 	pflag.Parse()
 
-	if err := verPrinter.Print(os.Stdout); err != nil {
+	if err := p.Print(os.Stdout); err != nil {
 		log.Fatal(err)
 	}
 }

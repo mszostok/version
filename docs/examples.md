@@ -68,6 +68,19 @@
     ./example version check
     ```
 
+## [Custom Fields](https://github.com/mszostok/version/tree/main/examples/custom-fields/main.go)
+
+![](assets/examples/screen-custom-fields-.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-fields
+
+    # Try out
+    ./example
+    ```
+
 ## [Printer](https://github.com/mszostok/version/tree/main/examples/printer/main.go)
 
 ![](assets/examples/screen-printer-.png)
@@ -107,19 +120,6 @@
     ```bash
     # Build
     go build  -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./plain
-
-    # Try out
-    ./example
-    ```
-
-## [Custom Fields](https://github.com/mszostok/version/tree/main/examples/custom-fields/main.go)
-
-![](assets/examples/screen-custom-fields-.png)
-
-!!! run-example "Run in terminal"
-    ```bash
-    # Build
-    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-fields
 
     # Try out
     ./example
