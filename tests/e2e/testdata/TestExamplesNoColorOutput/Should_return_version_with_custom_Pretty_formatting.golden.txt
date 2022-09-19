@@ -1,5 +1,5 @@
 
-💡 ./../../examples/custom-formatting/example
+💡 ../../examples/custom-formatting/example
 
   Version              0.6.1
   Git Commit           324d022

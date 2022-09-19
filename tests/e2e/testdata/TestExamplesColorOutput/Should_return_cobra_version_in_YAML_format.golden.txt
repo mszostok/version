@@ -1,0 +1,7 @@
+[37mversion[0m:[92m 0.6.1[0m
+[92m[0m[37mgitCommit[0m:[92m 324d022c190ce49e0440e6bdac6383e4874c7c70[0m
+[92m[0m[37mbuildDate[0m:[92m "2022-04-01T12:22:14Z"[0m[37m[0m
+[37mcommitDate[0m:[92m "2022-03-28T15:32:14Z"[0m[37m[0m
+[37mgoVersion[0m:[92m go1.19.1[0m
+[92m[0m[37mcompiler[0m:[92m gc[0m
+[92m[0m[37mplatform[0m:[92m darwin/amd64[0m

@@ -4,6 +4,7 @@ package integration
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
@@ -217,7 +218,9 @@ var cases = []TestCases{
 //
 //	UPDATE_GOLDEN=true TEST_NAME=TestExamplesColorOutput mage test:integration
 func TestExamplesColorOutput(t *testing.T) {
-	t.Skip("Those tests are not stable")
+	if os.Getenv("CI") == "true" {
+		t.Skip("Those tests are not stable on CI yet")
+	}
 	t.Parallel()
 
 	for _, tc := range cases {
