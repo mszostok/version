@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/Delta456/box-cli-maker/v2"
+	"github.com/gookit/color"
 
 	"go.szostok.io/version"
 	"go.szostok.io/version/printer"
@@ -27,6 +28,11 @@ func prettyRender(in *version.Info, isSmartTerminal bool) (string, error) {
 
 	Box := box.New(box.Config{Px: 0, Py: 0, Type: "Round", Color: "Yellow", ContentAlign: "Left"})
 	Box.TitlePos = "Top"
+	body = Box.String("Box", body)
 
-	return Box.String("Box", body), nil
+	if !isSmartTerminal {
+		body = color.ClearCode(body)
+	}
+
+	return body, nil
 }
