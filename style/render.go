@@ -192,7 +192,7 @@ func (r *GoTemplateRender) fmtDate(in interface{}) string {
 	case string:
 		t, err := dateparse.ParseAny(date)
 		if err != nil {
-			return ""
+			return date
 		}
 		normalized = t
 	}

@@ -1,0 +1,19 @@
+Print the CLI version
+
+Usage:
+  example version [flags]
+
+Aliases:
+  version, ver
+
+Examples:
+
+./../../examples/cobra/example version
+./../../examples/cobra/example version -o=json
+./../../examples/cobra/example version -o=yaml
+./../../examples/cobra/example version -o=short
+
+
+Flags:
+  -h, --help            help for version
+  -o, --output string   Output format. One of: json | pretty | short | yaml (default "pretty")

@@ -43,6 +43,35 @@ jobs:
           version: latest
           args: test:unit
 
+  e2e-test:
+    strategy:
+      matrix:
+        os: [ macos-latest ]
+        #os: [ macos-latest, ubuntu-latest, windows-latest ]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: "Set git to use LF"
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+      - name: "Set up Go"
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+      - uses: szenius/set-timezone@a5c1676bd4e141779a42a699cc086f3c5ddd1a6c
+        with:
+          timezoneLinux: "Europe/Warsaw"
+          timezoneMacos: "Europe/Warsaw"
+          timezoneWindows: "Warsaw Standard Time"
+      - name: "E2E tests"
+        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+        with:
+          version: latest
+          args: test:e2e
+
   documentation-sanity:
     name: Check documentation
     runs-on: ubuntu-latest

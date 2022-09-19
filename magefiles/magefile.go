@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/magefile/mage/mg"
@@ -16,6 +18,10 @@ const (
 	MdoxVersion         = "" // latest
 	MuffetVersion       = "2.5.0"
 	bin                 = "bin"
+
+	TestsDir                   = "./tests"
+	TestUpdateGoldenEnvVarName = "UPDATE_GOLDEN"
+	TestNameEnvVarName         = "TEST_NAME"
 )
 
 var (
@@ -67,6 +73,25 @@ type Test mg.Namespace
 // Unit Executes Go unit tests.
 func (Test) Unit() error {
 	return shx.MustCmdf(`go test -coverprofile=coverage.out ./...`).Run()
+}
+
+// E2e Executes E2E tests.
+func (Test) E2e() error {
+	var (
+		shouldUpdate = shx.GetEnvVal(TestUpdateGoldenEnvVarName, "false")
+		testName     = shx.GetEnvVal(TestNameEnvVarName, "")
+	)
+
+	if shouldUpdate == "true" {
+		path := filepath.Join(TestsDir, "e2e", "testdata", testName)
+		lo.Must0(os.RemoveAll(path))
+		lo.Must0(os.MkdirAll(path, 0o775))
+	}
+	return shx.MustCmdf(`go test -v -tags=e2e ./e2e/...`).
+		In(TestsDir).
+		WithArg("-update", shouldUpdate).
+		WithArg("-run", testName).
+		RunV()
 }
 
 // Coverage Generates file with unit test coverage data and open it in browser

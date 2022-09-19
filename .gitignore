@@ -60,4 +60,6 @@ coverage.txt
 .vscode
 
 /examples/example
+/examples/*/example
+/examples/custom-formatting/auto-resolved-fields
 /magefiles/preview

@@ -28,9 +28,9 @@ VERSION?="dev"
 GO_BUILD_VERSION_LDFLAGS=\
   -X go.szostok.io/version.version=$(VERSION) \
   -X go.szostok.io/version.buildDate=$(shell date +"%Y-%m-%dT%H:%M:%S%z") \
-  -X go.szostok.io/commit=$(shell git rev-parse --short HEAD) \
-  -X go.szostok.io/commitDate=$(shell git log -1 --date=format:"%Y-%m-%dT%H:%M:%S%z" --format=%cd) \
-  -X go.szostok.io/dirtyBuild=false
+  -X go.szostok.io/version.commit=$(shell git rev-parse --short HEAD) \
+  -X go.szostok.io/version.commitDate=$(shell git log -1 --date=format:"%Y-%m-%dT%H:%M:%S%z" --format=%cd) \
+  -X go.szostok.io/version.dirtyBuild=false
 
 build:
 		GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags="$(GO_BUILD_LDFLAGS)" -o example ./example/

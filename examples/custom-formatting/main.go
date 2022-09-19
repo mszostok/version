@@ -21,6 +21,7 @@ func main() {
 	}
 	formatting.Key.Color = "Yellow"
 	formatting.Val.Color = ""
+	formatting.Date.EnableHumanizedSuffix = false
 
 	p := printer.New(printer.WithPrettyFormatting(&formatting))
 	if err := p.Print(os.Stdout); err != nil {

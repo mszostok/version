@@ -26,7 +26,7 @@ builds:
       - -s -w
       - -X go.szostok.io/version.version={{.Version}}
       - -X go.szostok.io/version.buildDate={{.Date}}
-      - -X go.szostok.io/commit={{.FullCommit}}
-      - -X go.szostok.io/commitDate={{.CommitDate}}
-      - -X go.szostok.io/dirtyBuild=false
+      - -X go.szostok.io/version.commit={{.FullCommit}}
+      - -X go.szostok.io/version.commitDate={{.CommitDate}}
+      - -X go.szostok.io/version.dirtyBuild=false
 ```
