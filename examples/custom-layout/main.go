@@ -6,7 +6,9 @@ import (
 
 	"github.com/Delta456/box-cli-maker/v2"
 	"github.com/MakeNowJust/heredoc/v2"
-	"github.com/fatih/color"
+	fcolor "github.com/fatih/color"
+	"github.com/gookit/color"
+
 	"github.com/muesli/reflow/indent"
 
 	"go.szostok.io/version"
@@ -37,11 +39,14 @@ var layoutGoTpl = heredoc.Doc(`
   {{ Key "Compiler"    }}        {{ .Compiler                    | Val   }}
   {{ Key "Platform"    }}        {{ .Platform                    | Val   }}`)
 
-func SprintInBox(body string) (string, error) {
+func SprintInBox(body string, isSmartTerminal bool) (string, error) {
 	cfg := box.Config{Px: 2, Py: 1, Type: "Round", Color: "Yellow", ContentAlign: "Left", TitlePos: "Top"}
 	boxed := box.New(cfg)
 
-	body = boxed.String(color.MagentaString("▓▓▓ %s", version.Get().Meta.CLIName), body)
+	body = boxed.String(fcolor.MagentaString("▓▓▓ %s", version.Get().Meta.CLIName), body)
 	body = indent.String(body, 2)
+	if !isSmartTerminal {
+		body = color.ClearCode(body)
+	}
 	return "\n" + body, nil
 }

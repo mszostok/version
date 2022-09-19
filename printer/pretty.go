@@ -15,7 +15,7 @@ type (
 	// PrettyRenderFunc represents render function signature.
 	PrettyRenderFunc func(in *version.Info, isSmartTerminal bool) (string, error)
 	// PrettyPostRenderFunc represents post render function signature.
-	PrettyPostRenderFunc func(body string) (string, error)
+	PrettyPostRenderFunc func(body string, isSmartTerminal bool) (string, error)
 )
 
 var (
@@ -70,7 +70,7 @@ func (p *Pretty) Print(in *version.Info, w io.Writer) error {
 	}
 
 	if p.postRenderFunc != nil {
-		out, err = p.postRenderFunc(out)
+		out, err = p.postRenderFunc(out, isSmartTerminal)
 		if err != nil {
 			return err
 		}

@@ -99,7 +99,7 @@ You can customize almost all aspects of the upgrade check:
 - Add a post-render hook:
 
     ```go
-    upgrade.WithPostRenderHook(func(body string) (string, error) {
+    upgrade.WithPostRenderHook(func(body string, isSmartTerminal bool) (string, error) {
     	return body + "\ncustom footer", nil
     })
     ```

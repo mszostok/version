@@ -31,7 +31,7 @@ func main() {
 		upgrade.WithLayout(&style.Layout{
 			GoTemplate: forBoxLayoutGoTpl,
 		}),
-		upgrade.WithPostRenderHook(func(body string) (string, error) {
+		upgrade.WithPostRenderHook(func(body string, isSmartTerminal bool) (string, error) {
 			return body + "\n footer", nil
 		}),
 	}
