@@ -6,4 +6,4 @@ Commit Date:  2022-03-28T15:32:14Z
 Dirty Build:  false
 Go Version:  go1.19.1
 Compiler:  gc
-Platform:  darwin/amd64
+Platform:  normalized

@@ -6,7 +6,7 @@
   "docsURL": "https://szostok.io/projects/version",
   "gitCommit": "324d022c190ce49e0440e6bdac6383e4874c7c70",
   "goVersion": "go1.19.1",
-  "platform": "darwin/amd64",
+  "platform": "normalized",
   "repoURL": "https://github.com/mszostok/version",
   "version": "0.6.1"
 }

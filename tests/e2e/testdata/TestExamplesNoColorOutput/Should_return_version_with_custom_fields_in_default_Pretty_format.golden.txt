@@ -8,7 +8,7 @@
   Dirty Build            no
   Go version             1.19.1
   Compiler               gc
-  Platform               darwin/amd64
+  Platform               normalized
   Built By               GoReleaser
   Repository URL         https://github.com/mszostok/version
   Documentation URL      https://szostok.io/projects/version
