@@ -1,0 +1,14 @@
+An example CLI built with github.com/spf13/cobra
+
+Usage:
+  example [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  version     Print the CLI version
+
+Flags:
+  -h, --help   help for example
+
+Use "example [command] --help" for more information about a command.

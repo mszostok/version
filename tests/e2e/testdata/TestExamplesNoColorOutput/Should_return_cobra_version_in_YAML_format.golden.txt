@@ -1,0 +1,7 @@
+version: 0.6.1
+gitCommit: 324d022c190ce49e0440e6bdac6383e4874c7c70
+buildDate: "2022-04-01T12:22:14Z"
+commitDate: "2022-03-28T15:32:14Z"
+goVersion: go1.19.1
+compiler: gc
+platform: darwin/amd64
