@@ -34,8 +34,9 @@ Visit [`version.szostok.io`](https://version.szostok.io) for complete documentat
 - Everything can be enabled with a single line of code. For example, use `extension.NewVersionCobraCmd()` to enable the version command for Cobra
 - Customize the output format and behaviour (e.g. timeouts, re-check intervals)
 - Parse any dates and print them in the local date and time format
+- All provided functionality is fully tested to ensure no regression
+- Extend the version info with own fields just by assigning your Go struct.
 <!--- - Autodiscover installation method --->
-<!--- - All provided functionality is fully tested to ensure no regression --->
 
 ## <img src="./docs/assets/bell-icon.png" /> Stay informed
 
