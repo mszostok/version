@@ -43,12 +43,12 @@ func assertGoldenFile(t *testing.T, actualData string) {
 	assert.Equal(t, string(golden), actualData)
 }
 
-func updateGolden(t *testing.T, goldenFile string, actualData string) {
+func updateGolden(t *testing.T, goldenFile, actualData string) {
 	goldenFileDir := filepath.Dir(goldenFile)
 	err := ensureDir(goldenFileDir)
 	require.NoError(t, err)
 
-	err = os.WriteFile(goldenFile, []byte(actualData), 0o644)
+	err = os.WriteFile(goldenFile, []byte(actualData), 0o600)
 	require.NoError(t, err)
 }
 

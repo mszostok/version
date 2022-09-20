@@ -1,7 +1,9 @@
 package printer_test
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"os"
 	"runtime"
 	"strings"
@@ -13,10 +15,9 @@ import (
 
 	"go.szostok.io/version"
 	"go.szostok.io/version/printer"
+	"go.szostok.io/version/upgrade"
 )
 
-// TestPrettyPrinter tests the Pretty format.
-//
 // It uses the golden files, to update them run:
 //
 //	go test -v -run=TestPrinter ./printer/...  -update
@@ -93,6 +94,54 @@ func TestPrinter(t *testing.T) {
 	}
 }
 
+func TestPrinterPostHookOption(t *testing.T) {
+	// given
+	var postHookExecuted bool
+	p := printer.New(printer.WithPostHook(func() error {
+		postHookExecuted = true
+		return nil
+	}))
+
+	// when
+	err := p.PrintInfo(io.Discard, &version.Info{Version: "0.6.1"})
+
+	// then
+	require.NoError(t, err)
+	assert.True(t, postHookExecuted)
+}
+
+func TestPrinterPostHookOptionError(t *testing.T) {
+	// given
+	customErr := errors.New("custom error")
+	p := printer.New(printer.WithPostHook(func() error {
+		return customErr
+	}))
+
+	// when
+	err := p.PrintInfo(io.Discard, &version.Info{Version: "0.6.1"})
+
+	// then
+	require.ErrorIs(t, err, customErr)
+}
+
+func TestPrinterUpgradeNoticeOption(t *testing.T) {
+	// given
+	p := printer.New(printer.WithUpgradeNotice(
+		"owner", "repo",
+		upgrade.WithRenderer(func(in *upgrade.Info, isSmartTerminal bool) (string, error) {
+			return fmt.Sprintf("version: %s \nisSmart: %v", in.Version, isSmartTerminal), nil
+		})),
+	)
+
+	// when
+	// I don't want to run a really upgrade checker, instead we check if it's set properly.
+	out, err := p.GetUpgradeNotice().Render(&upgrade.Info{Version: "0.6.1"}, false)
+
+	// then
+	require.NoError(t, err)
+	assert.Equal(t, "version: 0.6.1 \nisSmart: false", out)
+}
+
 func TestPrinterUnknownFormatFlag(t *testing.T) {
 	// given
 	p := printer.New()
@@ -119,7 +168,7 @@ func TestPrinterUnknownFormat(t *testing.T) {
 	require.EqualError(t, err, `printer "table" is not available`)
 }
 
-// TestPrettyPrinter tests the Print method.
+// TestPrinterPrint tests the Print method.
 //
 // It uses the golden files, to update them run:
 //
