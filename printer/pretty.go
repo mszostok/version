@@ -63,6 +63,10 @@ func NewPretty(options ...PrettyOption) *Pretty {
 
 // Print prints a human-readable input version Info into a given writter.
 func (p *Pretty) Print(in *version.Info, w io.Writer) error {
+	if in == nil {
+		return nil
+	}
+
 	isSmartTerminal := term.IsSmart(w)
 	out, err := p.execute(in, isSmartTerminal)
 	if err != nil {

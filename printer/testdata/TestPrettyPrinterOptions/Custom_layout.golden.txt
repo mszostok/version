@@ -1,0 +1,9 @@
+
+            | Version                  0.6.1
+            | Git Commit               324d022
+            | Build Date               01 Apr 22 14:22 CEST (5 months ago)
+            | Commit Date              28 Mar 22 17:32 CEST (5 months ago)
+            | Dirty Build              no
+            | Go Version               1.19.1
+            | Compiler                 gc
+            | Platform                 darwin/amd64

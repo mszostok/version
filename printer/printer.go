@@ -60,7 +60,7 @@ func (r *Container) OutputFormat() OutputFormat {
 }
 
 // Print prints Info object in a requested format.
-// It's just a syntax sugar for PrintInfo(os.Stdout, version.Get()).
+// It's just a syntax sugar for PrintInfo(w, version.Get()).
 func (r *Container) Print(w io.Writer) error {
 	return r.PrintInfo(w, version.Get())
 }

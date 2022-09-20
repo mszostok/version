@@ -35,8 +35,13 @@ jobs:
       - name: "Set up Go"
         uses: actions/setup-go@v3
         with:
-          go-version-file: 'go.mod'
+          go-version: '1.19.1' # must be hardcoded as it's expected in tests
           cache: true
+      - uses: szenius/set-timezone@a5c1676bd4e141779a42a699cc086f3c5ddd1a6c
+        with:
+          timezoneLinux: "Europe/Warsaw"
+          timezoneMacos: "Europe/Warsaw"
+          timezoneWindows: "Central European Standard Time"
       - name: "Unit tests"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:

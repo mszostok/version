@@ -72,7 +72,7 @@ type Test mg.Namespace
 
 // Unit Executes Go unit tests.
 func (Test) Unit() error {
-	return shx.MustCmdf(`go test -coverprofile=coverage.out ./...`).Run()
+	return shx.MustCmdf(`go test -v -count 1 -coverprofile=coverage.out ./...`).RunV()
 }
 
 // E2e Executes E2E tests.
