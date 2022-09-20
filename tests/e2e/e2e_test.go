@@ -23,7 +23,6 @@ import (
 
 type TestCases struct {
 	cmd      string
-	skipOS   string
 	name     string
 	dir      string
 	bordered bool
@@ -227,9 +226,6 @@ func TestExamplesColorOutput(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			//t.Parallel() goexpect doesn't work in multi thread
-			if runtime.GOOS == tc.skipOS {
-				t.Skip("this test is marked as skipped for this OS")
-			}
 
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
@@ -256,24 +252,13 @@ func TestExamplesColorOutput(t *testing.T) {
 //	UPDATE_GOLDEN=true TEST_NAME=TestExamplesNoColorOutput mage test:integration
 func TestExamplesNoColorOutput(t *testing.T) {
 	t.Parallel()
-	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
-			if runtime.GOOS == tc.skipOS {
-				t.Skip("this test is marked as skipped for this OS")
-			}
-
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
-
-			normalizedPlatform := "normalized"
-			if tc.bordered {
-				padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
-				normalizedPlatform += strings.Repeat(" ", padding)
-			}
 
 			// when
 			result, err := Exec(binaryPath, tc.cmd).
@@ -284,12 +269,27 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			assert.Equal(t, 0, result.ExitCode)
 
 			data := result.Stdout + result.Stderr
-			data = strings.ReplaceAll(data, platform, normalizedPlatform)
+			data = normalizeOutput(data, binaryPath, tc.bordered)
+
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
 			g.Assert(t, t.Name(), []byte(data))
 		})
 	}
+}
+
+func normalizeOutput(data, binary string, bordered bool) string {
+	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
+
+	normalizedPlatform := "normalized"
+	if bordered { // if bordered we need to be careful to do not mess up the padding
+		padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
+		normalizedPlatform += strings.Repeat(" ", padding)
+	}
+	data = strings.ReplaceAll(data, platform, normalizedPlatform)
+	data = strings.ReplaceAll(data, binary, "example")
+
+	return data
 }
 
 var prettyResolvedFieldsFormat = heredoc.Doc(`
