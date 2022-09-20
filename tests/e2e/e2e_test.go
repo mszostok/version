@@ -282,19 +282,23 @@ func normalizeOutput(data, binary string, bordered bool) string {
 	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 
 	normalizedPlatform := "normalized"
+	normalizedBinary := "example"
 	if bordered { // if bordered we need to be careful to do not mess up the padding
 		padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
 		normalizedPlatform += strings.Repeat(" ", padding)
+
+		padding = runewidth.StringWidth(binary) - runewidth.StringWidth(normalizedBinary)
+		normalizedBinary += strings.Repeat(" ", padding)
 	}
 	data = strings.ReplaceAll(data, platform, normalizedPlatform)
-	data = strings.ReplaceAll(data, binary, "example")
+	data = strings.ReplaceAll(data, binary, normalizedBinary)
 
 	return data
 }
 
 var prettyResolvedFieldsFormat = heredoc.Doc(`
 
-💡 ../../examples/custom-formatting/auto-resolved-fields
+💡 %s
 
   Version              (devel)
   Git Commit           %s
@@ -332,7 +336,7 @@ func TestResolvesDefaultFields(t *testing.T) {
 		AwaitResultAtMost(10 * time.Second)
 
 	commit, commitDate, dirtyBuild := getGitDetails(t)
-	expOutput := fmt.Sprintf(prettyResolvedFieldsFormat, commit, commitDate, dirtyBuild, fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH))
+	expOutput := fmt.Sprintf(prettyResolvedFieldsFormat, binaryPath, commit, commitDate, dirtyBuild, fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH))
 
 	// then
 	require.NoError(t, err)
