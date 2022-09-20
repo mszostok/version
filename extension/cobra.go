@@ -1,11 +1,11 @@
 package extension
 
 import (
-	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
 
+	"go.szostok.io/version"
 	"go.szostok.io/version/printer"
 )
 
@@ -31,7 +31,7 @@ func NewVersionCobraCmd(opts ...CobraOption) *cobra.Command {
 	ver := &cobra.Command{
 		Use:     "version",
 		Short:   "Print the CLI version",
-		Example: strings.ReplaceAll(example, "<cli>", os.Args[0]),
+		Example: strings.ReplaceAll(example, "<cli>", version.Get().Meta.CLIName),
 		Aliases: options.Aliases,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return verPrinter.Print(cmd.OutOrStdout())

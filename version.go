@@ -3,6 +3,7 @@ package version
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"runtime"
 	"runtime/debug"
 	"strconv"
@@ -114,6 +115,10 @@ var collectOnce sync.Once
 func Get() *Info {
 	collectOnce.Do(collectFromBuildInfo)
 	dirty, _ := strconv.ParseBool(dirtyBuild)
+	if name == unknownProperty {
+		name = os.Args[0]
+	}
+
 	return &Info{
 		Meta:       Meta{CLIName: name},
 		Version:    version,
