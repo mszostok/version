@@ -16,6 +16,11 @@ type JSON struct{}
 
 // Print marshals input data to JSON format and writes it to a given writer.
 func (p *JSON) Print(in *version.Info, w io.Writer) error {
+	if in == nil {
+		_, err := fmt.Fprintln(w, "{}")
+		return err
+	}
+
 	out, err := prettyjson.Marshal(in)
 	if err != nil {
 		return err

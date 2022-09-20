@@ -1,0 +1,13 @@
+{
+  "buildDate": "2022-04-01T12:22:14Z",
+  "commitDate": "2022-03-28T15:32:14Z",
+  "compiler": "gc",
+  "counter": 42,
+  "documentationURL": "https://example.com/docs",
+  "gitCommit": "324d022c190ce49e0440e6bdac6383e4874c7c70",
+  "goVersion": "go1.19.1",
+  "isFun": true,
+  "platform": "darwin/amd64",
+  "repositoryURL": "https://example.com/repo",
+  "version": "0.6.1"
+}
