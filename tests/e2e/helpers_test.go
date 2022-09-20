@@ -30,6 +30,7 @@ func buildBinaryAllLDFlags(t *testing.T, dir string) string {
 		commitDate = time.Date(2022, time.March, 28, 15, 32, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
 		commit     = "324d022c190ce49e0440e6bdac6383e4874c7c70"
 		dirtyBuild = "false"
+		CLIName    = "example"
 		binary     = "example"
 	)
 
@@ -42,7 +43,7 @@ func buildBinaryAllLDFlags(t *testing.T, dir string) string {
 		commit,
 		commitDate,
 		dirtyBuild,
-		binary,
+		CLIName,
 		binary,
 	).
 		In(filepath.Join(exampleDir, dir)).
@@ -123,6 +124,7 @@ func (s *Executor) AwaitColorResultAtMost(timeout time.Duration) (*ExecuteOutput
 		Stdout:   out,
 	}, nil
 }
+
 func (s *Executor) execute(timeout time.Duration, stdout, stderr io.Writer) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()

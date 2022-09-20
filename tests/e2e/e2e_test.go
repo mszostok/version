@@ -238,9 +238,11 @@ func TestExamplesColorOutput(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, 0, result.ExitCode)
 
+			data := normalizeOutput(result.Stdout, tc.bordered)
+
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
-			g.Assert(t, t.Name(), []byte(result.Stdout))
+			g.Assert(t, t.Name(), []byte(data))
 		})
 	}
 }
@@ -256,7 +258,9 @@ func TestExamplesNoColorOutput(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
+			if runtime.GOOS != "windows" {
+				t.Parallel()
+			}
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
 
@@ -269,7 +273,7 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			assert.Equal(t, 0, result.ExitCode)
 
 			data := result.Stdout + result.Stderr
-			data = normalizeOutput(data, binaryPath, tc.bordered)
+			data = normalizeOutput(data, tc.bordered)
 
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
@@ -278,22 +282,16 @@ func TestExamplesNoColorOutput(t *testing.T) {
 	}
 }
 
-func normalizeOutput(data, binary string, bordered bool) string {
+func normalizeOutput(data string, bordered bool) string {
 	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 
 	normalizedPlatform := "normalized"
-	normalizedBinary := "example"
 	if bordered { // if bordered we need to be careful to do not mess up the padding
 		padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
 		normalizedPlatform += strings.Repeat(" ", padding)
 
-		padding = runewidth.StringWidth(binary) - runewidth.StringWidth(normalizedBinary)
-		normalizedBinary += strings.Repeat(" ", padding)
 	}
-	data = strings.ReplaceAll(data, platform, normalizedPlatform)
-	data = strings.ReplaceAll(data, binary, normalizedBinary)
-
-	return data
+	return strings.ReplaceAll(data, platform, normalizedPlatform)
 }
 
 var prettyResolvedFieldsFormat = heredoc.Doc(`
