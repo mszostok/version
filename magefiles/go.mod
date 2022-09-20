@@ -3,7 +3,7 @@ module tools
 go 1.18
 
 require (
-	github.com/magefile/mage v1.13.0
+	github.com/magefile/mage v1.14.0
 	github.com/muesli/reflow v0.3.0
 	github.com/samber/lo v1.27.0
 	go.szostok.io/magex v0.0.0-20220919223013-70758dd12bda
