@@ -23,7 +23,6 @@ import (
 
 type TestCases struct {
 	cmd      string
-	skipOS   string
 	name     string
 	dir      string
 	bordered bool
@@ -227,9 +226,6 @@ func TestExamplesColorOutput(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			//t.Parallel() goexpect doesn't work in multi thread
-			if runtime.GOOS == tc.skipOS {
-				t.Skip("this test is marked as skipped for this OS")
-			}
 
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
@@ -242,9 +238,11 @@ func TestExamplesColorOutput(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, 0, result.ExitCode)
 
+			data := normalizeOutput(result.Stdout, tc.bordered)
+
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
-			g.Assert(t, t.Name(), []byte(result.Stdout))
+			g.Assert(t, t.Name(), []byte(data))
 		})
 	}
 }
@@ -256,24 +254,15 @@ func TestExamplesColorOutput(t *testing.T) {
 //	UPDATE_GOLDEN=true TEST_NAME=TestExamplesNoColorOutput mage test:integration
 func TestExamplesNoColorOutput(t *testing.T) {
 	t.Parallel()
-	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-			if runtime.GOOS == tc.skipOS {
-				t.Skip("this test is marked as skipped for this OS")
+			if runtime.GOOS != "windows" {
+				t.Parallel()
 			}
-
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
-
-			normalizedPlatform := "normalized"
-			if tc.bordered {
-				padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
-				normalizedPlatform += strings.Repeat(" ", padding)
-			}
 
 			// when
 			result, err := Exec(binaryPath, tc.cmd).
@@ -284,7 +273,8 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			assert.Equal(t, 0, result.ExitCode)
 
 			data := result.Stdout + result.Stderr
-			data = strings.ReplaceAll(data, platform, normalizedPlatform)
+			data = normalizeOutput(data, tc.bordered)
+
 			g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
 
 			g.Assert(t, t.Name(), []byte(data))
@@ -292,9 +282,21 @@ func TestExamplesNoColorOutput(t *testing.T) {
 	}
 }
 
+func normalizeOutput(data string, bordered bool) string {
+	platform := fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
+
+	normalizedPlatform := "normalized"
+	if bordered { // if bordered we need to be careful to do not mess up the padding
+		padding := runewidth.StringWidth(platform) - runewidth.StringWidth(normalizedPlatform)
+		normalizedPlatform += strings.Repeat(" ", padding)
+
+	}
+	return strings.ReplaceAll(data, platform, normalizedPlatform)
+}
+
 var prettyResolvedFieldsFormat = heredoc.Doc(`
 
-💡 ../../examples/custom-formatting/auto-resolved-fields
+💡 %s
 
   Version              (devel)
   Git Commit           %s
@@ -311,8 +313,12 @@ func TestResolvesDefaultFields(t *testing.T) {
 	t.Parallel()
 
 	// given
+	var bin = "auto-resolved-fields"
+	if runtime.GOOS == "windows" {
+		bin += ".exe"
+	}
+
 	var (
-		bin        = "auto-resolved-fields"
 		dir        = filepath.Join(exampleDir, "custom-formatting")
 		binaryPath = filepath.Join(dir, bin)
 	)
@@ -328,7 +334,7 @@ func TestResolvesDefaultFields(t *testing.T) {
 		AwaitResultAtMost(10 * time.Second)
 
 	commit, commitDate, dirtyBuild := getGitDetails(t)
-	expOutput := fmt.Sprintf(prettyResolvedFieldsFormat, commit, commitDate, dirtyBuild, fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH))
+	expOutput := fmt.Sprintf(prettyResolvedFieldsFormat, binaryPath, commit, commitDate, dirtyBuild, fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH))
 
 	// then
 	require.NoError(t, err)

@@ -1,5 +1,5 @@
 
-[35;4m💡 ../../examples/custom-formatting/example[0m
+[35;4m💡 example[0m
 
   [33;1mVersion[0m            0.6.1
   [33;1mGit Commit[0m         324d022
@@ -8,4 +8,4 @@
   [33;1mDirty Build[0m        no
   [33;1mGo version[0m         1.19.1
   [33;1mCompiler[0m           gc
-  [33;1mPlatform[0m           darwin/amd64
+  [33;1mPlatform[0m           normalized

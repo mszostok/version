@@ -8,6 +8,7 @@ import (
 	"io"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"testing"
 	"time"
 
@@ -29,21 +30,29 @@ func buildBinaryAllLDFlags(t *testing.T, dir string) string {
 		commitDate = time.Date(2022, time.March, 28, 15, 32, 14, 0, time.UTC).Format("2006-01-02T15:04:05Z0700")
 		commit     = "324d022c190ce49e0440e6bdac6383e4874c7c70"
 		dirtyBuild = "false"
+		CLIName    = "example"
+		binary     = "example"
 	)
 
-	ran, code, err := shx.MustCmdf(`go build -ldflags="-X go.szostok.io/version.version=0.6.1 -X 'go.szostok.io/version.buildDate=%s' -X go.szostok.io/version.commit=%s -X go.szostok.io/version.commitDate=%s -X go.szostok.io/version.dirtyBuild=%s -X go.szostok.io/version.name=%s" -o example . `,
+	if runtime.GOOS == "windows" {
+		binary += ".exe"
+	}
+
+	ran, code, err := shx.MustCmdf(`go build -ldflags="-X go.szostok.io/version.version=0.6.1 -X 'go.szostok.io/version.buildDate=%s' -X go.szostok.io/version.commit=%s -X go.szostok.io/version.commitDate=%s -X go.szostok.io/version.dirtyBuild=%s -X go.szostok.io/version.name=%s" -o %s . `,
 		buildDate,
 		commit,
 		commitDate,
 		dirtyBuild,
-		"example").
+		CLIName,
+		binary,
+	).
 		In(filepath.Join(exampleDir, dir)).
 		Exec()
 
 	require.NoError(t, err)
 	assert.True(t, ran)
 	assert.Equal(t, 0, code)
-	return filepath.Join(exampleDir, dir, "example")
+	return filepath.Join(exampleDir, dir, binary)
 }
 
 type Executor struct {
@@ -115,6 +124,7 @@ func (s *Executor) AwaitColorResultAtMost(timeout time.Duration) (*ExecuteOutput
 		Stdout:   out,
 	}, nil
 }
+
 func (s *Executor) execute(timeout time.Duration, stdout, stderr io.Writer) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()

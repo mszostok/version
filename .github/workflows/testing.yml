@@ -46,7 +46,7 @@ jobs:
   e2e-test:
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
     runs-on: ${{matrix.os}}
     steps:
       - name: "Set git to use LF"
@@ -64,7 +64,7 @@ jobs:
         with:
           timezoneLinux: "Europe/Warsaw"
           timezoneMacos: "Europe/Warsaw"
-          timezoneWindows: "Warsaw Standard Time"
+          timezoneWindows: "Central European Standard Time"
       - name: "E2E tests"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
         with:
