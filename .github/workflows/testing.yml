@@ -20,33 +20,34 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-  unit-test:
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
-    runs-on: ${{matrix.os}}
-    steps:
-      - name: "Set git to use LF"
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
-      - name: "Checkout code"
-        uses: actions/checkout@v3
-      - name: "Set up Go"
-        uses: actions/setup-go@v3
-        with:
-          go-version-file: 'go.mod'
-          cache: true
-      - name: "Unit tests"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: test:unit
+#  unit-test:
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-latest, macos-latest, windows-latest ]
+#    runs-on: ${{matrix.os}}
+#    steps:
+#      - name: "Set git to use LF"
+#        run: |
+#          git config --global core.autocrlf false
+#          git config --global core.eol lf
+#      - name: "Checkout code"
+#        uses: actions/checkout@v3
+#      - name: "Set up Go"
+#        uses: actions/setup-go@v3
+#        with:
+#          go-version-file: 'go.mod'
+#          cache: true
+#      - name: "Unit tests"
+#        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+#        with:
+#          version: latest
+#          args: test:unit
 
   e2e-test:
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
+#        os: [ macos-latest, ubuntu-latest ]
+        os: [ windows-latest ]
     runs-on: ${{matrix.os}}
     steps:
       - name: "Set git to use LF"
@@ -70,110 +71,110 @@ jobs:
         with:
           version: latest
           args: test:e2e
-
-  documentation-sanity:
-    name: Check documentation
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v3
-      - name: "Set up Go"
-        uses: actions/setup-go@v3
-        with:
-          go-version-file: 'go.mod'
-          cache: true
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x # for mkdocs
-      - name: "Format *.md files"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: docs:check
-      - name: "Detect git changes"
-        if: always()
-        run: |
-          if [[ $(git diff --stat) != '' ]]; then
-            echo -e '❌ \033[0;31m. Run 'mage docs:fmt'.\033[0m'
-            git diff --color
-            exit 1
-          else
-            echo '✔ No issues detected. Have a nice day :-)'
-          fi
-
-  dead-links-checker:
-    name: Check for dead links
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v3
-      - name: "Set up Go"
-        uses: actions/setup-go@v3
-        with:
-          go-version-file: 'go.mod'
-          cache: true
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x # for mkdocs
-      - name: "Check links for homepage"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: -v docs:checkDeadLinks 10s
-      - name: "(Hack) remove the homepage custom page"
-        if: always()
-        run: echo "" > ./docs/index.md
-      - name: "Check links for the whole site"
-        if: always()
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: -v docs:checkDeadLinks 10s
-
-  language-check:
-    name: Check documentation language and grammar
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v3
-      - uses: reviewdog/action-languagetool@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-check
-          # Change reporter level if you need.
-          level: info
-      - name: misspell
-        uses: reviewdog/action-misspell@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          locale: "US"
-
-  code-quality-test:
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
-    runs-on: ${{matrix.os}}
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v3
-      - name: "Set up Go"
-        uses: actions/setup-go@v3
-        with:
-          go-version-file: 'go.mod'
-          cache: true
-      - name: "Check code quality"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
-        with:
-          version: latest
-          args: lint
-      - name: "Detect git changes"
-        if: always()
-        run: |
-          if [[ $(git diff --stat) != '' ]]; then
-            echo -e '❌ \033[0;31m. Run 'mage docs:fmt'.\033[0m'
-            git diff --color
-            exit 1
-          else
-            echo '✔ No issues detected. Have a nice day :-)'
-          fi
+#
+#  documentation-sanity:
+#    name: Check documentation
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: "Checkout code"
+#        uses: actions/checkout@v3
+#      - name: "Set up Go"
+#        uses: actions/setup-go@v3
+#        with:
+#          go-version-file: 'go.mod'
+#          cache: true
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: 3.x # for mkdocs
+#      - name: "Format *.md files"
+#        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+#        with:
+#          version: latest
+#          args: docs:check
+#      - name: "Detect git changes"
+#        if: always()
+#        run: |
+#          if [[ $(git diff --stat) != '' ]]; then
+#            echo -e '❌ \033[0;31m. Run 'mage docs:fmt'.\033[0m'
+#            git diff --color
+#            exit 1
+#          else
+#            echo '✔ No issues detected. Have a nice day :-)'
+#          fi
+#
+#  dead-links-checker:
+#    name: Check for dead links
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: "Checkout code"
+#        uses: actions/checkout@v3
+#      - name: "Set up Go"
+#        uses: actions/setup-go@v3
+#        with:
+#          go-version-file: 'go.mod'
+#          cache: true
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: 3.x # for mkdocs
+#      - name: "Check links for homepage"
+#        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+#        with:
+#          version: latest
+#          args: -v docs:checkDeadLinks 10s
+#      - name: "(Hack) remove the homepage custom page"
+#        if: always()
+#        run: echo "" > ./docs/index.md
+#      - name: "Check links for the whole site"
+#        if: always()
+#        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+#        with:
+#          version: latest
+#          args: -v docs:checkDeadLinks 10s
+#
+#  language-check:
+#    name: Check documentation language and grammar
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: "Checkout code"
+#        uses: actions/checkout@v3
+#      - uses: reviewdog/action-languagetool@v1
+#        with:
+#          github_token: ${{ secrets.github_token }}
+#          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+#          reporter: github-check
+#          # Change reporter level if you need.
+#          level: info
+#      - name: misspell
+#        uses: reviewdog/action-misspell@v1
+#        with:
+#          github_token: ${{ secrets.github_token }}
+#          locale: "US"
+#
+#  code-quality-test:
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-latest, macos-latest ]
+#    runs-on: ${{matrix.os}}
+#    steps:
+#      - name: "Checkout code"
+#        uses: actions/checkout@v3
+#      - name: "Set up Go"
+#        uses: actions/setup-go@v3
+#        with:
+#          go-version-file: 'go.mod'
+#          cache: true
+#      - name: "Check code quality"
+#        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+#        with:
+#          version: latest
+#          args: lint
+#      - name: "Detect git changes"
+#        if: always()
+#        run: |
+#          if [[ $(git diff --stat) != '' ]]; then
+#            echo -e '❌ \033[0;31m. Run 'mage docs:fmt'.\033[0m'
+#            git diff --color
+#            exit 1
+#          else
+#            echo '✔ No issues detected. Have a nice day :-)'
+#          fi

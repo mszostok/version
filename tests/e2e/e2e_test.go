@@ -311,8 +311,12 @@ func TestResolvesDefaultFields(t *testing.T) {
 	t.Parallel()
 
 	// given
+	var bin = "auto-resolved-fields"
+	if runtime.GOOS == "windows" {
+		bin += ".exe"
+	}
+
 	var (
-		bin        = "auto-resolved-fields"
 		dir        = filepath.Join(exampleDir, "custom-formatting")
 		binaryPath = filepath.Join(dir, bin)
 	)
