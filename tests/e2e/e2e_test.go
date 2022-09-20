@@ -197,25 +197,13 @@ var cases = []TestCases{
 		cmd:  `-oshort`,
 		dir:  "upgrade-notice-custom",
 	},
-
-	// Upgrade notice sub-command
-	//{
-	//	name: "Should return upgrade notice from sub-command in default Pretty format",
-	//	cmd:  `version check`,
-	//	dir:  "upgrade-notice-sub-cmd",
-	//},
-	//{
-	//	name: "Should skip upgrade notice from sub-command as the recheck is set to 30 sec",
-	//	cmd:  `version check`,
-	//	dir:  "upgrade-notice-sub-cmd",
-	//},
 }
 
 // TestExamplesColorOutput tests examples usage with the colored output.
 //
 // This test is based on golden file. To update golden file, run:
 //
-//	UPDATE_GOLDEN=true TEST_NAME=TestExamplesColorOutput mage test:integration
+//	UPDATE_GOLDEN=true TEST_NAME=TestExamplesColorOutput mage test:e2e
 func TestExamplesColorOutput(t *testing.T) {
 	if os.Getenv("CI") == "true" {
 		t.Skip("Those tests are not stable on CI yet")
@@ -247,11 +235,11 @@ func TestExamplesColorOutput(t *testing.T) {
 	}
 }
 
-// TestExamplesColorOutput tests examples usage with the colored output.
+// TestExamplesNoColorOutput tests examples usage with the non-colored output.
 //
 // This test is based on golden file. To update golden file, run:
 //
-//	UPDATE_GOLDEN=true TEST_NAME=TestExamplesNoColorOutput mage test:integration
+//	UPDATE_GOLDEN=true TEST_NAME=TestExamplesNoColorOutput mage test:e2e
 func TestExamplesNoColorOutput(t *testing.T) {
 	t.Parallel()
 
@@ -280,6 +268,42 @@ func TestExamplesNoColorOutput(t *testing.T) {
 			g.Assert(t, t.Name(), []byte(data))
 		})
 	}
+}
+
+// TestExamplesRecheckInterval tests that the recheck interval is respected.
+//
+// This test is based on golden file. To update golden file, run:
+//
+//	UPDATE_GOLDEN=true TEST_NAME=TestExamplesRecheckInterval mage test:e2e
+func TestExamplesRecheckInterval(t *testing.T) {
+	t.Parallel()
+
+	// given
+	binaryPath := buildBinaryAllLDFlags(t, "upgrade-notice-sub-cmd")
+
+	// when
+	result, err := Exec(binaryPath, "version check").
+		AwaitResultAtMost(10 * time.Second)
+
+	// then
+	// Should return upgrade notice for the first time
+	require.NoError(t, err)
+	assert.Equal(t, 0, result.ExitCode)
+
+	data := result.Stdout + result.Stderr
+	g := goldie.New(t, goldie.WithNameSuffix(".golden.txt"))
+	g.Assert(t, t.Name(), []byte(data))
+
+	// when
+	result, err = Exec(binaryPath, "version check").
+		AwaitResultAtMost(10 * time.Second)
+
+	// then
+	// Should skip upgrade notice for the second time as the recheck is set to 30 sec
+	require.NoError(t, err)
+	assert.Equal(t, 0, result.ExitCode)
+	data = result.Stdout + result.Stderr
+	assert.Empty(t, data)
 }
 
 func normalizeOutput(data string, bordered bool) string {
