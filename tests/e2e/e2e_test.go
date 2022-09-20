@@ -4,7 +4,6 @@ package integration
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
@@ -205,11 +204,6 @@ var cases = []TestCases{
 //
 //	UPDATE_GOLDEN=true TEST_NAME=TestExamplesColorOutput mage test:e2e
 func TestExamplesColorOutput(t *testing.T) {
-	if os.Getenv("CI") == "true" {
-		t.Skip("Those tests are not stable on CI yet")
-	}
-	t.Parallel()
-
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {

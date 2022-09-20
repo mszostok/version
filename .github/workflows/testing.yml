@@ -67,6 +67,38 @@ jobs:
           timezoneWindows: "Central European Standard Time"
       - name: "E2E tests"
         uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+        env:
+          TEST_NAME: '[^TestExamplesColorOutput]'
+        with:
+          version: latest
+          args: test:e2e
+
+  colored-e2e-test:
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: "Set git to use LF"
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+      - name: "Set up Go"
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19.1' # must be hardcoded as it's expected in tests
+          cache: true
+      - uses: szenius/set-timezone@a5c1676bd4e141779a42a699cc086f3c5ddd1a6c
+        with:
+          timezoneLinux: "Europe/Warsaw"
+          timezoneMacos: "Europe/Warsaw"
+          timezoneWindows: "Central European Standard Time"
+      - name: "Colored E2E tests"
+        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+        env:
+          TEST_NAME: 'TestExamplesColorOutput'
         with:
           version: latest
           args: test:e2e
