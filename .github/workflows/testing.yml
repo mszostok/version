@@ -136,13 +136,14 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
-      - uses: reviewdog/action-languagetool@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-check
-          # Change reporter level if you need.
-          level: info
+      # It doesn't work well on CI
+      #- uses: reviewdog/action-languagetool@v1
+      #  with:
+      #    github_token: ${{ secrets.github_token }}
+      #    # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+      #    reporter: github-check
+      #    # Change reporter level if you need.
+      #    level: info
       - name: misspell
         uses: reviewdog/action-misspell@v1
         with:
