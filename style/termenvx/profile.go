@@ -8,8 +8,10 @@ import (
 )
 
 func ColorProfile() termenv.Profile {
-	term := os.Getenv("TERM")
-	colorTerm := os.Getenv("COLORTERM")
+	var (
+		term      = os.Getenv("TERM")
+		colorTerm = os.Getenv("COLORTERM")
+	)
 
 	switch strings.ToLower(colorTerm) {
 	case "24bit", "truecolor":
