@@ -1,5 +1,5 @@
 
-▓▓▓ ../../examples/custom-fields/example
+▓▓▓ example
 
   Version                0.6.1
   Git Commit             324d022

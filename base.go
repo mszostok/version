@@ -1,7 +1,5 @@
 package version
 
-import "os"
-
 const (
 	unknownVersion  = "(devel)"
 	unknownProperty = "N/A"
@@ -9,7 +7,7 @@ const (
 
 // Fallback data used when versioning information is not provided.
 var (
-	name       = os.Args[0]
+	name       = unknownProperty
 	version    = unknownVersion
 	commit     = unknownProperty
 	buildDate  = unknownProperty
