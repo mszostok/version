@@ -18,9 +18,9 @@ Visit [`version.szostok.io/quick-start`](https://version.szostok.io/quick-start)
 
 ## Documentation
 
-<!--- Curious why? See the [blogpost about displaying the CLI version](). --->
-
 Visit [`version.szostok.io`](https://version.szostok.io) for complete documentation about setup and usage.
+
+Curious why? See the [CLI version: a collection of handy tips](https://dev.to/mszostok/cli-version-a-collection-of-handy-tips-1nce) blog post.
 
 ## Functionality
 
