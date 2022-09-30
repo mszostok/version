@@ -42,7 +42,7 @@
     ./example version -ojson
     ```
 
-## [Custom Upgrade Notice](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-custom/main.go)
+## [Printer Upgrade Notice](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-custom/main.go)
 
 ![](assets/examples/screen-upgrade-notice-custom-version.png)
 
@@ -63,6 +63,19 @@
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-sub-cmd
+
+    # Try out
+    ./example
+    ```
+
+## [Standalone Upgrade Notice](https://github.com/mszostok/version/tree/main/examples/upgrade-notice-standalone)
+
+![](assets/examples/screen-upgrade-notice-standalone-.png)
+
+!!! run-example "Run in terminal"
+    ```bash
+    # Build
+    go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-standalone
 
     # Try out
     ./example version check

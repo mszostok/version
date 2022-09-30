@@ -14,8 +14,9 @@ import (
 
 // ReleaseInfoResponse stores information about a release.
 type ReleaseInfoResponse struct {
-	Version string
-	URL     string
+	IsFromCache bool   `yaml:"cached"`
+	Version     string `yaml:"version"`
+	URL         string `yaml:"URL"`
 }
 
 // GetLatestRelease checks whether there is a newer release on GitHub. If yes, returns it, otherwise returns nil.
@@ -26,7 +27,7 @@ func GetLatestRelease(ctx context.Context, stateFilePath, repo string, minRechec
 	}
 
 	if stateEntry != nil && time.Since(stateEntry.CheckedForUpdateAt) < minRecheckTime {
-		return nil, nil
+		return &stateEntry.ReleaseInfoResponse, nil
 	}
 
 	releaseInfo, err := getLatestReleaseInfo(ctx, repo)
@@ -34,7 +35,7 @@ func GetLatestRelease(ctx context.Context, stateFilePath, repo string, minRechec
 		return nil, err
 	}
 
-	err = setStateEntry(stateFilePath, time.Now())
+	err = saveStateEntry(stateFilePath, *releaseInfo, time.Now())
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +73,8 @@ func getLatestReleaseInfo(ctx context.Context, repo string) (*ReleaseInfoRespons
 }
 
 type stateEntry struct {
-	CheckedForUpdateAt time.Time `yaml:"checkedForUpdateAt"`
+	CheckedForUpdateAt  time.Time           `yaml:"checkedForUpdateAt"`
+	ReleaseInfoResponse ReleaseInfoResponse `yaml:"releaseInfoResponse"`
 }
 
 func getStateEntry(stateFilePath string) (*stateEntry, error) {
@@ -85,17 +87,23 @@ func getStateEntry(stateFilePath string) (*stateEntry, error) {
 		return nil, err
 	}
 
-	var stateEntry stateEntry
-	err = yaml.Unmarshal(content, &stateEntry)
+	var state stateEntry
+	err = yaml.Unmarshal(content, &state)
 	if err != nil {
 		return nil, err
 	}
 
-	return &stateEntry, nil
+	state.ReleaseInfoResponse.IsFromCache = true
+	return &state, nil
 }
 
-func setStateEntry(stateFilePath string, t time.Time) error {
-	data := stateEntry{CheckedForUpdateAt: t}
+func saveStateEntry(stateFilePath string, info ReleaseInfoResponse, t time.Time) error {
+	info.IsFromCache = true
+	data := stateEntry{
+		CheckedForUpdateAt:  t,
+		ReleaseInfoResponse: info,
+	}
+
 	content, err := yaml.Marshal(data)
 	if err != nil {
 		return err

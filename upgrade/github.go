@@ -15,8 +15,6 @@ import (
 	"go.szostok.io/version/term"
 )
 
-const stateFileName = "upgrade-state.yaml"
-
 var defaultLayoutGoTpl = `
   │ A new release is available: {{ .Version }} → {{ .NewVersion | Green }}
   │ {{ .ReleaseURL  | Underline | Blue }}
@@ -28,18 +26,20 @@ type GitHubDetector struct {
 	postRenderFn       PostRenderFunc
 	style              *style.Config
 	repo               string
-	stateFilePath      string
+	stateFileName      string
 	isVerGreater       IsVerGreaterFunc
 	updateCheckTimeout time.Duration
 	recheckInterval    time.Duration
+	configDir          string
 }
 
 // NewGitHubDetector returns GitHubDetector instance.
 func NewGitHubDetector(owner, repo string, opts ...Options) *GitHubDetector {
+	ghRepo := fmt.Sprintf("%s/%s", owner, repo)
 	gh := GitHubDetector{
 		style:              style.DefaultConfig(defaultLayoutGoTpl),
-		stateFilePath:      filepath.Join(ConfigDir(), stateFileName),
-		repo:               fmt.Sprintf("%s/%s", owner, repo),
+		stateFileName:      ghRepo,
+		repo:               ghRepo,
 		isVerGreater:       semvVerGreater,
 		updateCheckTimeout: 10 * time.Second,
 	}
@@ -86,7 +86,9 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	ctx, cancel := context.WithTimeout(context.Background(), gh.updateCheckTimeout)
 	defer cancel()
 
-	rel, err := GetLatestRelease(ctx, gh.stateFilePath, gh.repo, gh.recheckInterval)
+	statePath := gh.getStateFilePath()
+
+	rel, err := GetLatestRelease(ctx, statePath, gh.repo, gh.recheckInterval)
 	if err != nil || rel == nil {
 		return empty, err
 	}
@@ -97,11 +99,20 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	return LookForLatestReleaseOutput{
 		Found: true,
 		ReleaseInfo: &Info{
-			Version:    in.CurrentVersion,
-			NewVersion: rel.Version,
-			ReleaseURL: rel.URL,
+			Version:     in.CurrentVersion,
+			NewVersion:  rel.Version,
+			ReleaseURL:  rel.URL,
+			IsFromCache: rel.IsFromCache,
 		},
 	}, nil
+}
+
+func (gh *GitHubDetector) getStateFilePath() string {
+	if gh.configDir != "" {
+		return filepath.Join(gh.configDir, gh.stateFileName)
+	}
+
+	return filepath.Join(DefaultConfigDir(), gh.stateFileName)
 }
 
 // PrintIfFoundGreater prints an upgrade notice if a newer version is available.

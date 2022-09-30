@@ -197,6 +197,13 @@ var cases = []TestCases{
 		cmd:  `-oshort`,
 		dir:  "upgrade-notice-custom",
 	},
+
+	// Upgrade notice sub-command
+	{
+		name: "Should return upgrade notice from sub-command check",
+		cmd:  `version check`,
+		dir:  "upgrade-notice-sub-cmd",
+	},
 }
 
 // TestExamplesColorOutput tests examples usage with the colored output.
@@ -279,10 +286,10 @@ func TestExamplesRecheckInterval(t *testing.T) {
 	t.Parallel()
 
 	// given
-	binaryPath := buildBinaryAllLDFlags(t, "upgrade-notice-sub-cmd")
+	binaryPath := buildBinaryAllLDFlags(t, "upgrade-notice-standalone")
 
 	// when
-	result, err := Exec(binaryPath, "version check").
+	result, err := Exec(binaryPath, "").
 		AwaitResultAtMost(10 * time.Second)
 
 	// then
@@ -295,15 +302,15 @@ func TestExamplesRecheckInterval(t *testing.T) {
 	g.Assert(t, t.Name(), []byte(data))
 
 	// when
-	result, err = Exec(binaryPath, "version check").
+	result, err = Exec(binaryPath, "").
 		AwaitResultAtMost(10 * time.Second)
 
 	// then
-	// Should skip upgrade notice for the second time as the recheck is set to 30 sec
 	require.NoError(t, err)
 	assert.Equal(t, 0, result.ExitCode)
 	data = result.Stdout + result.Stderr
-	assert.Empty(t, data)
+	g = goldie.New(t, goldie.WithNameSuffix("recheck.golden.txt"))
+	g.Assert(t, t.Name(), []byte(data))
 }
 
 func normalizeOutput(data string, bordered bool) string {

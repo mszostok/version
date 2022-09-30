@@ -67,17 +67,21 @@ To load the config file, you can:
     <!-- YAMLLayout start -->
     ```yaml
     layout:
-      goTemplate: |2
+      goTemplate: |
+        {{ AdjustKeyWidth .ExtraFields }}
         {{ Header .Meta.CLIName }}
-
-          {{ Key "Version" }}             {{ .Version                     | Val }}
-          {{ Key "Git Commit" }}          {{ .GitCommit  | Commit         | Val }}
-          {{ Key "Build Date" }}          {{ .BuildDate  | FmtDate        | Val }}
-          {{ Key "Commit Date" }}         {{ .CommitDate | FmtDate        | Val }}
-          {{ Key "Dirty Build" }}         {{ .DirtyBuild | FmtBool        | Val }}
-          {{ Key "Go version" }}          {{ .GoVersion  | trimPrefix "go"| Val }}
-          {{ Key "Compiler" }}            {{ .Compiler                    | Val }}
-          {{ Key "Platform" }}            {{ .Platform                    | Val }}
+    
+          {{ Key "Version"     }}    {{ .Version                     | Val }}
+          {{ Key "Git Commit"  }}    {{ .GitCommit  | Commit         | Val }}
+          {{ Key "Build Date"  }}    {{ .BuildDate  | FmtDate        | Val }}
+          {{ Key "Commit Date" }}    {{ .CommitDate | FmtDate        | Val }}
+          {{ Key "Dirty Build" }}    {{ .DirtyBuild | FmtBool        | Val }}
+          {{ Key "Go version"  }}    {{ .GoVersion  | trimPrefix "go"| Val }}
+          {{ Key "Compiler"    }}    {{ .Compiler                    | Val }}
+          {{ Key "Platform"    }}    {{ .Platform                    | Val }}
+          {{- range $item := (.ExtraFields | Extra) }}
+          {{ $item.Key | Key   }}    {{ $item.Value | Val }}
+          {{- end}}
     ```
     <!-- YAMLLayout end -->
 
@@ -91,7 +95,7 @@ To load the config file, you can:
     ```json
     {
       "layout": {
-        "goTemplate": "\n{{ Header .Meta.CLIName }}\n\n  {{ Key \"Version\" }}             {{ .Version                     | Val }}\n  {{ Key \"Git Commit\" }}          {{ .GitCommit  | Commit         | Val }}\n  {{ Key \"Build Date\" }}          {{ .BuildDate  | FmtDate        | Val }}\n  {{ Key \"Commit Date\" }}         {{ .CommitDate | FmtDate        | Val }}\n  {{ Key \"Dirty Build\" }}         {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go version\" }}          {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\" }}            {{ .Compiler                    | Val }}\n  {{ Key \"Platform\" }}            {{ .Platform                    | Val }}\n"
+        "goTemplate": "{{ AdjustKeyWidth .ExtraFields }}\n{{ Header .Meta.CLIName }}\n\n  {{ Key \"Version\"     }}    {{ .Version                     | Val }}\n  {{ Key \"Git Commit\"  }}    {{ .GitCommit  | Commit         | Val }}\n  {{ Key \"Build Date\"  }}    {{ .BuildDate  | FmtDate        | Val }}\n  {{ Key \"Commit Date\" }}    {{ .CommitDate | FmtDate        | Val }}\n  {{ Key \"Dirty Build\" }}    {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go version\"  }}    {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\"    }}    {{ .Compiler                    | Val }}\n  {{ Key \"Platform\"    }}    {{ .Platform                    | Val }}\n  {{- range $item := (.ExtraFields | Extra) }}\n  {{ $item.Key | Key   }}    {{ $item.Value | Val }}\n  {{- end}}\n"
       }
     }
     ```

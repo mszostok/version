@@ -8,4 +8,6 @@ type Info struct {
 	NewVersion string
 	// ReleaseURL represents the GitHub release URL.
 	ReleaseURL string
+	// IsFromCache if true, the external call was not executed and version was taken from state file.
+	IsFromCache bool
 }
