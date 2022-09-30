@@ -88,3 +88,22 @@ func WithMinElapseTimeForRecheck(interval time.Duration) Options {
 		options.recheckInterval = interval
 	}
 }
+
+// WithConfigDir sets the config dir path where cache is stored (state file).
+// If not set, directory is selected in such order:
+//  1. VERSION_CONFIG_DIR environment variable
+//  2. XDG_CONFIG_HOME environment variable
+//  3. os.UserHomeDir()
+func WithConfigDir(dir string) Options {
+	return func(options *GitHubDetector) {
+		options.configDir = dir
+	}
+}
+
+// WithStateFileName sets the state file name.
+// Defaults to {repo_owner}/{repo_name}
+func WithStateFileName(fileName string) Options {
+	return func(options *GitHubDetector) {
+		options.stateFileName = fileName
+	}
+}

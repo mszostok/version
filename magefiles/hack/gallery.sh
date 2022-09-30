@@ -71,6 +71,8 @@ main() {
 
 	capture "upgrade-notice-custom" "version"
 
+	capture "upgrade-notice-standalone" ""
+
 	capture "printer-post-hook" ""
 
 	capture "upgrade-notice-cobra" "version"
