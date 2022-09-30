@@ -15,7 +15,7 @@ The upgrade notice is disabled by default. You can easily enable it based on you
     )
     ```
 
-  It prints the notice to the standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
+   It prints the notice to the standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
 
 - Cobra CLI
 
@@ -25,7 +25,7 @@ The upgrade notice is disabled by default. You can easily enable it based on you
           extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
       ),
       ```
-  It prints the notice on standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> version -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
+   It prints the notice on standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> version -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
 
 - Standalone
 
@@ -34,7 +34,7 @@ The upgrade notice is disabled by default. You can easily enable it based on you
     err := notice.PrintIfFoundGreater(os.Stderr, "0.5.4")
     ```
 
-Once enabled, each execution checks for new releases but only once every 24 hours. If a newer version has been found, it displays an upgrade notice for each output format to the standard
+Once enabled, each execution checks for new releases. If a newer version has been found, it displays an upgrade notice for each output format to the standard
 error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))).
 
 You can customize almost all aspects of the upgrade check:
@@ -102,4 +102,16 @@ You can customize almost all aspects of the upgrade check:
     upgrade.WithPostRenderHook(func(body string, isSmartTerminal bool) (string, error) {
     	return body + "\ncustom footer", nil
     })
+    ```
+
+- Change config directory where cache is stored:
+
+    ```go
+    upgrade.WithConfigDir("~/.config"),
+    ```
+
+- Change file name for state file:
+
+    ```go
+    upgrade.WithStateFileName("foo-upgrade-state.yaml")
     ```

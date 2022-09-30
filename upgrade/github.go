@@ -107,14 +107,6 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	}, nil
 }
 
-func (gh *GitHubDetector) getStateFilePath() string {
-	if gh.configDir != "" {
-		return filepath.Join(gh.configDir, gh.stateFileName)
-	}
-
-	return filepath.Join(DefaultConfigDir(), gh.stateFileName)
-}
-
 // PrintIfFoundGreater prints an upgrade notice if a newer version is available.
 // It's a syntax sugar for using the LookForLatestRelease and Render functions.
 func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string) error {
@@ -135,6 +127,14 @@ func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string
 
 	_, err = fmt.Fprint(w, out)
 	return err
+}
+
+func (gh *GitHubDetector) getStateFilePath() string {
+	if gh.configDir != "" {
+		return filepath.Join(gh.configDir, gh.stateFileName)
+	}
+
+	return filepath.Join(DefaultConfigDir(), gh.stateFileName)
 }
 
 func (gh *GitHubDetector) render(info *Info, isSmartTerminal bool) (string, error) {
