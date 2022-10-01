@@ -29,7 +29,8 @@ You can customize almost all aspects:
 - Define post-hook function:
 
   !!! note ""
-  It's executed only if version print was successful.
+
+      It's executed only if version print was successful.
 
   ```go
   extension.WithPostHook(func(ctx context.Context) error {
