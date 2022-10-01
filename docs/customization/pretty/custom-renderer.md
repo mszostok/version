@@ -4,7 +4,7 @@ If the custom [formatting](./format.md) and [layout](./layout.md) don't meet you
 
 !!! tip
 
-    Want to try? See the [custom renderer](/examples#custom-renderer) example!
+    Want to try? See the [custom renderer](../../../examples#custom-renderer) example!
 
 ```go
 func main() {

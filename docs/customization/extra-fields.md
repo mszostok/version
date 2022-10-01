@@ -23,7 +23,7 @@ However, each project may want to display more information such as documentation
 
 !!! tip
 
-    Want to try? See the [custom fields](/examples#custom-fields) example!
+    Want to try? See the [custom fields](../../examples#custom-fields) example!
 
 Steps:
 
@@ -41,3 +41,5 @@ Example:
 examples/custom-fields/main.go
 --8<--
 ```
+
+![](../assets/examples/screen-custom-fields-.png)
