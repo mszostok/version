@@ -34,7 +34,21 @@ func NewVersionCobraCmd(opts ...CobraOption) *cobra.Command {
 		Example: strings.ReplaceAll(example, "<cli>", version.Get().Meta.CLIName),
 		Aliases: options.Aliases,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return verPrinter.Print(cmd.OutOrStdout())
+			if options.PreHook != nil {
+				if err := options.PreHook(cmd.Context()); err != nil {
+					return err
+				}
+			}
+
+			if err := verPrinter.Print(cmd.OutOrStdout()); err != nil {
+				return err
+			}
+
+			if options.PostHook != nil {
+				return options.PostHook(cmd.Context())
+			}
+
+			return nil
 		},
 	}
 
