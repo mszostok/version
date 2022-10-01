@@ -81,6 +81,8 @@ nav:
           - "`version check` sub-command": customization/upgrade-notice/check-sub-command.md
       - Omit unset fields: customization/omit-unset.md
       - Extra fields: customization/extra-fields.md
+  - Community:
+      - How package is tested: community/testing.md
 
 extra:
   social:

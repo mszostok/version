@@ -11,12 +11,12 @@ jobs:
     name: Test with Coverage
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v3
       - name: "Set git to use LF"
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
+      - name: "Checkout code"
+        uses: actions/checkout@v3
       - name: "Set up Go"
         uses: actions/setup-go@v3
         with:
