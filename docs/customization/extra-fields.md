@@ -3,6 +3,7 @@
 The `version` package supports most popular version fields natively.
 
 ??? example "Native fields"
+
      | Key           | Description                                                                                                     |
      |---------------|-----------------------------------------------------------------------------------------------------------------|
      | `.Version`    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                    |
@@ -28,7 +29,7 @@ Steps:
 
 1. Assign your custom struct to `Info.ExtraFields`.
 
-      Go struct with nested fields are not properly supported in Pretty mode.
+   Go struct with nested fields are not properly supported in Pretty mode.
 
 2. Use `json`, `yaml` and `pretty` field tags to define the field name for a given output format.
 3. In the Pretty mode, fields are printed in the same order as defined in struct.

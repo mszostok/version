@@ -50,8 +50,7 @@ This way you get a fully working `<cli> version` command.
 ```yaml
 # .goreleaser.yaml
 builds:
-  -
-    # .. your settings ..
+  - # .. your settings ..
 
     ldflags:
       - -s -w

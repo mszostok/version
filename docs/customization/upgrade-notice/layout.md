@@ -1,17 +1,18 @@
 # Layout
 
 !!! note ""
+
     Layout focuses on structured arrangement of pretty version data.
 
 To define the layout, use [Go templating](https://pkg.go.dev/html/template). You can use also the [version package's built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go). All helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
 
 These are the fields that you can access in your Go template definition:
 
-| Key            | Description                                              |
-|----------------|----------------------------------------------------------|
-| `.Version`     | Binary version                                           |
-| `.NewVersion`  | New binary version taken from the latest GitHub release  |
-| `.ReleaseURL`  | GitHub release URL                                       |
+| Key           | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| `.Version`    | Binary version                                          |
+| `.NewVersion` | New binary version taken from the latest GitHub release |
+| `.ReleaseURL` | GitHub release URL                                      |
 
 ## Go
 

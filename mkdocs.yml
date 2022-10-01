@@ -103,6 +103,7 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.details
   - admonition
+  - mdx_truly_sane_lists
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:

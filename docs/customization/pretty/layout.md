@@ -1,6 +1,7 @@
 # Layout
 
 !!! note ""
+
     Layout focuses on structured arrangement of pretty version data.
 
 To define the layout, use [Go templating](https://pkg.go.dev/html/template). You can also use the [`version` package's built-in functions](https://github.com/mszostok/version/blob/main/style/go-tpl-funcs.go) that respect the [formatting settings](./format.md). All helper functions defined by the [Sprig template library](https://masterminds.github.io/sprig/) are also available.
@@ -8,7 +9,7 @@ To define the layout, use [Go templating](https://pkg.go.dev/html/template). You
 These are the fields that you can access in your Go template definition:
 
 | Key           | Description                                                                                                     |
-|---------------|-----------------------------------------------------------------------------------------------------------------|
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
 | `.Version`    | Binary version value set via `-ldflags`, otherwise taken from `go install url/tool@version`.                    |
 | `.GitCommit`  | Git commit value set via `-ldfags`, otherwise taken from `debug.ReadBuildInfo()` - the `vcs.revision` tag.      |
 | `.BuildDate`  | Build date value set via `-ldflags`, otherwise empty.                                                           |
@@ -17,7 +18,6 @@ These are the fields that you can access in your Go template definition:
 | `.GoVersion`  | Go version taken from `runtime.Version()`.                                                                      |
 | `.Compiler`   | Go compiler taken from `runtime.Compiler`.                                                                      |
 | `.Platform`   | Build platform, passed in the following format: `runtime.GOOS/runtime.GOARCH`.                                  |
-
 
 ## Go
 
@@ -50,7 +50,6 @@ func main() {
 }
 ```
 
-
 ## Config file
 
 !!! coming-soon "Coming soon"
@@ -70,7 +69,7 @@ To load the config file, you can:
       goTemplate: |
         {{ AdjustKeyWidth .ExtraFields }}
         {{ Header .Meta.CLIName }}
-    
+
           {{ Key "Version"     }}    {{ .Version                     | Val }}
           {{ Key "Git Commit"  }}    {{ .GitCommit  | Commit         | Val }}
           {{ Key "Build Date"  }}    {{ .BuildDate  | FmtDate        | Val }}
@@ -100,4 +99,3 @@ To load the config file, you can:
     }
     ```
     <!-- JSONLayout end -->
-

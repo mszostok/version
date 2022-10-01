@@ -5,8 +5,7 @@ The build customization is nicely described at [`goreleaser.com/customization/bu
 ```yaml
 # .goreleaser.yaml
 builds:
-  -
-    # .. your settings ..
+  - # .. your settings ..
 
     ldflags:
       - -s -w
@@ -19,8 +18,7 @@ The remaining properties are set based on the built-in data. However, for full c
 ```yaml
 # .goreleaser.yaml
 builds:
-  -
-    # .. your settings ..
+  - # .. your settings ..
 
     ldflags:
       - -s -w

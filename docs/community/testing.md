@@ -9,8 +9,8 @@ Unit tests focus more on the corner cases that are hard to reproduce using e2e t
 - All tests are executed with the latest Go version on all platforms, using GitHub Action job strategy:
   ```yaml
   strategy:
-  	matrix:
-  		os: [ ubuntu-latest, macos-latest, windows-latest ]
+    matrix:
+      os: [ubuntu-latest, macos-latest, windows-latest]
   ```
 - All tests are run both on pull-requests and the `main` branch
 - The tests' coverage is uploaded to [coveralls.io/github/mszostok/version](https://coveralls.io/github/mszostok/version)
@@ -28,11 +28,11 @@ As a result, e2e test focus on:
 - Ensuring that all [examples](https://github.com/mszostok/version/tree/main/examples) are runnable
 - Executing a real call against GitHub API
 - Executing binaries on all platforms, using GitHub Action job strategy:
-	```yaml
-	strategy:
-		matrix:
-			os: [ ubuntu-latest, macos-latest, windows-latest ]
-	```
+  ```yaml
+  strategy:
+    matrix:
+      os: [ubuntu-latest, macos-latest, windows-latest]
+  ```
 
 Each time a new functionality is implemented, a dedicated [test case](https://github.com/mszostok/version/blob/main/tests/e2e/e2e_test.go#L31) is added.
 
