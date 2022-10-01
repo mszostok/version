@@ -1,6 +1,8 @@
 package extension
 
 import (
+	"context"
+
 	"go.szostok.io/version/printer"
 	"go.szostok.io/version/upgrade"
 )
@@ -22,7 +24,12 @@ type (
 	CobraOptions struct {
 		PrinterOptions []printer.ContainerOption
 		Aliases        []string
+		PreHook        HookFunc
+		PostHook       HookFunc
 	}
+
+	// HookFunc represents post execution function signature.
+	HookFunc func(ctx context.Context) error
 )
 
 // CustomPrinterOptions provides an option to set a custom printer related options across multiple constructors.
@@ -91,4 +98,38 @@ func WithAliasesOptions(aliases ...string) *AliasesOptions {
 // ApplyToCobraOption sets a given option for Cobra.
 func (c *AliasesOptions) ApplyToCobraOption(options *CobraOptions) {
 	options.Aliases = c.aliases
+}
+
+// PostHook provides an option to set post execution function across multiple constructors.
+type PostHook struct {
+	fn HookFunc
+}
+
+// WithPostHook sets post execution function.
+func WithPostHook(fn HookFunc) *PostHook {
+	return &PostHook{
+		fn: fn,
+	}
+}
+
+// ApplyToCobraOption sets a given option for Cobra.
+func (c *PostHook) ApplyToCobraOption(options *CobraOptions) {
+	options.PostHook = c.fn
+}
+
+// PreHook provides an option to set pre execution function across multiple constructors.
+type PreHook struct {
+	fn HookFunc
+}
+
+// WithPreHook sets pre execution function.
+func WithPreHook(fn HookFunc) *PreHook {
+	return &PreHook{
+		fn: fn,
+	}
+}
+
+// ApplyToCobraOption sets a given option for Cobra.
+func (c *PreHook) ApplyToCobraOption(options *CobraOptions) {
+	options.PreHook = c.fn
 }

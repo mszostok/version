@@ -19,13 +19,13 @@ The upgrade notice is disabled by default. You can easily enable it based on you
 
 - Cobra CLI
 
-      ```go
-      extension.NewVersionCobraCmd(
-          // 2. Explict turn on upgrade notice
-          extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
-      ),
-      ```
-   It prints the notice on standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> version -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
+    ```go
+    extension.NewVersionCobraCmd(
+        // 2. Explicit turn on upgrade notice
+        extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
+    ),
+    ```
+    It prints the notice on standard error channel ([`stderr`](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))). As a result, output processing, such as executing `<cli> version -ojson | jq .gitCommit`, works properly even if the upgrade notice is displayed.
 
 - Standalone
 

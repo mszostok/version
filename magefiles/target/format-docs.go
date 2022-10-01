@@ -21,6 +21,7 @@ var excludedFromFormatting = []string{
 	"docs/customization/upgrade-notice/index.md",
 	"docs/customization/upgrade-notice/layout.md",
 	"docs/get-started/upgrade-notice.md",
+	"docs/get-started/usage/cobra.md",
 }
 
 func FmtDocs(onlyCheck bool) error {
