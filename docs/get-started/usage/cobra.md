@@ -11,7 +11,7 @@ You can customize almost all aspects:
 
     ```go
     extension.NewVersionCobraCmd(
-        // 2. Explict turn on upgrade notice
+        // 2. Explicit turn on upgrade notice
         extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
     ),
     ```

@@ -25,7 +25,7 @@ The upgrade notice is disabled by default. You can easily enable it based on you
 
     ```go
     extension.NewVersionCobraCmd(
-        // 2. Explict turn on upgrade notice
+        // 2. Explicit turn on upgrade notice
         extension.WithUpgradeNotice("mszostok", "codeowners-validator"),
     ),
     ```
