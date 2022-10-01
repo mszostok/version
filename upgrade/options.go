@@ -82,6 +82,7 @@ func WithIsVersionGreater(comparator IsVerGreaterFunc) Options {
 }
 
 // WithMinElapseTimeForRecheck sets the minimum time that must elapse before checking for a new release.
+// When interval > 0, a state file is created. If interval = 0, state file is not created and each time external call is executed.
 // Defaults to 0.
 func WithMinElapseTimeForRecheck(interval time.Duration) Options {
 	return func(options *GitHubDetector) {

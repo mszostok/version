@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"time"
 
 	"go.szostok.io/version"
 	"go.szostok.io/version/style"
@@ -13,8 +12,6 @@ import (
 var layoutGoTpl = `
   │ A new release is available: {{ .Version | Red }} → {{ .NewVersion | Green }}
   │ {{ .ReleaseURL  | Underline | Blue }}
-  │
-  │ {{ "Resolved from cache:" | Italic }} {{ .IsFromCache | FmtBool | Italic }}
 `
 
 func main() {
@@ -23,7 +20,6 @@ func main() {
 			// Learn more at https://version.szostok.io/customization/upgrade-notice/layout/
 			GoTemplate: layoutGoTpl,
 		}),
-		upgrade.WithMinElapseTimeForRecheck(time.Second * 30),
 	}
 
 	ghUpgrade := upgrade.NewGitHubDetector(

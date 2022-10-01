@@ -78,7 +78,11 @@ func (s *Executor) AwaitResultAtMost(timeout time.Duration) (*ExecuteOutput, err
 
 	exitCode, err := s.execute(timeout, &buffOut, &buffErr)
 	if err != nil {
-		return nil, err
+		return &ExecuteOutput{
+			ExitCode: exitCode,
+			Stdout:   buffOut.String(),
+			Stderr:   buffErr.String(),
+		}, err
 	}
 
 	return &ExecuteOutput{

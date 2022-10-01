@@ -13,6 +13,7 @@ import (
 
 	"go.szostok.io/version/style"
 	"go.szostok.io/version/term"
+	"go.szostok.io/version/upgrade/github"
 )
 
 var defaultLayoutGoTpl = `
@@ -76,9 +77,31 @@ type LookForLatestReleaseInput struct {
 	CurrentVersion string
 }
 
-// LookForLatestRelease if a given time elapsed, check project's latest release.
+// LookForLatestRelease checks project's latest release. In most cases, PrintIfFoundGreater is better option.
+//
+// Deprecated and will be removed in 1.4.0 release, use LookForGreaterRelease instead.
+//
+//	Old: LookForLatestRelease(upgrade.LookForLatestReleaseInput{CurrentVersion: currentVersion})
+//	New: LookForGreaterRelease(upgrade.LookForGreaterReleaseInput{CurrentVersion: currentVersion})
 func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (LookForLatestReleaseOutput, error) {
-	var empty LookForLatestReleaseOutput
+	out, err := gh.LookForGreaterRelease(LookForGreaterReleaseInput(in))
+	return LookForLatestReleaseOutput(out), err
+}
+
+// LookForGreaterReleaseOutput holds output data for LookForGreaterRelease function.
+type LookForGreaterReleaseOutput struct {
+	Found       bool
+	ReleaseInfo *Info
+}
+
+// LookForGreaterReleaseInput holds input data for LookForGreaterRelease function.
+type LookForGreaterReleaseInput struct {
+	CurrentVersion string
+}
+
+// LookForGreaterRelease checks project's latest release. In most cases, PrintIfFoundGreater is better option.
+func (gh *GitHubDetector) LookForGreaterRelease(in LookForGreaterReleaseInput) (LookForGreaterReleaseOutput, error) {
+	var empty LookForGreaterReleaseOutput
 	if err := gh.validate(); err != nil { // TODO: move to constructor
 		return empty, err
 	}
@@ -86,9 +109,7 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 	ctx, cancel := context.WithTimeout(context.Background(), gh.updateCheckTimeout)
 	defer cancel()
 
-	statePath := gh.getStateFilePath()
-
-	rel, err := GetLatestRelease(ctx, statePath, gh.repo, gh.recheckInterval)
+	rel, err := gh.getReleaseInfo(ctx)
 	if err != nil || rel == nil {
 		return empty, err
 	}
@@ -96,7 +117,7 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 		return empty, err
 	}
 
-	return LookForLatestReleaseOutput{
+	return LookForGreaterReleaseOutput{
 		Found: true,
 		ReleaseInfo: &Info{
 			Version:     in.CurrentVersion,
@@ -108,9 +129,9 @@ func (gh *GitHubDetector) LookForLatestRelease(in LookForLatestReleaseInput) (Lo
 }
 
 // PrintIfFoundGreater prints an upgrade notice if a newer version is available.
-// It's a syntax sugar for using the LookForLatestRelease and Render functions.
+// It's a syntax sugar for using the LookForGreaterRelease and Render functions.
 func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string) error {
-	rel, err := gh.LookForLatestRelease(LookForLatestReleaseInput{
+	rel, err := gh.LookForGreaterRelease(LookForGreaterReleaseInput{
 		CurrentVersion: currentVersion,
 	})
 	if err != nil {
@@ -127,6 +148,15 @@ func (gh *GitHubDetector) PrintIfFoundGreater(w io.Writer, currentVersion string
 
 	_, err = fmt.Fprint(w, out)
 	return err
+}
+
+func (gh *GitHubDetector) getReleaseInfo(ctx context.Context) (*github.ReleaseInfoResponse, error) {
+	if gh.recheckInterval == 0 {
+		return github.GetLatestRelease(ctx, gh.repo)
+	}
+
+	statePath := gh.getStateFilePath()
+	return github.GetLatestReleaseWithCache(ctx, gh.repo, statePath, gh.recheckInterval)
 }
 
 func (gh *GitHubDetector) getStateFilePath() string {
