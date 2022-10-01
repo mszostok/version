@@ -11,13 +11,13 @@
     2. Navigate to the [`examples`](https://github.com/mszostok/version/tree/main/examples) directory.
     3. Run a chosen example.
 
-
 ## [Cobra](https://github.com/mszostok/version/tree/main/examples/cobra/main.go)
 
 ![](assets/examples/screen-cobra-version_-h.png)
 ![](assets/examples/screen-cobra-version.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./cobra
@@ -33,6 +33,7 @@
 ![](assets/examples/screen-upgrade-notice-cobra-version_-ojson.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice
@@ -47,6 +48,7 @@
 ![](assets/examples/screen-upgrade-notice-custom-version.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-custom
@@ -60,6 +62,7 @@
 ![](assets/examples/screen-upgrade-notice-sub-cmd-version_check.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-sub-cmd
@@ -73,6 +76,7 @@
 ![](assets/examples/screen-upgrade-notice-standalone-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./upgrade-notice-standalone
@@ -86,6 +90,7 @@
 ![](assets/examples/screen-custom-fields-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-fields
@@ -101,6 +106,7 @@
 ![](assets/examples/screen-printer--oshort.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./printer
@@ -116,6 +122,7 @@
 ![](assets/examples/screen-printer-post-hook-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.version=0.6.0'" -o example ./printer-post-hook
@@ -143,6 +150,7 @@
 ![](assets/examples/screen-custom-formatting-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-formatting
@@ -156,6 +164,7 @@
 ![](assets/examples/screen-custom-layout-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-layout
@@ -169,6 +178,7 @@
 ![](assets/examples/screen-custom-renderer-.png)
 
 !!! run-example "Run in terminal"
+
     ```bash
     # Build
     go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-renderer

@@ -47,14 +47,14 @@ type Docs mg.Namespace
 
 // Fmt Formats markdown documentation
 func (d Docs) Fmt() error {
-	mg.Deps(mg.F(deps.EnsureMdox, bin, MdoxVersion))
+	mg.Deps(mg.F(target.EnsurePrettier, bin))
 
 	return target.FmtDocs(false)
 }
 
 // Check Checks formatting and links in *.md files
 func (d Docs) Check() error {
-	mg.Deps(mg.F(deps.EnsureMdox, bin, MdoxVersion))
+	mg.Deps(mg.F(target.EnsurePrettier, bin))
 
 	return target.FmtDocs(true)
 }

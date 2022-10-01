@@ -4,7 +4,7 @@ The quick start guide describes how to set up `version` with the most common way
 
 ## Register the `version` command
 
-```go linenums="1" hl_lines="19-22"
+```go linenums="1" hl_lines="19-23"
 package main
 
 import (
@@ -50,8 +50,7 @@ This way you get a fully working `<cli> version` command.
 ```yaml
 # .goreleaser.yaml
 builds:
-  -
-    # .. your settings ..
+  - # .. your settings ..
 
     ldflags:
       - -s -w
@@ -68,5 +67,5 @@ For more details, see the documentation:
 
 - [Usage examples](../get-started/usage)
 - [Build options](../get-started/build-ldflags)
-- [Upgrade notice](../get-started/upgrade-notice) configuration
-- [Customization](../customization/)
+- [Upgrade notice options](../get-started/upgrade-notice)
+- [General Customization](../customization/)

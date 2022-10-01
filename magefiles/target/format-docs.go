@@ -1,39 +1,17 @@
 package target
 
 import (
-	"strings"
-
-	"github.com/samber/lo"
 	"go.szostok.io/magex/shx"
 )
 
-var excludedFromFormatting = []string{
-	// TODO: add option to ignore section by mdox
-	"docs/get-started/build-ldflags/magefile.md",
-	"docs/get-started/usage/urfave-cli.md",
-	"docs/examples.md",
-	"docs/customization/pretty/layout.md",
-	"docs/customization/pretty/format.md",
-	"docs/customization/pretty/custom-renderer.md",
-	"docs/customization/index.md",
-	"docs/customization/extra-fields.md",
-	"docs/customization/omit-unset.md",
-	"docs/customization/upgrade-notice/index.md",
-	"docs/customization/upgrade-notice/layout.md",
-	"docs/get-started/upgrade-notice.md",
-	"docs/get-started/usage/cobra.md",
+func EnsurePrettier(bin string) error {
+	return shx.MustCmdf(`npm install -D --prefix %s prettier`, bin).Run()
 }
 
 func FmtDocs(onlyCheck bool) error {
-	mdFiles := lo.Must(shx.FindFiles(".", shx.FindFilesOpts{
-		Ext:          []string{".md"},
-		IgnorePrefix: excludedFromFormatting,
-	}))
-
-	return shx.MustCmdf(`./bin/mdox fmt --soft-wraps %s %s`,
+	return shx.MustCmdf(`./bin/node_modules/.bin/prettier --write "docs/**/*.md" %s`,
 		WithOptArg("--check", onlyCheck),
-		strings.Join(mdFiles, " "),
-	).Run()
+	).RunV()
 }
 
 func WithOptArg(key string, shouldAdd bool) string {

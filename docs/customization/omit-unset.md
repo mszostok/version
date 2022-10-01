@@ -6,21 +6,21 @@
 
 - Explicitly exclude a given set of version fields:
 
-    ```go
-    // excludedFields defines preset for fields that should be excluded in output.
-    const excludedFields = printer.FieldCompiler | printer.FieldPlatform
+  ```go
+  // excludedFields defines preset for fields that should be excluded in output.
+  const excludedFields = printer.FieldCompiler | printer.FieldPlatform
 
-    p := printer.New(printer.WithExcludedFields(excludedFields))
-    if err := p.Print(os.Stdout); err != nil {
-    	log.Fatal(err)
-    }
-    ```
+  p := printer.New(printer.WithExcludedFields(excludedFields))
+  if err := p.Print(os.Stdout); err != nil {
+  	log.Fatal(err)
+  }
+  ```
 
 - Don't display empty(`""`) and unset(`N/A`) version fields:
 
-    ```go
-    p := printer.New(printer.WithOmitUnset(excludedFields))
-    if err := p.Print(os.Stdout); err != nil {
-    	log.Fatal(err)
-    }
-    ```
+  ```go
+  p := printer.New(printer.WithOmitUnset(excludedFields))
+  if err := p.Print(os.Stdout); err != nil {
+  	log.Fatal(err)
+  }
+  ```

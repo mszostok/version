@@ -1,6 +1,7 @@
 # Format
 
 !!! note ""
+
     Formatting focuses on the style of your displayed pretty version data.
 
 Format lets you define your own theme and adjust the output to your branding colors. In general, you can add underscores, bold and italic formatting, text, and background colors.

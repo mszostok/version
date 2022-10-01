@@ -69,6 +69,7 @@ nav:
       - get-started/upgrade-notice.md
   - Customization:
       - customization/index.md
+      - Extra fields: customization/extra-fields.md
       - Pretty Style:
           - customization/pretty/format.md
           - customization/pretty/layout.md
@@ -80,7 +81,8 @@ nav:
           - customization/upgrade-notice/custom-renderer.md
           - "`version check` sub-command": customization/upgrade-notice/check-sub-command.md
       - Omit unset fields: customization/omit-unset.md
-      - Extra fields: customization/extra-fields.md
+  - Community:
+      - How package is tested: community/testing.md
 
 extra:
   social:
@@ -101,6 +103,7 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.details
   - admonition
+  - mdx_truly_sane_lists
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:

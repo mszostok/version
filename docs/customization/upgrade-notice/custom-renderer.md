@@ -23,7 +23,8 @@ func NewRoot() *cobra.Command {
 		// 1. Register the 'version' command
 		extension.NewVersionCobraCmd(
 			// 2. Explicitly enable the upgrade notice
-			extension.WithUpgradeNotice("mszostok", "codeowners-validator", opts...)),
+			extension.WithUpgradeNotice("mszostok", "codeowners-validator", opts...),
+		),
 	)
 
 	return cmd
