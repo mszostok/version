@@ -198,11 +198,11 @@ var cases = []TestCases{
 		dir:  "upgrade-notice-custom",
 	},
 
-	// Upgrade notice sub-command
+	// Upgrade notice standalone
 	{
-		name: "Should return upgrade notice from sub-command check",
-		cmd:  `version check`,
-		dir:  "upgrade-notice-sub-cmd",
+		name: "Should return upgrade notice from standalone command",
+		cmd:  ``,
+		dir:  "upgrade-notice-standalone",
 	},
 }
 
@@ -286,15 +286,15 @@ func TestExamplesRecheckInterval(t *testing.T) {
 	t.Parallel()
 
 	// given
-	binaryPath := buildBinaryAllLDFlags(t, "upgrade-notice-standalone")
+	binaryPath := buildBinaryAllLDFlags(t, "upgrade-notice-sub-cmd")
 
 	// when
-	result, err := Exec(binaryPath, "").
+	result, err := Exec(binaryPath, "version check").
 		AwaitResultAtMost(10 * time.Second)
 
 	// then
 	// Should return upgrade notice for the first time
-	require.NoError(t, err)
+	require.NoError(t, err, result.Stderr)
 	assert.Equal(t, 0, result.ExitCode)
 
 	data := result.Stdout + result.Stderr
@@ -302,11 +302,11 @@ func TestExamplesRecheckInterval(t *testing.T) {
 	g.Assert(t, t.Name(), []byte(data))
 
 	// when
-	result, err = Exec(binaryPath, "").
+	result, err = Exec(binaryPath, "version check").
 		AwaitResultAtMost(10 * time.Second)
 
 	// then
-	require.NoError(t, err)
+	require.NoError(t, err, result.Stderr)
 	assert.Equal(t, 0, result.ExitCode)
 	data = result.Stdout + result.Stderr
 	g = goldie.New(t, goldie.WithNameSuffix("recheck.golden.txt"))

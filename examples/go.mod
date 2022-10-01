@@ -12,7 +12,7 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
-	go.szostok.io/version v0.0.0-00010101000000-000000000000
+	go.szostok.io/version v1.0.0
 )
 
 require (

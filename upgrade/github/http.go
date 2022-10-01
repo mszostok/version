@@ -1,4 +1,4 @@
-package upgrade
+package github
 
 import (
 	"net/http"

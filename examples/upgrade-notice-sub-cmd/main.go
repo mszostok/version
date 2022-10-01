@@ -8,8 +8,16 @@ import (
 
 	"go.szostok.io/version"
 	"go.szostok.io/version/extension"
+	"go.szostok.io/version/style"
 	"go.szostok.io/version/upgrade"
 )
+
+var layoutGoTpl = `
+  │ A new release is available: {{ .Version | Red }} → {{ .NewVersion | Green }}
+  │ {{ .ReleaseURL  | Underline | Blue }}
+  │
+  │ {{ "Resolved from cache:" | Italic }} {{ .IsFromCache | FmtBool | Italic }}
+`
 
 func NewVersionWithCheck() *cobra.Command {
 	verCmd := extension.NewVersionCobraCmd()
@@ -21,6 +29,10 @@ func NewVersionWithCheck() *cobra.Command {
 			ghUpgrade := upgrade.NewGitHubDetector(
 				"mszostok", "codeowners-validator",
 				upgrade.WithMinElapseTimeForRecheck(30*time.Second),
+				upgrade.WithLayout(&style.Layout{
+					// Learn more at https://version.szostok.io/customization/upgrade-notice/layout/
+					GoTemplate: layoutGoTpl,
+				}),
 			)
 			return ghUpgrade.PrintIfFoundGreater(cmd.ErrOrStderr(), version.Get().Version)
 		},
