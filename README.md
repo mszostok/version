@@ -20,7 +20,27 @@ Visit [`version.szostok.io/quick-start`](https://version.szostok.io/quick-start)
 
 Visit [`version.szostok.io`](https://version.szostok.io) for complete documentation about setup and usage.
 
-Curious why? See the [CLI version: a collection of handy tips](https://dev.to/mszostok/cli-version-a-collection-of-handy-tips-1nce) blog post.
+## Why?
+
+If you create a new CLI, it's natural that you use a framework such as Cobra, `urfave/cli`, or similar. Each of your CLIs has also an option to show its version. But in this case, we repeat the same stuff: collecting and displaying related information.
+
+This package aims to solve that problem. To register the version command, simply add:
+
+```go
+extension.NewVersionCobraCmd()
+```
+
+Go 1.18 simplified collecting version-related data, as commit, date, and other data are embedded. You can still override these fields with ldflags, e.g.:
+
+```bash
+-X go.szostok.io/version.version=1.42.0
+```
+
+You can gain more features, such as upgrade notice, just by adding:
+
+```go
+extension.WithUpgradeNotice("repo-owner", "repo-name")
+```
 
 ## Functionality
 
@@ -35,7 +55,7 @@ Curious why? See the [CLI version: a collection of handy tips](https://dev.to/ms
 - Customize the output format and behaviour (e.g. timeouts, re-check intervals)
 - Parse any dates and print them in the local date and time format
 - All provided functionality is fully tested to ensure no regression
-- Extend the version info with own fields just by assigning your Go struct.
+- Extend the version info with own fields just by assigning your Go struct
 <!--- - Autodiscover installation method --->
 
 ## <img src="./docs/assets/bell-icon.png" /> Stay informed
