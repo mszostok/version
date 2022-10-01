@@ -10,7 +10,7 @@ Format lets you define your own theme and adjust the output to your branding col
 
 !!! tip
 
-    Want to try? See the [custom formatting](/examples#custom-formatting) example!
+    Want to try? See the [custom formatting](../../../examples#custom-formatting) example!
 
 Example usage:
 

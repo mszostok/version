@@ -23,7 +23,7 @@ These are the fields that you can access in your Go template definition:
 
 !!! tip
 
-    Want to try? See the [custom layout](/examples#custom-layout) example!
+    Want to try? See the [custom layout](../../../examples#custom-layout) example!
 
 Example usage:
 
