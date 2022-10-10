@@ -15,7 +15,6 @@ import (
 
 const (
 	GolangciLintVersion = "1.49.0"
-	MdoxVersion         = "" // latest
 	MuffetVersion       = "2.5.0"
 	bin                 = "bin"
 
