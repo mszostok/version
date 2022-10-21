@@ -28,7 +28,7 @@ jobs:
           timezoneMacos: "Europe/Warsaw"
           timezoneWindows: "Central European Standard Time"
       - name: "Unit tests"
-        uses: magefile/mage-action@5f7a9a23cfef763949ca41834b868167adbd1b59 # v2.0.0
+        uses: magefile/mage-action@2c1951143e54356ebe6a0c6c971bae325b5b50f1 # v2.0.0
         with:
           version: latest
           args: test:unit
