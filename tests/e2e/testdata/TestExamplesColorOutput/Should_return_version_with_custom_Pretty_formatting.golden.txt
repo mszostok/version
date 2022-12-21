@@ -6,6 +6,6 @@
   [33;1mBuild Date[0m         01 Apr 22 14:22 CEST
   [33;1mCommit Date[0m        28 Mar 22 17:32 CEST
   [33;1mDirty Build[0m        no
-  [33;1mGo version[0m         1.19.1
+  [33;1mGo version[0m         1.19.4
   [33;1mCompiler[0m           gc
   [33;1mPlatform[0m           normalized

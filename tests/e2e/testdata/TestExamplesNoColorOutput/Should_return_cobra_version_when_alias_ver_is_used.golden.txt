@@ -3,9 +3,9 @@
 
   Version              0.6.1
   Git Commit           324d022
-  Build Date           01 Apr 22 14:22 CEST (6 months ago)
-  Commit Date          28 Mar 22 17:32 CEST (6 months ago)
+  Build Date           01 Apr 22 14:22 CEST (9 months ago)
+  Commit Date          28 Mar 22 17:32 CEST (9 months ago)
   Dirty Build          no
-  Go version           1.19.1
+  Go version           1.19.4
   Compiler             gc
   Platform             normalized

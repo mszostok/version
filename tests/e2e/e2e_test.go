@@ -334,7 +334,7 @@ var prettyResolvedFieldsFormat = heredoc.Doc(`
   Build Date           N/A
   Commit Date          %s
   Dirty Build          %s
-  Go version           1.19.1
+  Go version           1.19.4
   Compiler             gc
   Platform             %s
 `)

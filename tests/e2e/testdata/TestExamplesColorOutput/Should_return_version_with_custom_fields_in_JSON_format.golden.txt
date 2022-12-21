@@ -5,7 +5,7 @@
   [34;1m"compiler"[0m: [32;1m"gc"[0m,
   [34;1m"docsURL"[0m: [32;1m"https://szostok.io/projects/version"[0m,
   [34;1m"gitCommit"[0m: [32;1m"324d022c190ce49e0440e6bdac6383e4874c7c70"[0m,
-  [34;1m"goVersion"[0m: [32;1m"go1.19.1"[0m,
+  [34;1m"goVersion"[0m: [32;1m"go1.19.4"[0m,
   [34;1m"platform"[0m: [32;1m"normalized"[0m,
   [34;1m"repoURL"[0m: [32;1m"https://github.com/mszostok/version"[0m,
   [34;1m"version"[0m: [32;1m"0.6.1"[0m
