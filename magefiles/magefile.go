@@ -118,3 +118,9 @@ func (Gen) Homepage() {
 func (Gen) Preview() {
 	target.TakePreview()
 }
+
+func (Gen) Gallery() {
+	lo.Must0(
+		shx.MustCmdf("./magefiles/hack/gallery.sh").RunV(),
+	)
+}
