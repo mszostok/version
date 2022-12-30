@@ -9,7 +9,7 @@ require (
 	github.com/goccy/go-yaml v1.9.5
 	github.com/hashicorp/go-version v1.6.0
 	github.com/hokaccha/go-prettyjson v0.0.0-20211117102719-0474bc63780f
-	github.com/mattn/go-isatty v0.0.16
+	github.com/mattn/go-isatty v0.0.17
 	github.com/mattn/go-runewidth v0.0.14
 	github.com/muesli/termenv v0.13.0
 	github.com/spf13/cobra v1.5.0
