@@ -201,7 +201,7 @@ func (c *EnableUpgradeNotice) ApplyToContainerOption(cfg *ContainerOptions) {
 	cfg.UpgradeNotice = upgrade.NewGitHubDetector(c.owner, c.repo, c.upgradeOpts...)
 }
 
-// Sets the Config using the path specified by an environment variable
+// WithPrettyStyleFromEnv Load a custom style from environment variable
 func WithPrettyStyleFromEnv(envVariable string) []ContainerOption {
 	path := os.Getenv(envVariable)
 	options := parseConfigFile(path)
@@ -209,14 +209,13 @@ func WithPrettyStyleFromEnv(envVariable string) []ContainerOption {
 	return options
 }
 
-// Configure version style using a stylesheet
+// WithPrettyStyleFile Load a custom style from file
 func WithPrettyStyleFile(path string) []ContainerOption {
 	options := parseConfigFile(path)
 
 	return options
 }
 
-// Returns a style config from a given file
 func parseConfigFile(fileName string) []ContainerOption {
 	var options []ContainerOption
 	styleConfig := style.DefaultConfig(PrettyLayoutGoTpl)
