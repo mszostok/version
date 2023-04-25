@@ -1,8 +1,13 @@
 package printer
 
 import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+
 	"go.szostok.io/version/style"
 	"go.szostok.io/version/upgrade"
+	"gopkg.in/yaml.v3"
 )
 
 // Inspired by https://github.com/kubernetes-sigs/controller-runtime/blob/v0.12.3/pkg/client/options.go
@@ -194,4 +199,51 @@ func WithUpgradeNotice(owner, repo string, opts ...upgrade.Options) *EnableUpgra
 // ApplyToContainerOption sets a given option for Container.
 func (c *EnableUpgradeNotice) ApplyToContainerOption(cfg *ContainerOptions) {
 	cfg.UpgradeNotice = upgrade.NewGitHubDetector(c.owner, c.repo, c.upgradeOpts...)
+}
+
+// Sets the Config using the path specified by an environment variable
+func WithPrettyStyleFromEnv(envVariable string) []ContainerOption {
+	path := os.Getenv(envVariable)
+	options := parseConfigFile(path)
+
+	return options
+}
+
+// Configure version style using a stylesheet
+func WithPrettyStyleFile(path string) []ContainerOption {
+	options := parseConfigFile(path)
+
+	return options
+}
+
+// Returns a style config from a given file
+func parseConfigFile(fileName string) []ContainerOption {
+	var options []ContainerOption
+	styleConfig := style.DefaultConfig(PrettyLayoutGoTpl)
+	if fileName == "" {
+		return options
+	}
+
+	body, err := os.ReadFile(fileName)
+	if err != nil {
+		return options
+	}
+
+	extension := filepath.Ext(fileName)
+	switch extension {
+	case ".yml", ".yaml":
+		err = yaml.Unmarshal(body, &styleConfig)
+	case ".json":
+		err = json.Unmarshal(body, &styleConfig)
+	}
+
+	if err != nil {
+		return options
+	}
+
+	options = []ContainerOption{
+		WithPrettyFormatting(&styleConfig.Formatting),
+		WithPrettyLayout(&styleConfig.Layout),
+	}
+	return options
 }
