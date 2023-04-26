@@ -187,6 +187,55 @@ func TestPrinterPrint(t *testing.T) {
 	assertGoldenFile(t, normalized)
 }
 
+func TestPrinterStyleFileOptions(t *testing.T) {
+	tests := []struct {
+		testName string
+		fileName string
+	}{
+		{
+			testName: "Print custom layout",
+			fileName: "testdata/TestPrinterStyleFileOptions/customStyle",
+		},
+		{
+			testName: "Print default layout",
+			fileName: "testdata/TestPrinterStyleFileOptions/invalidStyle",
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.testName, func(t *testing.T) {
+			yamlStyle, err := printer.WithPrettyStyleFile(tc.fileName + ".yaml")
+			require.NoError(t, err)
+
+			jsonStyle, err := printer.WithPrettyStyleFile(tc.fileName + ".json")
+			require.NoError(t, err)
+
+			t.Setenv("config-file", tc.fileName+".yaml")
+			_, err = printer.WithPrettyStyleFromEnv("empty-variable")
+			require.NoError(t, err)
+
+			envStyle, err := printer.WithPrettyStyleFromEnv("config-file")
+			require.NoError(t, err)
+
+			validateStyle(yamlStyle, t)
+			validateStyle(jsonStyle, t)
+			validateStyle(envStyle, t)
+		})
+	}
+}
+
+func validateStyle(customStyle printer.CustomPrettyStyle, t *testing.T) {
+	p := printer.New(&customStyle)
+	var buff strings.Builder
+
+	err := p.Print(&buff)
+
+	require.NoError(t, err)
+
+	normalized := normalizeOutput(buff.String())
+	assertGoldenFile(t, normalized)
+}
+
 // normalizeOutput normalize dynamic fields such as platform and binary name.
 func normalizeOutput(data string) string {
 	data = strings.ReplaceAll(data, os.Args[0], "fixed-name")

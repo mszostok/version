@@ -1,0 +1,8 @@
+
+-> fixed-name
+
+  Version              (devel)
+  Dirty Build          no
+  Go version           1.19.5
+  Compiler             gc
+  Platform             fixed-platform
