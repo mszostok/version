@@ -202,30 +202,30 @@ func (c *EnableUpgradeNotice) ApplyToContainerOption(cfg *ContainerOptions) {
 }
 
 // WithPrettyStyleFromEnv Load a custom style from environment variable
-func WithPrettyStyleFromEnv(envVariable string) []ContainerOption {
+func WithPrettyStyleFromEnv(envVariable string) (CustomPrettyStyle, error) {
 	path := os.Getenv(envVariable)
-	options := parseConfigFile(path)
+	options, err := parseConfigFile(path)
 
-	return options
+	return options, err
 }
 
 // WithPrettyStyleFile Load a custom style from file
-func WithPrettyStyleFile(path string) []ContainerOption {
-	options := parseConfigFile(path)
+func WithPrettyStyleFile(path string) (CustomPrettyStyle, error) {
+	options, err := parseConfigFile(path)
 
-	return options
+	return options, err
 }
 
-func parseConfigFile(fileName string) []ContainerOption {
-	var options []ContainerOption
+func parseConfigFile(fileName string) (CustomPrettyStyle, error) {
+	var options CustomPrettyStyle
 	styleConfig := style.DefaultConfig(PrettyLayoutGoTpl)
 	if fileName == "" {
-		return options
+		return options, nil
 	}
 
 	body, err := os.ReadFile(fileName)
 	if err != nil {
-		return options
+		return options, err
 	}
 
 	extension := filepath.Ext(fileName)
@@ -237,12 +237,10 @@ func parseConfigFile(fileName string) []ContainerOption {
 	}
 
 	if err != nil {
-		return options
+		return options, err
 	}
-
-	options = []ContainerOption{
-		WithPrettyFormatting(&styleConfig.Formatting),
-		WithPrettyLayout(&styleConfig.Layout),
+	options = CustomPrettyStyle{
+		cfg: styleConfig,
 	}
-	return options
+	return options, nil
 }
