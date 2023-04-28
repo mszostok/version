@@ -4,8 +4,8 @@
 [33m│[0m                                                        [33m│[0m
 [33m│[0m  [38;5;109;1mVersion[0m            [37m0.6.1[0m                              [33m│[0m
 [33m│[0m  [38;5;109;1mGit Commit[0m         [37m324d022[0m                            [33m│[0m
-[33m│[0m  [38;5;109;1mBuild Date[0m         [37m01 Apr 22 14:22 CEST (9 months ago)[0m[33m│[0m
-[33m│[0m  [38;5;109;1mCommit Date[0m        [37m28 Mar 22 17:32 CEST (9 months ago)[0m[33m│[0m
+[33m│[0m  [38;5;109;1mBuild Date[0m         [37m01 Apr 22 14:22 CEST (1 year ago)[0m[33m│[0m
+[33m│[0m  [38;5;109;1mCommit Date[0m        [37m28 Mar 22 17:32 CEST (1 year ago)[0m[33m│[0m
 [33m│[0m  [38;5;109;1mDirty Build[0m        [37mno[0m                                 [33m│[0m
 [33m│[0m  [38;5;109;1mGo version[0m         [37m1.19.4[0m                             [33m│[0m
 [33m│[0m  [38;5;109;1mCompiler[0m           [37mgc[0m                                 [33m│[0m
