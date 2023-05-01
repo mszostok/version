@@ -232,7 +232,8 @@ func validateStyle(customStyle printer.CustomPrettyStyle, t *testing.T) {
 
 	require.NoError(t, err)
 
-	normalized := normalizeOutput(buff.String())
+	stripped := strings.TrimSpace(buff.String())
+	normalized := normalizeOutput(stripped)
 	assertGoldenFile(t, normalized)
 }
 
