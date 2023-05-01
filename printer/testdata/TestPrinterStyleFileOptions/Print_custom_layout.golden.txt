@@ -6,4 +6,3 @@
   Go version           1.19.4
   Compiler             gc
   Platform             fixed-platform
-  
