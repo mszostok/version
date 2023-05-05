@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/dustin/go-humanize v1.0.1
-	github.com/goccy/go-yaml v1.10.0
+	github.com/goccy/go-yaml v1.11.0
 	github.com/hashicorp/go-version v1.6.0
 	github.com/hokaccha/go-prettyjson v0.0.0-20211117102719-0474bc63780f
 	github.com/mattn/go-isatty v0.0.17
@@ -37,7 +37,7 @@ require (
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
-	golang.org/x/crypto v0.3.0 // indirect
+	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
