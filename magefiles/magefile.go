@@ -40,6 +40,12 @@ func Lint() error {
 	return shx.MustCmdf(`./bin/golangci-lint run --fix ./...`).RunV()
 }
 
+func RefreshGoMods() {
+	for _, path := range []string{".", "magefiles", "examples", "tests"} {
+		lo.Must0(shx.MustCmdf("go mod tidy").In(path).RunV())
+	}
+}
+
 // "Docs" Targets
 
 type Docs mg.Namespace
