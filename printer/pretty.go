@@ -18,9 +18,8 @@ type (
 	PrettyPostRenderFunc func(body string, isSmartTerminal bool) (string, error)
 )
 
-var (
-	// PrettyLayoutGoTpl prints all version data in a 'key  value' manner.
-	PrettyLayoutGoTpl = `{{ AdjustKeyWidth .ExtraFields }}
+// PrettyLayoutGoTpl prints all version data in a 'key  value' manner.
+var PrettyLayoutGoTpl = `{{ AdjustKeyWidth .ExtraFields }}
 {{ Header .Meta.CLIName }}
 
   {{ Key "Version"     }}    {{ .Version                     | Val }}
@@ -35,7 +34,6 @@ var (
   {{ $item.Key | Key   }}    {{ $item.Value | Val }}
   {{- end}}
 `
-)
 
 // Pretty prints human-readable version printing.
 type Pretty struct {
@@ -90,4 +88,9 @@ func (p *Pretty) execute(in *version.Info, isSmartTerminal bool) (string, error)
 	}
 
 	return p.customRenderFn(in, isSmartTerminal)
+}
+
+// PrettyDefaultRenderConfig returns the default render configuration when no customizations are provided.
+func PrettyDefaultRenderConfig() *style.Config {
+	return style.DefaultConfig(PrettyLayoutGoTpl)
 }
