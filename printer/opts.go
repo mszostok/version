@@ -202,7 +202,7 @@ func (c *EnableUpgradeNotice) ApplyToContainerOption(cfg *ContainerOptions) {
 }
 
 // WithPrettyStyleFromEnv Load a custom style from environment variable
-func WithPrettyStyleFromEnv(envVariable string) (CustomPrettyStyle, error) {
+func WithPrettyStyleFromEnv(envVariable string) (*CustomPrettyStyle, error) {
 	path := os.Getenv(envVariable)
 	options, err := parseConfigFile(path)
 
@@ -210,19 +210,20 @@ func WithPrettyStyleFromEnv(envVariable string) (CustomPrettyStyle, error) {
 }
 
 // WithPrettyStyleFile Load a custom style from file
-func WithPrettyStyleFile(path string) (CustomPrettyStyle, error) {
+func WithPrettyStyleFile(path string) (*CustomPrettyStyle, error) {
 	options, err := parseConfigFile(path)
 
 	return options, err
 }
 
-func parseConfigFile(fileName string) (CustomPrettyStyle, error) {
-	var options CustomPrettyStyle
+func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
+	options := &CustomPrettyStyle{cfg: PrettyDefaultRenderConfig()}
 	styleConfig := style.DefaultConfig(PrettyLayoutGoTpl)
 	if fileName == "" {
 		return options, nil
 	}
 
+	fileName = filepath.Clean(fileName)
 	body, err := os.ReadFile(fileName)
 	if err != nil {
 		return options, err
@@ -231,16 +232,10 @@ func parseConfigFile(fileName string) (CustomPrettyStyle, error) {
 	extension := filepath.Ext(fileName)
 	switch extension {
 	case ".yml", ".yaml":
-		err = yaml.Unmarshal(body, &styleConfig)
+		err = yaml.Unmarshal(body, styleConfig)
 	case ".json":
-		err = json.Unmarshal(body, &styleConfig)
+		err = json.Unmarshal(body, styleConfig)
 	}
 
-	if err != nil {
-		return options, err
-	}
-	options = CustomPrettyStyle{
-		cfg: styleConfig,
-	}
-	return options, nil
+	return options, err
 }
