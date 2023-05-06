@@ -218,7 +218,6 @@ func WithPrettyStyleFile(path string) (*CustomPrettyStyle, error) {
 
 func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
 	options := &CustomPrettyStyle{cfg: PrettyDefaultRenderConfig()}
-	styleConfig := style.DefaultConfig(PrettyLayoutGoTpl)
 	if fileName == "" {
 		return options, nil
 	}
@@ -232,9 +231,9 @@ func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
 	extension := filepath.Ext(fileName)
 	switch extension {
 	case ".yml", ".yaml":
-		err = yaml.Unmarshal(body, styleConfig)
+		err = yaml.Unmarshal(body, &options.cfg)
 	case ".json":
-		err = json.Unmarshal(body, styleConfig)
+		err = json.Unmarshal(body, &options.cfg)
 	}
 
 	return options, err
