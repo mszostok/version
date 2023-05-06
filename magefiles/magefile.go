@@ -126,7 +126,5 @@ func (Gen) Preview() {
 }
 
 func (Gen) Gallery() {
-	lo.Must0(
-		shx.MustCmdf("./magefiles/hack/gallery.sh").RunV(),
-	)
+	target.Gallery()
 }

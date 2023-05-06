@@ -52,14 +52,10 @@ func main() {
 
 ## Config file
 
-!!! coming-soon "Coming soon"
-
-    See the [mszostok/version#13](https://github.com/mszostok/version/issues/13) issue for reference. If you'd like to see it included in a future release, add 👍 under the issue.
-
 To load the config file, you can:
 
 - Enable loading your custom style from an environment variable via `printer.WithPrettyStyleFromEnv("ENV_NAME_FOR_FILE_PATH")`
-- Use `printer.WithPrettyStyleFile` function directly
+- Use `printer.WithPrettyStyleFile("file_path")` function directly
 
 === "YAML"
 

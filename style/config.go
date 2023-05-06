@@ -9,7 +9,7 @@ type Config struct {
 // DefaultConfig returns default style config.
 func DefaultConfig(layoutGoTpl string) *Config {
 	return &Config{
-		Formatting: defaultFormatting,
+		Formatting: DefaultFormatting(),
 		Layout: Layout{
 			GoTemplate: layoutGoTpl,
 		},

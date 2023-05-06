@@ -5,9 +5,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"gopkg.in/yaml.v3"
+
 	"go.szostok.io/version/style"
 	"go.szostok.io/version/upgrade"
-	"gopkg.in/yaml.v3"
 )
 
 // Inspired by https://github.com/kubernetes-sigs/controller-runtime/blob/v0.12.3/pkg/client/options.go
@@ -133,12 +134,16 @@ func WithPrettyStyle(cfg *style.Config) *CustomPrettyStyle {
 
 // ApplyToContainerOption sets a given option for Container.
 func (c *CustomPrettyStyle) ApplyToContainerOption(cfg *ContainerOptions) {
-	cfg.PrettyOptions = append(cfg.PrettyOptions, c)
+	if c != nil && cfg != nil {
+		cfg.PrettyOptions = append(cfg.PrettyOptions, c)
+	}
 }
 
 // ApplyToPrettyOption sets a given option to Pretty printer.
 func (c *CustomPrettyStyle) ApplyToPrettyOption(cfg *PrettyOptions) {
-	cfg.RenderConfig = c.cfg
+	if c != nil && cfg != nil {
+		cfg.RenderConfig = c.cfg
+	}
 }
 
 // PrettyPostRenderHook provides an option to set post render function across multiple constructors.
@@ -217,24 +222,29 @@ func WithPrettyStyleFile(path string) (*CustomPrettyStyle, error) {
 }
 
 func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
-	options := &CustomPrettyStyle{cfg: PrettyDefaultRenderConfig()}
 	if fileName == "" {
-		return options, nil
+		return nil, nil
 	}
 
 	fileName = filepath.Clean(fileName)
 	body, err := os.ReadFile(fileName)
 	if err != nil {
-		return options, err
+		return nil, err
 	}
 
+	styles := PrettyDefaultRenderConfig()
 	extension := filepath.Ext(fileName)
 	switch extension {
 	case ".yml", ".yaml":
-		err = yaml.Unmarshal(body, &options.cfg)
+		err = yaml.Unmarshal(body, styles)
 	case ".json":
-		err = json.Unmarshal(body, &options.cfg)
+		err = json.Unmarshal(body, styles)
 	}
 
-	return options, err
+	if err != nil {
+		return nil, err
+	}
+	return &CustomPrettyStyle{
+		cfg: styles,
+	}, err
 }
