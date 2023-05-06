@@ -187,6 +187,9 @@ func TestPrinterPrint(t *testing.T) {
 	assertGoldenFile(t, normalized)
 }
 
+// It uses the golden files, to update them run:
+//
+//	go test -v -run=TestPrinterStyleFileOptions ./printer/...  -update
 func TestPrinterStyleFileOptions(t *testing.T) {
 	tests := []struct {
 		testName string
@@ -211,8 +214,6 @@ func TestPrinterStyleFileOptions(t *testing.T) {
 			require.NoError(t, err)
 
 			t.Setenv("config-file", tc.fileName+".yaml")
-			_, err = printer.WithPrettyStyleFromEnv("empty-variable")
-			require.NoError(t, err)
 
 			envStyle, err := printer.WithPrettyStyleFromEnv("config-file")
 			require.NoError(t, err)
@@ -224,8 +225,20 @@ func TestPrinterStyleFileOptions(t *testing.T) {
 	}
 }
 
-func validateStyle(customStyle printer.CustomPrettyStyle, t *testing.T) {
-	p := printer.New(&customStyle)
+// It uses the golden files, to update them run:
+//
+//	go test -v -run=TestPrinterStyleFromEnvOptionsUseDefaults ./printer/...  -update
+func TestPrinterStyleFromEnvOptionsUseDefaults(t *testing.T) {
+	emptyStyle, err := printer.WithPrettyStyleFromEnv("empty-variable")
+	require.NoError(t, err)
+
+	validateStyle(emptyStyle, t)
+}
+
+func validateStyle(customStyle *printer.CustomPrettyStyle, t *testing.T) {
+	t.Helper()
+
+	p := printer.New(customStyle)
 	var buff strings.Builder
 
 	err := p.Print(&buff)
