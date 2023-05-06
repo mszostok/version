@@ -1,8 +1,13 @@
 package printer
 
 import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+
 	"go.szostok.io/version/style"
 	"go.szostok.io/version/upgrade"
+	"gopkg.in/yaml.v3"
 )
 
 // Inspired by https://github.com/kubernetes-sigs/controller-runtime/blob/v0.12.3/pkg/client/options.go
@@ -194,4 +199,42 @@ func WithUpgradeNotice(owner, repo string, opts ...upgrade.Options) *EnableUpgra
 // ApplyToContainerOption sets a given option for Container.
 func (c *EnableUpgradeNotice) ApplyToContainerOption(cfg *ContainerOptions) {
 	cfg.UpgradeNotice = upgrade.NewGitHubDetector(c.owner, c.repo, c.upgradeOpts...)
+}
+
+// WithPrettyStyleFromEnv Load a custom style from environment variable
+func WithPrettyStyleFromEnv(envVariable string) (*CustomPrettyStyle, error) {
+	path := os.Getenv(envVariable)
+	options, err := parseConfigFile(path)
+
+	return options, err
+}
+
+// WithPrettyStyleFile Load a custom style from file
+func WithPrettyStyleFile(path string) (*CustomPrettyStyle, error) {
+	options, err := parseConfigFile(path)
+
+	return options, err
+}
+
+func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
+	options := &CustomPrettyStyle{cfg: PrettyDefaultRenderConfig()}
+	if fileName == "" {
+		return options, nil
+	}
+
+	fileName = filepath.Clean(fileName)
+	body, err := os.ReadFile(fileName)
+	if err != nil {
+		return options, err
+	}
+
+	extension := filepath.Ext(fileName)
+	switch extension {
+	case ".yml", ".yaml":
+		err = yaml.Unmarshal(body, &options.cfg)
+	case ".json":
+		err = json.Unmarshal(body, &options.cfg)
+	}
+
+	return options, err
 }

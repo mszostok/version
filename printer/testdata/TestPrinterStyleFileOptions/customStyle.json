@@ -1,0 +1,28 @@
+{
+  "formatting": {
+    "header": {
+      "prefix": "-> ",
+      "color": "Magenta",
+      "background": "",
+      "options": null
+    },
+    "key": {
+      "color": "Yellow",
+      "background": "",
+      "options": [
+        "Bold"
+      ]
+    },
+    "val": {
+      "color": "Green",
+      "background": "",
+      "options": null
+    },
+    "date": {
+      "enableHumanizedSuffix": false
+    }
+  },
+    "layout": {
+      "goTemplate": "{{ AdjustKeyWidth .ExtraFields }}\n{{ Header .Meta.CLIName }}\n\n  {{ Key \"Version\"    }}    {{ .Version                     | Val }}\n  {{ Key \"Dirty Build\" }}    {{ .DirtyBuild | FmtBool        | Val }}\n  {{ Key \"Go version\"  }}    {{ .GoVersion  | trimPrefix \"go\"| Val }}\n  {{ Key \"Compiler\"    }}    {{ .Compiler                    | Val }}\n  {{ Key \"Platform\"    }}    {{ .Platform                    | Val }}\n  {{- range $item := (.ExtraFields | Extra) }}\n  {{ $item.Key | Key   }}    {{ $item.Value | Val }}\n  {{- end}}\n"
+  }
+}

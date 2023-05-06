@@ -1,0 +1,6 @@
+format:
+  header:
+    prefix: '-> '
+    color: Magenta
+    background: ""
+    options: []

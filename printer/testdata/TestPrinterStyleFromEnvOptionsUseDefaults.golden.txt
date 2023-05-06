@@ -1,0 +1,10 @@
+▓▓▓ fixed-name
+
+  Version              (devel)
+  Git Commit           N/A
+  Build Date           N/A
+  Commit Date          N/A
+  Dirty Build          no
+  Go version           1.19.4
+  Compiler             gc
+  Platform             fixed-platform
