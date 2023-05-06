@@ -17,16 +17,19 @@ import (
 )
 
 func main() {
-	opts := []printer.ContainerOption{
+	styleFromEnv, err := printer.WithPrettyStyleFromEnv("CLI_STYLE")
+	exitOnErr(err)
+
+	p := printer.New(
 		printer.WithPrettyPostRenderHook(SprintInBox),
 		printer.WithPrettyLayout(&style.Layout{
 			GoTemplate: layoutGoTpl,
 		}),
-	}
-	p := printer.New(opts...)
-	if err := p.Print(os.Stdout); err != nil {
-		log.Fatal(err)
-	}
+		styleFromEnv,
+	)
+
+	err = p.Print(os.Stdout)
+	exitOnErr(err)
 }
 
 var layoutGoTpl = heredoc.Doc(`
@@ -49,4 +52,10 @@ func SprintInBox(body string, isSmartTerminal bool) (string, error) {
 		body = color.ClearCode(body)
 	}
 	return "\n" + body, nil
+}
+
+func exitOnErr(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }

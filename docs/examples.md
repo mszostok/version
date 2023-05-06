@@ -173,6 +173,21 @@
     ./example
     ```
 
+## [Custom Style from environment variable](https://github.com/mszostok/version/tree/main/examples/custom-layout/main.go)
+
+![](assets/examples/screen-custom-layout--env-style.png)
+
+!!! run-example "Run in terminal"
+
+    ```bash
+    # Build
+    export CLI_STYLE="${PWD}/style.yaml"
+    go build -ldflags "-X 'go.szostok.io/version.buildDate=`date`'" -o example ./custom-layout
+
+    # Try out
+    ./example
+    ```
+
 ## [Custom Renderer](https://github.com/mszostok/version/tree/main/examples/custom-renderer/main.go)
 
 ![](assets/examples/screen-custom-renderer-.png)

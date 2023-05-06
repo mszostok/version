@@ -1,0 +1,31 @@
+formatting:
+  header:
+    prefix: '-> '
+    color: Magenta
+    background: ""
+    options: []
+  key:
+    color: Yellow
+    background: ""
+    options:
+      - Bold
+  val:
+    color: Green
+    background: ""
+    options: []
+  date:
+    enableHumanizedSuffix: true
+
+layout:
+  goTemplate: |
+    {{ AdjustKeyWidth .ExtraFields }}
+    {{ Header .Meta.CLIName }}
+
+      {{ Key "Version"     }}    {{ .Version                     | Val }}
+      {{ Key "Dirty Build" }}    {{ .DirtyBuild | FmtBool        | Val }}
+      {{ Key "Go version"  }}    {{ .GoVersion  | trimPrefix "go"| Val }}
+      {{ Key "Compiler"    }}    {{ .Compiler                    | Val }}
+      {{ Key "Platform"    }}    {{ .Platform                    | Val }}
+      {{- range $item := (.ExtraFields | Extra) }}
+      {{ $item.Key | Key   }}    {{ $item.Value | Val }}
+      {{- end}}
