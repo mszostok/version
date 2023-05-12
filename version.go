@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"reflect"
 	"runtime"
 	"runtime/debug"
 	"strconv"
@@ -130,6 +131,39 @@ func Get() *Info {
 		Compiler:   runtime.Compiler,
 		Platform:   fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 	}
+}
+
+// GetInfo returns an `Info` struct. The excluded fields are set to their default values
+func GetInfo(excludedFields Field) *Info {
+	updatedInfo := Get()
+	for key := FieldMeta; key < typeRevMaxKey; key <<= 1 {
+		if excludedFields&key != 0 {
+			setToDefault(updatedInfo, key.String())
+		}
+	}
+
+	return updatedInfo
+}
+
+// UnsetFields returns version Fields that have not been set
+func UnsetFields() Field {
+	info := Get()
+	var fields Field
+	for key := FieldMeta; key < typeRevMaxKey; key <<= 1 {
+		fieldValue := reflect.ValueOf(info).Elem().FieldByName(key.String()).String()
+		if fieldValue == unknownProperty || fieldValue == unknownVersion {
+			fields |= key
+		}
+	}
+	return fields
+}
+
+// setToDefault sets a given field in an Info struct to its default value
+func setToDefault(info *Info, fieldName string) {
+	reflectValue := reflect.ValueOf(info).Elem()
+	fieldValue := reflectValue.FieldByName(fieldName)
+	defaultValue := reflect.Zero(fieldValue.Type())
+	fieldValue.Set(defaultValue)
 }
 
 // collectFromBuildInfo tries to set the build information embedded in the running binary via Go module.
