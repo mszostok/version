@@ -27,6 +27,7 @@ type Container struct {
 	printers      map[OutputFormat]Printer
 	postHookFunc  PostHookFunc
 	upgradeNotice *upgrade.GitHubDetector
+	excludedField version.Field
 }
 
 // New returns a new Container instance.
@@ -46,6 +47,7 @@ func New(options ...ContainerOption) *Container {
 		output:        PrettyFormat,
 		postHookFunc:  opts.PostHookFunc,
 		upgradeNotice: opts.UpgradeNotice,
+		excludedField: opts.ExcludedField,
 	}
 }
 
@@ -60,9 +62,9 @@ func (r *Container) OutputFormat() OutputFormat {
 }
 
 // Print prints Info object in a requested format.
-// It's just a syntax sugar for PrintInfo(w, version.Get()).
+// It's just a syntax sugar for PrintInfo(w, version.GetInfo(excludedFields)).
 func (r *Container) Print(w io.Writer) error {
-	return r.PrintInfo(w, version.Get())
+	return r.PrintInfo(w, version.GetInfo(r.excludedField))
 }
 
 // PrintInfo prints a given Info object in a requested format.

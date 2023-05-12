@@ -7,6 +7,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
+	"go.szostok.io/version"
 	"go.szostok.io/version/style"
 	"go.szostok.io/version/upgrade"
 )
@@ -32,6 +33,7 @@ type (
 		PrettyOptions []PrettyOption
 		PostHookFunc  PostHookFunc
 		UpgradeNotice *upgrade.GitHubDetector
+		ExcludedField version.Field
 	}
 
 	// PrettyOption provides an option to set a Pretty printer options.
@@ -247,4 +249,29 @@ func parseConfigFile(fileName string) (*CustomPrettyStyle, error) {
 	return &CustomPrettyStyle{
 		cfg: styles,
 	}, err
+}
+
+// ExcludedFields provides an option to store the version fields that are excluded by the user
+type ExcludedFields struct {
+	Fields version.Field
+}
+
+// ApplyToContainerOption sets a given option for Container.
+func (c *ExcludedFields) ApplyToContainerOption(cfg *ContainerOptions) {
+	cfg.ExcludedField = c.Fields
+}
+
+// WithOmitUnset excludes version fields that have not been set.
+// version fields with the values `N/A` or `(devel)“ will be excluded
+func WithOmitUnset() *ExcludedFields {
+	return &ExcludedFields{
+		Fields: version.UnsetFields(),
+	}
+}
+
+// WithExcludedFields sets the excluded fields for a Container.
+func WithExlcudedFields(field version.Field) *ExcludedFields {
+	return &ExcludedFields{
+		Fields: field,
+	}
 }
