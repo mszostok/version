@@ -3,7 +3,8 @@ module tools
 go 1.18
 
 require (
-	github.com/magefile/mage v1.14.0
+	github.com/magefile/mage v1.15.0
+	github.com/mattn/go-shellwords v1.0.12
 	github.com/muesli/reflow v0.3.0
 	github.com/samber/lo v1.38.1
 	go.szostok.io/magex v0.0.0-20220919223013-70758dd12bda
@@ -36,7 +37,6 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
-	github.com/mattn/go-shellwords v1.0.12 // indirect
 	github.com/mholt/archiver/v3 v3.5.1 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
